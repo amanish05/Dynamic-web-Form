@@ -11,6 +11,7 @@ public class Element {
 	private String elementTitle;
 	private Boolean isElementRequired;
 	private Type elementType;
+	private String value;
 	private String elementDefaultValue;
 	private Integer minRange;
 	private Integer maxRange;
