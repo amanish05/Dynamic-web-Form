@@ -1,12 +1,12 @@
 package com.object.form.model;
 
-import java.util.List;
-
-public class FormElement {
+public abstract class FormElement {
 	
-	private String formElementId;
-	private String formId;
-	private String formElementDesciption;
-	List<Element> elements;
+	private String elementId;
+	private String elementTitle;
+	private String elementName;
+	private Boolean isRequired;
+	private Boolean isEnabled;
+	private Form form;
 
 }

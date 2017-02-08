@@ -7,14 +7,12 @@ public class Form {
 	
 	private String formID;
 	private String title;
-	private String ownedBy;
-	private Date createdDate;
-	private Date modifiedDate;
-	private Boolean required;
 	private String formDescription;
-	private String successMessage;
-	List<FormElement> formElements;
-	
-	
+	private String successMessage;	
+	private Date createdDate;
+	private Date modifiedDate;	
+	private Member ownedBy;
+	private List<FormElement> formElements;
+	private List<Role> roles;
 
 }
