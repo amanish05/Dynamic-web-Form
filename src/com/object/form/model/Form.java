@@ -5,14 +5,68 @@ import java.util.List;
 
 public class Form {
 	
-	private String formID;
+	private String id;
 	private String title;
-	private String formDescription;
-	private String successMessage;	
+	private String description;
 	private Date createdDate;
-	private Date modifiedDate;	
+	private Date modifiedDate;
+	private Date submitDate;
 	private Member ownedBy;
-	private List<FormElement> formElements;
-	private List<Role> roles;
-
+	private List<FormElement> elements;
+	private Role roles;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	public Date getSubmitDate() {
+		return submitDate;
+	}
+	public void setSubmitDate(Date submitDate) {
+		this.submitDate = submitDate;
+	}
+	public Member getOwnedBy() {
+		return ownedBy;
+	}
+	public void setOwnedBy(Member ownedBy) {
+		this.ownedBy = ownedBy;
+	}
+	public List<FormElement> getElements() {
+		return elements;
+	}
+	public void setElements(List<FormElement> elements) {
+		this.elements = elements;
+	}
+	public Role getRoles() {
+		return roles;
+	}
+	public void setRoles(Role roles) {
+		this.roles = roles;
+	}
 }
