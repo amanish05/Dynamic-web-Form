@@ -1,5 +1,9 @@
 package com.object.form.model;
 
+import java.util.List;
+
+import com.object.form.answer.model.Answer;
+
 public abstract class FormElement {
 	
 	private String id;
@@ -8,7 +12,14 @@ public abstract class FormElement {
 	private Boolean isRequired;
 	private Boolean isEnabled;
 	private Form form;
+	private List<Answer> answers;
 	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
 	public String getId() {
 		return id;
 	}
