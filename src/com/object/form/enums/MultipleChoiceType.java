@@ -1,6 +1,6 @@
 package com.object.form.enums;
 
-public enum Type {
+public enum MultipleChoiceType {
 	
 	MultiChecbox,
 	RadioButton,

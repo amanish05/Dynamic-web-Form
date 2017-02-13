@@ -13,7 +13,7 @@ public class Form {
 	private Date submitDate;
 	private Member ownedBy;
 	private List<FormElement> elements;
-	private List<Role> roles;
+	private Role roles;
 	
 	public String getId() {
 		return id;
@@ -63,10 +63,10 @@ public class Form {
 	public void setElements(List<FormElement> elements) {
 		this.elements = elements;
 	}
-	public List<Role> getRoles() {
+	public Role getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
 }
