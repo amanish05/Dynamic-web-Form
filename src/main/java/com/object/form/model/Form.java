@@ -12,9 +12,16 @@ public class Form {
 	private Date modifiedDate;
 	private Date submitDate;
 	private Member ownedBy;
-	private List<FormElement> elements;
 	private Role roles;
+	private List<Page> pages;
 	
+	
+	public List<Page> getPages() {
+		return pages;
+	}
+	public void setPages(List<Page> pages) {
+		this.pages = pages;
+	}
 	public String getId() {
 		return id;
 	}
@@ -56,12 +63,6 @@ public class Form {
 	}
 	public void setOwnedBy(Member ownedBy) {
 		this.ownedBy = ownedBy;
-	}
-	public List<FormElement> getElements() {
-		return elements;
-	}
-	public void setElements(List<FormElement> elements) {
-		this.elements = elements;
 	}
 	public Role getRoles() {
 		return roles;

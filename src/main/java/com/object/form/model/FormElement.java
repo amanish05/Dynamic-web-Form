@@ -2,7 +2,6 @@ package com.object.form.model;
 
 import java.util.List;
 
-import com.object.form.answer.model.Answer;
 
 public abstract class FormElement {
 	
@@ -11,9 +10,25 @@ public abstract class FormElement {
 	private String name;
 	private Boolean isRequired;
 	private Boolean isEnabled;
+	boolean isMultipleAnswerAllowed;
 	private Form form;
 	private List<Answer> answers;
+	private List<Page> pages;
+	private PDFElement pdfElement;
 	
+	
+	public List<Page> getPages() {
+		return pages;
+	}
+	public void setPages(List<Page> pages) {
+		this.pages = pages;
+	}
+	public PDFElement getPdfElement() {
+		return pdfElement;
+	}
+	public void setPdfElement(PDFElement pdfElement) {
+		this.pdfElement = pdfElement;
+	}
 	public List<Answer> getAnswers() {
 		return answers;
 	}
@@ -56,4 +71,11 @@ public abstract class FormElement {
 	public void setForm(Form form) {
 		this.form = form;
 	}
+	public boolean isMultipleAnswerAllowed() {
+		return isMultipleAnswerAllowed;
+	}
+	public void setMultipleAnswerAllowed(boolean isMultipleAnswerAllowed) {
+		this.isMultipleAnswerAllowed = isMultipleAnswerAllowed;
+	}
+	
 }
