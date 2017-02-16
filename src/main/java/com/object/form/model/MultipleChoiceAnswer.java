@@ -1,3 +1,8 @@
+/*
+ * MultipleChoiceAnswer is a class that handles getting answers from multiple choices.
+ * 
+ * choiceAnswers: the list of choice objects which are the answers
+ */
 package com.object.form.model;
 
 import java.io.Serializable;

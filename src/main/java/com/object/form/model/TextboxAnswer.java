@@ -1,3 +1,6 @@
+/*
+ * TextboxAnswer stores the input received from the Textbox class.
+ */
 package com.object.form.model;
 
 public class TextboxAnswer extends Answer{
