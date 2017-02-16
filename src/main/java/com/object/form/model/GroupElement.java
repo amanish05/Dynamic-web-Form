@@ -1,3 +1,8 @@
+/*
+ * GroupElement is a java class that groups up form elements .
+ * 
+ * groupFormElements: a list of form elements which is required for grouping
+ */
 package com.object.form.model;
 
 import java.util.List;

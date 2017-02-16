@@ -1,3 +1,13 @@
+/*
+ * PDFForm is the java class that has all the PDFElements.
+ * 
+ * id: a unique identifier to differentiate between other PDFForms.
+ * form: a reference to the form object that is related to this PDFForm.
+ * path: a string of the path of the location of the pdf in the hard drive
+ * owner: the owner of the PDFForm as a Member object
+ * pdfElements: a list of pdf elements that belong to the pdf form.
+ */
+
 package com.object.form.model;
 
 import java.io.Serializable;

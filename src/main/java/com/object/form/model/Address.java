@@ -1,3 +1,16 @@
+/*
+ * This java class holds all necessary information for addresses
+ * 
+ * id: a four digit number for the address
+ * house:
+ * street: the street of the address
+ * area: 
+ * city: the city of the address
+ * pin: the zipcode of the address
+ * state: the state of the address
+ * country: the country of the address
+ */
+
 package com.object.form.model;
 
 import java.io.Serializable;

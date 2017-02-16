@@ -1,3 +1,6 @@
+/*
+ * Textbox takes care all the standard textbox elements in the form.
+ */
 package com.object.form.model;
 
 public class Textbox extends FormElement{

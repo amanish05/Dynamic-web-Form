@@ -1,3 +1,6 @@
+/*
+ * TextareaAnswer class stores the answer that was received from the Textarea class.
+ */
 package com.object.form.model;
 
 public class TextareaAnswer extends Answer{

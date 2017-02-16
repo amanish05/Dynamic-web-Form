@@ -1,3 +1,9 @@
+/*
+ * The Choice java class 
+ * 
+ * id: a unique number that helps identify choices from one another
+ * text: the text that the choice contains
+ */
 package com.object.form.model;
 
 import java.io.Serializable;
