@@ -2,6 +2,7 @@ package com.object.form.model;
 
 import java.util.List;
 
+//copied to sumanth machine
 public class Member {
 	
 	private String id;
