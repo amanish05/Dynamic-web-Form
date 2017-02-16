@@ -1,9 +1,16 @@
 package com.object.form.model;
 
 public class TextareaAnswer extends Answer{
-	
+	private String id;
 	private String value;
 
+
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getValue() {
 		return value;
 	}
