@@ -1,8 +1,11 @@
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MultipleChoiceAnswer {
+public class MultipleChoiceAnswer implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private List<Choice> choiceAnswers;
 
