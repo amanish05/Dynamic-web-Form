@@ -1,6 +1,10 @@
 package com.object.form.model;
 
-public class PDFElement {
+import java.io.Serializable;
+
+public class PDFElement implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	private String name;

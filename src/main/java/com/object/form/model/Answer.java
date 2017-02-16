@@ -2,6 +2,8 @@ package com.object.form.model;
 
 public abstract class Answer {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private String id;
 	private Member user;
 	private Form form;
