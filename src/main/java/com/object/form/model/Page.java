@@ -1,15 +1,11 @@
 package com.object.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Page implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
-	private Integer id;
-	private Boolean isSubmited;
-	private Byte number;
+public class Page {
+	private int id;
+	private boolean isSubmited;
+	private byte number;
 	private Form form;
 	private List<FormElement> elements;
 	

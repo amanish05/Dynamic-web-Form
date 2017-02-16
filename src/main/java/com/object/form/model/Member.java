@@ -1,11 +1,8 @@
 package com.object.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Member implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class Member {
 	
 	private String id;
 	private String firstName;

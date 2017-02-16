@@ -1,10 +1,6 @@
 package com.object.form.model;
 
-import java.io.Serializable;
-
-public class Choice implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class Choice {
 	
 	private String id;	
 	private String text;
