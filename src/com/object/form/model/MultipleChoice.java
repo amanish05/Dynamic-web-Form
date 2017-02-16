@@ -2,7 +2,7 @@ package com.object.form.model;
 
 import java.util.List;
 
-import com.object.form.enums.MultipleChoiceType;
+
 
 public class MultipleChoice extends  FormElement{
 	

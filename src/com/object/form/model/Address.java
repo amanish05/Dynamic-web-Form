@@ -4,10 +4,12 @@ public class Address {
 	
 	private String id;
 	private String house;
+	private Integer houseNumber
 	private String street;
-	private String area;
+	//private String area;
 	private String city;
-	private Integer pin;
+	//private Integer pin;
+	private Integer zipcode;
 	private String state;
 	private String country;
 	
@@ -59,4 +61,10 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}	
+	public Integer getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
+	}
 }
