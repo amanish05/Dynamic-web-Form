@@ -1,6 +1,5 @@
 package com.object.form.model;
 
-//copied to sumanth machine
 public class Choice {
 	
 	private String id;	

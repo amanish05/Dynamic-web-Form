@@ -1,6 +1,5 @@
 package com.object.form.model;
 
-//copied to sumanth machine
 import java.util.Date;
 
 public class DateText extends FormElement{

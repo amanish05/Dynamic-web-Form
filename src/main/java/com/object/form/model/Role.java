@@ -1,6 +1,5 @@
 package com.object.form.model;
 
-//copied to sumanth machine
 public class Role {
 	
 	private String id;

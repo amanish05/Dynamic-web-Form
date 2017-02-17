@@ -1,6 +1,6 @@
 package com.object.form.model;
 
-//copied to sumanth machine
+//class to get text area answers from the user
 public class TextareaAnswer extends Answer{
 	
 	private String value;

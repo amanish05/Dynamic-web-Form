@@ -1,6 +1,5 @@
 package com.object.form.model;
 
-//copied to sumanth machine
 public class Address {
 	
 	private String id;

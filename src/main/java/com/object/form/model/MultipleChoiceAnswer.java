@@ -2,7 +2,7 @@ package com.object.form.model;
 
 import java.util.List;
 
-//copied to sumanth machine
+//class to hold multiple choice answers
 public class MultipleChoiceAnswer {
 	
 	private List<Choice> choiceAnswers;

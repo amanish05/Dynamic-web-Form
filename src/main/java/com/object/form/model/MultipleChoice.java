@@ -2,7 +2,7 @@ package com.object.form.model;
 
 import java.util.List;
 
-//copied to sumanth machine
+// Multiple choice questions
 public class MultipleChoice extends  FormElement{
 	
 	private Integer numberOfAllowedSelect;
