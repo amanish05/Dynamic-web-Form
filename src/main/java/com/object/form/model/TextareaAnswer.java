@@ -4,6 +4,7 @@
  */
 package com.object.form.model;
 
+//class to get text area answers from the user
 public class TextareaAnswer extends Answer{
 	
 	private String value;

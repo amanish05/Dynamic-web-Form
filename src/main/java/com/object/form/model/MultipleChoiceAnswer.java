@@ -8,10 +8,10 @@ package com.object.form.model;
 import java.io.Serializable;
 import java.util.List;
 
+//class to hold multiple choice answers
 public class MultipleChoiceAnswer implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	private List<Choice> choiceAnswers;
 
 	public List<Choice> getChoiceAnswers() {

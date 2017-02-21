@@ -16,7 +16,6 @@ package com.object.form.model;
 
 import java.util.List;
 
-
 public abstract class FormElement {
 	
 	private String id;

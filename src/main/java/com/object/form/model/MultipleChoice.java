@@ -10,12 +10,14 @@ package com.object.form.model;
 
 import java.util.List;
 
-public class MultipleChoice extends FormElement{
+// Multiple choice questions
+public class MultipleChoice extends  FormElement{
 	
 	private Integer numberOfAllowedSelect;
 	private MultipleChoiceType choiceType;
 	private List<Choice> choices;
-	public Integer getNumberOfAllowedSelect() {
+	
+  public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
 	}
 	public void setNumberOfAllowedSelect(Integer numberOfAllowedSelect) {
