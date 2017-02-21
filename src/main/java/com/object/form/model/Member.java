@@ -70,12 +70,11 @@ public class Member implements Serializable{
 	public void setPasscode(char[] passcode) {
 		this.passcode = passcode;
 	}
-	public List<Role> getRoles() {
+	public Role getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
-	
 	
 }

@@ -1,14 +1,14 @@
 /*
- * This java class holds all necessary information for addresses
+ * This java class, Address.java, is the Address java object holds all necessary information for addresses
  * 
- * id: a four digit number for the address
- * house:
- * street: the street of the address
+ * id: A unique id number for the SQL database
+ * house: A four digit number for the address (house number)
+ * street: The name street of the address
  * area: 
- * city: the city of the address
- * pin: the zipcode of the address
- * state: the state of the address
- * country: the country of the address
+ * city: The city of the address as a string
+ * pin: The zip code of the address as an Integer object
+ * state: The state of the address as a string
+ * country: The country of the address as a string
  */
 
 package com.object.form.model;
