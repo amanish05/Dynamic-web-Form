@@ -1,5 +1,6 @@
 /*
  * TextareaAnswer class stores the answer that was received from the Textarea class.
+ * value: The value or answer of the text area as a string.
  */
 package com.object.form.model;
 
