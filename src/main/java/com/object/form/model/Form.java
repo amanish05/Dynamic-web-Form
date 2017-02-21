@@ -1,9 +1,25 @@
+/*
+ * This Form java class shall contain all the information the form has after converting it
+ * 
+ * id: a unique identifier
+ * title: the title of the form
+ * description: a brief description of what the form is
+ * createdDate: a date object that tells us the creation date of the form
+ * modifiedDate: a date object that tells us the last date in which the form was modified
+ * submitDate: a date object that tells us the date that this form has to be submitted by
+ * ownedBy: a member object that signifies who the owner is
+ * roles: a role object
+ * pages: a list of page objects that contains the actual form
+ */
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Form {
+public class Form implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String title;

@@ -1,6 +1,17 @@
+/*
+ * The Role class serves as a way to distinguish between regular members and administrators.
+ * 
+ * id: a unique identifier for the role
+ * name: the name of the role.
+ */
+
 package com.object.form.model;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String name;

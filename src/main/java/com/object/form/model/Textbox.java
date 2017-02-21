@@ -1,3 +1,10 @@
+/*
+ * Textbox takes care all the standard textbox elements in the form.
+ * Value: The Value of the textbox
+ * defaultValue: The default value of the textbox as a string
+ * maxLength: the maximum length of the textbox as an Integer object
+ * size: The size of the textbox as an Integer object
+ */
 package com.object.form.model;
 
 public class Textbox extends FormElement{

@@ -1,8 +1,23 @@
+/*
+ * The Member java class is the class for our users that has their necessary information.
+ * 
+ * id: a unique identifier to differentiate between members with the same name
+ * firstName: the first name of the member
+ * lastName: the last name of the member
+ * middleName: the middle name of the member
+ * email: the email address of the member
+ * address: the address object that contains where the member lives
+ * passcode: an array of characters that contain the password for our member's login
+ * roles: the role of the member
+ */
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Member {
+public class Member implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String firstName;
@@ -11,7 +26,7 @@ public class Member {
 	private String email;
 	private Address address;
 	private char[] passcode;
-	private List<Role> roles;
+	private Role roles;
 	
 	public String getId() {
 		return id;
@@ -55,12 +70,11 @@ public class Member {
 	public void setPasscode(char[] passcode) {
 		this.passcode = passcode;
 	}
-	public List<Role> getRoles() {
+	public Role getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
-	
 	
 }

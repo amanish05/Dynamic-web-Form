@@ -1,6 +1,23 @@
+/*
+ * This java class, Address.java, is the Address java object holds all necessary information for addresses
+ * 
+ * id: A unique id number for the SQL database
+ * house: A four digit number for the address (house number)
+ * street: The name street of the address
+ * area: 
+ * city: The city of the address as a string
+ * pin: The zip code of the address as an Integer object
+ * state: The state of the address as a string
+ * country: The country of the address as a string
+ */
+
 package com.object.form.model;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String house;

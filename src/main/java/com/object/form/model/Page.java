@@ -1,8 +1,22 @@
+/*
+ * The Page class is used to contain an individual page of the form.
+ * 
+ * id: a unique identifier for the page
+ * isSubmited: a boolean value that determines if that page has been submitted.
+ * number: the page number of the form.
+ * form: a reference to the Form object where this page belongs to
+ * elements: a list of form elements that are in this page
+ */
+
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Page {
+public class Page implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private boolean isSubmited;
 	private byte number;
