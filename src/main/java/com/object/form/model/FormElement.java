@@ -26,14 +26,14 @@ public abstract class FormElement {
 	boolean isMultipleAnswerAllowed;
 	private Form form;
 	private List<Answer> answers;
-	private List<Page> pages;
+	private Page pages;
 	private PDFElement pdfElement;
 	
 	
-	public List<Page> getPages() {
+	public Page getPages() {
 		return pages;
 	}
-	public void setPages(List<Page> pages) {
+	public void setPages(Page pages) {
 		this.pages = pages;
 	}
 	public PDFElement getPdfElement() {

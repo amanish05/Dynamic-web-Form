@@ -11,34 +11,55 @@
 package com.object.form.model;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="page")
 public class Page implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
-	private boolean isSubmited;
-	private byte number;
-	private Form form;
-	private List<FormElement> elements;
+	@Id
+	@GeneratedValue
+	@Column(name="PAGE_ID")
+	private Integer id;
 	
-	public int getId() {
+	@Column(name="IS_SUBMITTED")
+	private Boolean isSubmited;
+	
+	@Column(name="PAGE_NUMBER")
+	private Byte number;
+	
+	@ManyToOne
+	@JoinColumn(name = "FORM_ID")
+	private Form form;
+	
+	//This need to be Implemented. Please add getter and setter with appropriate relationship
+	//private List<FormElement> elements;
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public boolean isSubmited() {
+	public Boolean isSubmited() {
 		return isSubmited;
 	}
-	public void setSubmited(boolean isSubmited) {
+	public void setSubmited(Boolean isSubmited) {
 		this.isSubmited = isSubmited;
 	}
-	public byte getNumber() {
+	public Byte getNumber() {
 		return number;
 	}
-	public void setNumber(byte number) {
+	public void setNumber(Byte number) {
 		this.number = number;
 	}
 	public Form getForm() {
@@ -46,13 +67,5 @@ public class Page implements Serializable{
 	}
 	public void setForm(Form form) {
 		this.form = form;
-	}
-	public List<FormElement> getElements() {
-		return elements;
-	}
-	public void setElements(List<FormElement> elements) {
-		this.elements = elements;
-	}
-	
-	
+	}		
 }

@@ -15,14 +15,14 @@
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/springmvc" />
-        <property name="username" value="cysun" />
-        <property name="password" value="abcd" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/cs5220" />
+        <property name="username" value="postgres" />
+        <property name="password" value="postgres" />
         <property name="initialSize" value="1" />
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="springmvc" />
+        <property name="persistenceUnitName" value="ObjectForm" />
         <property name="dataSource" ref="dataSource" />
     </bean>
 
@@ -36,7 +36,7 @@
 
     <tx:annotation-driven />
 
-    <context:component-scan base-package="springmvc.model" />
+    <context:component-scan base-package="com.object.form.model" />
 
     <security:authentication-manager>
         <security:authentication-provider>
