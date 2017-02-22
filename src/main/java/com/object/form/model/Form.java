@@ -17,18 +17,49 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="form")
 public class Form implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
+	@Id
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@Column(name="FORM_ID")
+	private Integer id;
+	
+	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@Column(name="CREATED_DATE")
 	private Date createdDate;
+	
+	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
+	
+	@Column(name="SUBMISSION_DATE")
 	private Date submitDate;
+	
+	@Column(name="MEMBER")
 	private Member ownedBy;
+	
+	@Column(name="ROLE")
 	private Role roles;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "form")
+	@Column(name="PAGES")	
 	private List<Page> pages;
 	
 	
@@ -38,10 +69,10 @@ public class Form implements Serializable{
 	public void setPages(List<Page> pages) {
 		this.pages = pages;
 	}
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getTitle() {
