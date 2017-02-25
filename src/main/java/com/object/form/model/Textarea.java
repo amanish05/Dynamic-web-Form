@@ -3,7 +3,15 @@
  */
 package com.object.form.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+@DiscriminatorValue("TA")
 public class Textarea extends FormElement{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String textValue;
 	private String defaultValue;
@@ -11,6 +19,9 @@ public class Textarea extends FormElement{
 	private Integer row;
 	private Integer minLength;
 	private Integer maxLength;
+	
+	@OneToOne
+	private TextareaAnswer textareaAnswer;
 	
 	public String getTextValue() {
 		return textValue;
@@ -48,4 +59,11 @@ public class Textarea extends FormElement{
 	public void setMaxLength(Integer maxLength) {
 		this.maxLength = maxLength;
 	}
+	public TextareaAnswer getTextareaAnswer() {
+		return textareaAnswer;
+	}
+	public void setTextareaAnswer(TextareaAnswer textareaAnswer) {
+		this.textareaAnswer = textareaAnswer;
+	}
+	
 }

@@ -7,12 +7,22 @@
  */
 package com.object.form.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("TB")
 public class Textbox extends FormElement{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String Value;
 	private String defaultValue;
 	private Integer maxLength;
 	private Integer size;
+	
+	@OneToOne
+	private TextboxAnswer textboxAnswer;
 	
 	public String getValue() {
 		return Value;
@@ -38,4 +48,11 @@ public class Textbox extends FormElement{
 	public void setSize(Integer size) {
 		this.size = size;
 	}
+	public TextboxAnswer getTextboxAnswer() {
+		return textboxAnswer;
+	}
+	public void setTextboxAnswer(TextboxAnswer textboxAnswer) {
+		this.textboxAnswer = textboxAnswer;
+	}
+
 }

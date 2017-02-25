@@ -10,12 +10,26 @@ package com.object.form.model;
 
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 // Multiple choice questions
-public class MultipleChoice extends  FormElement{
+@Entity
+@DiscriminatorValue("MC")
+public class MultipleChoice extends FormElement{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Integer numberOfAllowedSelect;
+	
 	private MultipleChoiceType choiceType;
+	
+	@OneToMany
 	private List<Choice> choices;
+	
+	@OneToMany
+	private List<MultipleChoiceAnswer> multiAnswers;
 	
   public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
@@ -35,4 +49,11 @@ public class MultipleChoice extends  FormElement{
 	public void setChoices(List<Choice> choices) {
 		this.choices = choices;
 	}
+	public List<MultipleChoiceAnswer> getMultiAnswers() {
+		return multiAnswers;
+	}
+	public void setMultiAnswers(List<MultipleChoiceAnswer> multiAnswers) {
+		this.multiAnswers = multiAnswers;
+	}
+	
 }

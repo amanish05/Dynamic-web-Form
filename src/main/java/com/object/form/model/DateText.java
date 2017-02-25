@@ -9,11 +9,17 @@ package com.object.form.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("DT")
 public class DateText extends FormElement{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Date defaultDate;
 	private String dateFormat;
-	private Form form;
 	
 	public Date getDefaultDate() {
 		return defaultDate;
@@ -27,10 +33,5 @@ public class DateText extends FormElement{
 	public void setDateFormat(String dateFormat) {
 		this.dateFormat = dateFormat;
 	}
-	public Form getForm() {
-		return form;
-	}
-	public void setForm(Form form) {
-		this.form = form;
-	}
+	
 }

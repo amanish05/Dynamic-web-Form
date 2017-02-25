@@ -3,7 +3,7 @@
  * 
  * id: a unique identifier
  * title: the title of the element
- * name:
+ * name: the name of the element
  * isRequired: it is a boolean value that determines if the element is mandatory for the form
  * isEnabled:
  * isMultipleAnswerAllowed: this boolean value determines if the element allows multiple values in the element
@@ -14,22 +14,60 @@
  */
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class FormElement {
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "formelements")
+@Inheritance
+@DiscriminatorColumn(name = "form_type")
+
+public abstract class FormElement implements Serializable {
 	
-	private String id;
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	private Integer id;
+	
 	private String title;
+	
 	private String name;
+	
 	private Boolean isRequired;
+	
 	private Boolean isEnabled;
+	
 	boolean isMultipleAnswerAllowed;
+	
+	@ManyToOne
 	private Form form;
+	
+	@OneToMany
 	private List<Answer> answers;
+	
+	@OneToMany
 	private Page pages;
+	
+	@OneToOne
 	private PDFElement pdfElement;
 	
-	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Page getPages() {
 		return pages;
 	}
@@ -47,12 +85,6 @@ public abstract class FormElement {
 	}
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getTitle() {
 		return title;
