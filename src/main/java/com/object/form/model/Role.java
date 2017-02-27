@@ -9,11 +9,16 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+@Entity
+@table(name="Role")
 public class Role implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue
 	private String id;
+	
+	@Column(name="NAME")
 	private String name;
 	
 	public String getId() {
