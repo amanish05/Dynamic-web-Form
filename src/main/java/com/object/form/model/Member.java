@@ -37,8 +37,8 @@ public class Member implements Serializable{
 	@Column(name="EMAIL")
 	private String email;
 	
-	@Embedded
-	@Column(name="ADDRESS")
+	@OneToMany
+	@JoinColumn(name = "FORM_ID")
 	private Address address;
 	
 	@Column(type="string", name="PASSCODE")	
