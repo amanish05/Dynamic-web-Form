@@ -23,6 +23,7 @@ public class Address implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="ADDRESS_ID")
 	private String id;
 	
 	@Column(name="HOUSE")
@@ -46,6 +47,8 @@ public class Address implements Serializable{
 	@Column(name="COUNTRY")
 	private String country;
 	
+	@OneToOne(mappedBy="address")
+
 	public String getId() {
 		return id;
 	}
