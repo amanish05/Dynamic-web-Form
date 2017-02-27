@@ -15,17 +15,35 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+@Entity
+@table(name="Address")
 public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
 	private String id;
+	
+	@Column(name="HOUSE")
 	private String house;
+	
+	@Column(name="STREET")
 	private String street;
+	
+	@Column(name="AREA")
 	private String area;
+	
+	@Column(name="CITY")
 	private String city;
+	
+	@Column(name="PIN")
 	private Integer pin;
+	
+	@Column(name="STATE")
 	private String state;
+	
+	@Column(name="COUNTRY")
 	private String country;
 	
 	public String getId() {
