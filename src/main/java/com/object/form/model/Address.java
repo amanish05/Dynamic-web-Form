@@ -46,8 +46,6 @@ public class Address implements Serializable{
 	
 	@Column(name="COUNTRY")
 	private String country;
-	
-	@OneToOne(mappedBy="address")
 
 	public String getId() {
 		return id;
