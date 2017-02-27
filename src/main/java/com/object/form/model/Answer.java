@@ -1,3 +1,11 @@
+/*
+ * The java class Answer is used to hold all of our answers that we get from the form elements.
+ * 
+ * id: a unique number which helps us identify between different answers
+ * user: a reference to a Member object that created the answer
+ * form: a reference to the form where the answer belongs
+ * formElements: a reference to all the form elements where the answer is in
+ */
 package com.object.form.model;
 
 public abstract class Answer {
