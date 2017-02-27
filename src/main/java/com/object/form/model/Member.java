@@ -22,6 +22,7 @@ public class Member implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
+	@Column(name="MEMBER_ID")
 	private String id;
 	
 	@Column(name="FIRST_NAME")
@@ -35,7 +36,8 @@ public class Member implements Serializable{
 	
 	@Column(name="EMAIL")
 	private String email;
-		
+	
+	@Embedded
 	@Column(name="ADDRESS")
 	private Address address;
 	
