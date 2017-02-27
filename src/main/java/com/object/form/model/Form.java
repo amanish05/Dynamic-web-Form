@@ -52,10 +52,12 @@ public class Form implements Serializable{
 	@Column(name="SUBMISSION_DATE")
 	private Date submitDate;
 	
-	@Column(name="MEMBER")
+	@ManyToOne
+	@JoinColumn(name = "MEMBER_ID")
 	private Member ownedBy;
 	
-	@Column(name="ROLE")
+	@ManyToOne
+	@JoinColumn(name = "ROLE_ID")
 	private Role roles;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "form")
