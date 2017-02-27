@@ -1,7 +1,4 @@
-/*
- * Textarea class handles the text area aspect of forms.
- */
-package com.object.form.model;
+package objectform.model;
 
 public class Textarea extends FormElement{
 	

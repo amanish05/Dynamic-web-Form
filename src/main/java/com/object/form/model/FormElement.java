@@ -1,18 +1,4 @@
-/*
- * FormElement is an abstract class that represents an element of the form
- * 
- * id: a unique identifier
- * title: the title of the element
- * name:
- * isRequired: it is a boolean value that determines if the element is mandatory for the form
- * isEnabled:
- * isMultipleAnswerAllowed: this boolean value determines if the element allows multiple values in the element
- * form: a reference to the form object where the element belongs to
- * answers: a list of answer objects that contain the answers to the element
- * pages: a list of page objects
- * pdfElement: a PDFElement object which contains the element in the pdf
- */
-package com.object.form.model;
+package objectform.model;
 
 import java.util.List;
 

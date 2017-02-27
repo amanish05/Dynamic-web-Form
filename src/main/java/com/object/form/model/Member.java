@@ -1,16 +1,4 @@
-/*
- * The Member java class is the class for our users that has their necessary information.
- * 
- * id: a unique identifier to differentiate between members with the same name
- * firstName: the first name of the member
- * lastName: the last name of the member
- * middleName: the middle name of the member
- * email: the email address of the member
- * address: the address object that contains where the member lives
- * passcode: an array of characters that contain the password for our member's login
- * roles: the role of the member
- */
-package com.object.form.model;
+package objectform.model;
 
 import java.io.Serializable;
 import java.util.List;

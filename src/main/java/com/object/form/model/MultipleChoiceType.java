@@ -1,7 +1,4 @@
-/*
- * This is a java class that is an enum type which determines what type the MultipleChoice class is.
- */
-package com.object.form.model;
+package objectform.model;
 
 public enum MultipleChoiceType {
 	
