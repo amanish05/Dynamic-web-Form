@@ -6,23 +6,27 @@
  */
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class GroupElement {
+public class GroupElement implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
+	@Column(name = "group_element_id")
 	private Integer id;
 	
 	@OneToMany
+	@Column(name = "group_form_elements")
 	private List<FormElement> groupFormElements;
 
 	public Integer getId() {
