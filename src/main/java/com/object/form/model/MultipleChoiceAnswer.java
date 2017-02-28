@@ -1,17 +1,19 @@
-/*
- * MultipleChoiceAnswer is a class that handles getting answers from multiple choices.
- * 
- * choiceAnswers: the list of choice objects which are the answers
- */
-package com.object.form.model;
+package objectform.model;
 
 import java.io.Serializable;
 import java.util.List;
 
-//class to hold multiple choice answers
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "multiplechoiceanswers")
 public class MultipleChoiceAnswer implements Serializable{
 	
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	
+	@OneToMany
 	private List<Choice> choiceAnswers;
 
 	public List<Choice> getChoiceAnswers() {
