@@ -1,18 +1,30 @@
-/*
- * The java class Answer is used to hold all of our answers that we get from the form elements.
- * 
- * id: a unique number which helps us identify between different answers
- * user: a reference to a Member object that created the answer
- * form: a reference to the form where the answer belongs
- * formElements: a reference to all the form elements where the answer is in
- */
-package com.object.form.model;
+package objectform.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+
+
+//using table per concrete class inheritance strategy
+
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Answer {
 	
+	@Id
+	@GeneratedValue
 	private String id;
+	
 	private Member user;
+	
+	@OneToMany
 	private Form form;
+	
+	@ManyToMany
 	private FormElement formElements;
 	
 	public String getId() {

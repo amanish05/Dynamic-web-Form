@@ -28,7 +28,7 @@ public class SchemaGeneration {
         Persistence.generateSchema( "ObjectForm", properties );
 
         // If there is a command line argument, consider it the output file name
-        BufferedWriter out = new BufferedWriter( new FileWriter( "ObjectForm.ddl" ) );            
+        BufferedWriter out = new BufferedWriter( new FileWriter( "src/main/scripts/ObjectForm.ddl" ) );            
 
         // Use Hibernate's SQL formatter to format each statement
         Formatter formatter = new DDLFormatterImpl();
