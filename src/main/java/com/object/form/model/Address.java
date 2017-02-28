@@ -15,19 +15,38 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+@Entity
+@table(name="Address")
 public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	@Column(name="ADDRESS_ID")
 	private String id;
-	private String house;
-	private String street;
-	private String area;
-	private String city;
-	private Integer pin;
-	private String state;
-	private String country;
 	
+	@Column(name="HOUSE")
+	private String house;
+	
+	@Column(name="STREET")
+	private String street;
+	
+	@Column(name="AREA")
+	private String area;
+	
+	@Column(name="CITY")
+	private String city;
+	
+	@Column(name="PIN")
+	private Integer pin;
+	
+	@Column(name="STATE")
+	private String state;
+	
+	@Column(name="COUNTRY")
+	private String country;
+
 	public String getId() {
 		return id;
 	}
