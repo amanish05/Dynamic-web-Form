@@ -33,9 +33,9 @@ public class Textarea extends FormElement{
 	@Column(name = "max_length")
 	private Integer maxLength;
 	
-//	@OneToOne(mappedBy="textarea")
-//	@Column(name = "textarea_answer")
-//	private TextareaAnswer textareaAnswer;
+	@OneToOne
+	@Column(name = "textarea_answer")
+	private TextareaAnswer textareaAnswer;
 	
 	public String getTextValue() {
 		return textValue;
@@ -73,11 +73,11 @@ public class Textarea extends FormElement{
 	public void setMaxLength(Integer maxLength) {
 		this.maxLength = maxLength;
 	}
-//	public TextareaAnswer getTextareaAnswer() {
-//		return textareaAnswer;
-//	}
-//	public void setTextareaAnswer(TextareaAnswer textareaAnswer) {
-//		this.textareaAnswer = textareaAnswer;
-//	}
+	public TextareaAnswer getTextareaAnswer() {
+		return textareaAnswer;
+	}
+	public void setTextareaAnswer(TextareaAnswer textareaAnswer) {
+		this.textareaAnswer = textareaAnswer;
+	}
 	
 }

@@ -28,13 +28,13 @@ public class MultipleChoice extends FormElement{
 	@Column(name = "multiple_choice_type")
 	private MultipleChoiceType choiceType;
 	
-//	@OneToMany(mappedBy="multiplechoice")
-//	@Column(name = "choices")
-//	private List<Choice> choices;
+	@OneToMany
+	@Column(name = "choices")
+	private List<Choice> choices;
 	
-//	@OneToMany(mappedBy="multiplechoice")
-//	@Column(name = "multiple_answers")
-//	private List<MultipleChoiceAnswer> multiAnswers;
+	@OneToMany
+	@Column(name = "multiple_answers")
+	private List<MultipleChoiceAnswer> multiAnswers;
 	
   public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
@@ -48,17 +48,17 @@ public class MultipleChoice extends FormElement{
 	public void setChoiceType(MultipleChoiceType choiceType) {
 		this.choiceType = choiceType;
 	}
-//	public List<Choice> getChoices() {
-//		return choices;
-//	}
-//	public void setChoices(List<Choice> choices) {
-//		this.choices = choices;
-//	}
-//	public List<MultipleChoiceAnswer> getMultiAnswers() {
-//		return multiAnswers;
-//	}
-//	public void setMultiAnswers(List<MultipleChoiceAnswer> multiAnswers) {
-//		this.multiAnswers = multiAnswers;
-//	}
+	public List<Choice> getChoices() {
+		return choices;
+	}
+	public void setChoices(List<Choice> choices) {
+		this.choices = choices;
+	}
+	public List<MultipleChoiceAnswer> getMultiAnswers() {
+		return multiAnswers;
+	}
+	public void setMultiAnswers(List<MultipleChoiceAnswer> multiAnswers) {
+		this.multiAnswers = multiAnswers;
+	}
 	
 }

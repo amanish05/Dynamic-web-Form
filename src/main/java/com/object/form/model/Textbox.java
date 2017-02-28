@@ -8,7 +8,6 @@
 package com.object.form.model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,9 +30,9 @@ public class Textbox extends FormElement{
 	@Column(name = "size")
 	private Integer size;
 	
-//	@OneToOne(mappedBy="textbox")
-//	@Column(name = "textbox_answer")
-//	private TextboxAnswer textboxAnswer;
+	@OneToOne
+	@Column(name = "textbox_answer")
+	private TextboxAnswer textboxAnswer;
 	
 	public String getValue() {
 		return Value;
@@ -59,11 +58,11 @@ public class Textbox extends FormElement{
 	public void setSize(Integer size) {
 		this.size = size;
 	}
-//	public TextboxAnswer getTextboxAnswer() {
-//		return textboxAnswer;
-//	}
-//	public void setTextboxAnswer(TextboxAnswer textboxAnswer) {
-//		this.textboxAnswer = textboxAnswer;
-//	}
+	public TextboxAnswer getTextboxAnswer() {
+		return textboxAnswer;
+	}
+	public void setTextboxAnswer(TextboxAnswer textboxAnswer) {
+		this.textboxAnswer = textboxAnswer;
+	}
 
 }
