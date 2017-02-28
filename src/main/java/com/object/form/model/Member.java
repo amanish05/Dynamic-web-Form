@@ -15,38 +15,51 @@ package com.object.form.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 @Entity
-@table(name= "Member")
+@Table(name= "Members")
 public class Member implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
-	@Column(name="MEMBER_ID")
+	@Column(name="Member_Id")
 	private String id;
 	
-	@Column(name="FIRST_NAME")
+	@Column(name="First_Name")
 	private String firstName;
 	
-	@Column(name="LAST_NAME")
+	@Column(name="Last_Name")
 	private String lastName;
 	
-	@Column(name="MIDDLE_NAME")
+	@Column(name="Middle_Name")
 	private String middleName;
 	
-	@Column(name="EMAIL")
+	@Column(name="Email")
 	private String email;
 	
-	@OneToMany
-	@JoinColumn(name = "FORM_ID")
-	private Address address;
-	
-	@Column(type="string", name="PASSCODE")	
+	@Column(name="Passcode", columnDefinition = "varchar2(30)")
 	private char[] passcode;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy="Member")
-	@Column(name="ROLES")
-	private Role roles;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "member")
+	private List<Address> address;
+			
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "member")	
+	private List<Role> roles;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Form form;
 	
 	public String getId() {
 		return id;
@@ -77,11 +90,11 @@ public class Member implements Serializable{
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public Address getAddress() {
+	}	
+	public List<Address> getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 	public char[] getPasscode() {
@@ -90,11 +103,10 @@ public class Member implements Serializable{
 	public void setPasscode(char[] passcode) {
 		this.passcode = passcode;
 	}
-	public Role getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(Role roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
-	
+	}	
 }
