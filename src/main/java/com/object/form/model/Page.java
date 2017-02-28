@@ -21,24 +21,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="page")
+@Table(name="pages")
 public class Page implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
-	@Column(name="PAGE_ID")
+	@Column(name="Page_Id")
 	private Integer id;
 	
-	@Column(name="IS_SUBMITTED")
+	@Column(name="Is_Submitted")
 	private Boolean isSubmited;
 	
-	@Column(name="PAGE_NUMBER")
+	@Column(name="Page_Number")
 	private Byte number;
 	
 	@ManyToOne
-	@JoinColumn(name = "FORM_ID")
+	@JoinColumn(name="Form_Id")
 	private Form form;
 	
 	//This need to be Implemented. Please add getter and setter with appropriate relationship

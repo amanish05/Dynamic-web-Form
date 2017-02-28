@@ -9,19 +9,39 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 @Entity
-@table(name="Role")
+@Table(name="Roles")
 public class Role implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
-	@Column(name="ROLE_ID")
+	@Column(name="Role_Id")
 	private String id;
 	
-	@Column(name="NAME")
+	@Column(name="Name")
 	private String name;
 	
+	@ManyToOne
+	@JoinColumn(name = "Member_Id")
+	private Member member;
+		
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
+		
 	public String getId() {
 		return id;
 	}

@@ -24,46 +24,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="form")
+@Table(name="forms")
 public class Form implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE)
-	@Column(name="FORM_ID")
+	@Column(name="Form_Id", unique = true, nullable = false)
 	private Integer id;
 	
-	@Column(name="TITLE")
+	@Column(name="Title", length=40)
 	private String title;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="Description", length=100)
 	private String description;
 	
-	@Column(name="CREATED_DATE")
+	@Column(name="Created_Date")
 	private Date createdDate;
 	
-	@Column(name="MODIFIED_DATE")
+	@Column(name="Modified_Date")
 	private Date modifiedDate;
 	
-	@Column(name="SUBMISSION_DATE")
-	private Date submitDate;
+	@Column(name="Submission_Date")
+	private Date submitDate;	
 	
-	@ManyToOne
-	@JoinColumn(name = "MEMBER_ID")
-	private Member ownedBy;
-	
-	@ManyToOne
-	@JoinColumn(name = "ROLE_ID")
-	private Role roles;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "form")
-	@Column(name="PAGES")	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="form")
+	@Column(name="Pages")	
 	private List<Page> pages;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="form")
+	private Member ownedBy;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Role currentMemberRole;
 	
 	public List<Page> getPages() {
 		return pages;
@@ -112,11 +112,5 @@ public class Form implements Serializable{
 	}
 	public void setOwnedBy(Member ownedBy) {
 		this.ownedBy = ownedBy;
-	}
-	public Role getRoles() {
-		return roles;
-	}
-	public void setRoles(Role roles) {
-		this.roles = roles;
-	}
+	}	
 }
