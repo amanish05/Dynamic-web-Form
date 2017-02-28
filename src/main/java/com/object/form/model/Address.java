@@ -55,16 +55,17 @@ public class Address implements Serializable{
 	@Column(name="Country", length=30)
 	private String country;
 	
+	@ManyToOne
+	@JoinColumn(name = "Member_Id")
+	private Member member;
+	
 	public Member getMember() {
 		return member;
 	}
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	@ManyToOne
-	@JoinColumn(name = "Member_Id")
-	private Member member;
-
+	
 	public String getId() {
 		return id;
 	}

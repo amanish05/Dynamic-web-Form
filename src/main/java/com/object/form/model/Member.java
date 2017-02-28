@@ -48,7 +48,7 @@ public class Member implements Serializable{
 	@Column(name="Email")
 	private String email;
 	
-	@Column(name="Passcode", columnDefinition = "varchar2(30)")
+	@Column(name="Passcode", columnDefinition = "varchar(30)")
 	private char[] passcode;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "member")
