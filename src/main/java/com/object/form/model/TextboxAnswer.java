@@ -1,4 +1,4 @@
-package objectform.model;
+package com.object.form.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

@@ -31,7 +31,6 @@ public class Textbox extends FormElement{
 	private Integer size;
 	
 	@OneToOne
-	@Column(name = "textbox_answer")
 	private TextboxAnswer textboxAnswer;
 	
 	public String getValue() {

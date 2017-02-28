@@ -1,5 +1,5 @@
 /*
- * Textarea class handles the text area aspect of forms.
+ * Text area class handles the text area aspect of forms.
  */
 package com.object.form.model;
 
@@ -34,7 +34,6 @@ public class Textarea extends FormElement{
 	private Integer maxLength;
 	
 	@OneToOne
-	@Column(name = "textarea_answer")
 	private TextareaAnswer textareaAnswer;
 	
 	public String getTextValue() {

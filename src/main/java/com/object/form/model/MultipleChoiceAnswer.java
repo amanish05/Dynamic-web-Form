@@ -1,6 +1,5 @@
-package objectform.model;
+package com.object.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "multiplechoiceanswers")
-public class MultipleChoiceAnswer implements Serializable{
+public class MultipleChoiceAnswer extends Answer{
 	
 	private static final long serialVersionUID = 1L;
 	

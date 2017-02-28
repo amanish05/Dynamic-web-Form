@@ -29,11 +29,9 @@ public class MultipleChoice extends FormElement{
 	private MultipleChoiceType choiceType;
 	
 	@OneToMany
-	@Column(name = "choices")
 	private List<Choice> choices;
 	
 	@OneToMany
-	@Column(name = "multiple_answers")
 	private List<MultipleChoiceAnswer> multiAnswers;
 	
   public Integer getNumberOfAllowedSelect() {

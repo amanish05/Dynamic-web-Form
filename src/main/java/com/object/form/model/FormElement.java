@@ -23,8 +23,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -54,20 +54,17 @@ public abstract class FormElement implements Serializable {
 	boolean isMultipleAnswerAllowed;
 	
 	@ManyToOne
-	@Column(name = "form")
 	private Form form;
 	
-	@OneToMany
-	@Column(name = "answers")
+	@ManyToMany
 	private List<Answer> answers;
 	
 	@ManyToOne
-	@Column(name = "pages")
 	private Page pages;
 	
-	@OneToOne
-	@Column(name = "pdf_element")
-	private PDFElement pdfElement;
+//	@OneToOne
+//	@Column(name = "pdf_element")
+//	private PDFElement pdfElement;
 	
 	public Integer getId() {
 		return id;
@@ -81,12 +78,12 @@ public abstract class FormElement implements Serializable {
 	public void setPages(Page pages) {
 		this.pages = pages;
 	}
-	public PDFElement getPdfElement() {
-		return pdfElement;
-	}
-	public void setPdfElement(PDFElement pdfElement) {
-		this.pdfElement = pdfElement;
-	}
+//	public PDFElement getPdfElement() {
+//		return pdfElement;
+//	}
+//	public void setPdfElement(PDFElement pdfElement) {
+//		this.pdfElement = pdfElement;
+//	}
 	public List<Answer> getAnswers() {
 		return answers;
 	}

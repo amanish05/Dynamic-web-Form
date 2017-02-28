@@ -22,11 +22,9 @@ public class GroupElement implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "group_element_id")
 	private Integer id;
 	
 	@OneToMany
-	@Column(name = "group_form_elements")
 	private List<FormElement> groupFormElements;
 
 	public Integer getId() {
