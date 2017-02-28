@@ -1,31 +1,36 @@
-package objectform.model;
+package com.object.form.model;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 //using table per concrete class inheritance strategy
 
-@MappedSuperclass
+@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Answer {
+public abstract class Answer implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private String id;
 	
 	private Member user;
 	
-	@OneToMany
+	@ManyToOne
 	private Form form;
 	
 	@ManyToMany
-	private FormElement formElements;
+	private List<FormElement> formElements;
 	
 	public String getId() {
 		return id;
@@ -45,10 +50,11 @@ public abstract class Answer {
 	public void setForm(Form form) {
 		this.form = form;
 	}
-	public FormElement getFormElements() {
+	public List<FormElement> getFormElements() {
 		return formElements;
 	}
-	public void setFormElements(FormElement formElements) {
+	public void setFormElements(List<FormElement> formElements) {
 		this.formElements = formElements;
 	}
+	
 }
