@@ -15,17 +15,37 @@ package com.object.form.model;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+@table(name= "Member")
 public class Member implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue
+	@Column(name="MEMBER_ID")
 	private String id;
+	
+	@Column(name="FIRST_NAME")
 	private String firstName;
+	
+	@Column(name="LAST_NAME")
 	private String lastName;
+	
+	@Column(name="MIDDLE_NAME")
 	private String middleName;
+	
+	@Column(name="EMAIL")
 	private String email;
+	
+	@OneToMany
+	@JoinColumn(name = "FORM_ID")
 	private Address address;
+	
+	@Column(type="string", name="PASSCODE")	
 	private char[] passcode;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="Member")
+	@Column(name="ROLES")
 	private Role roles;
 	
 	public String getId() {
