@@ -10,11 +10,12 @@ package com.object.form.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="datetext")
+@DiscriminatorValue("DateText")
 public class DateText extends FormElement{
 	
 	private static final long serialVersionUID = 1L;

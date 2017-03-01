@@ -6,33 +6,31 @@
  */
 package com.object.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class GroupElement implements Serializable{
+@DiscriminatorValue("Group")
+public class GroupElement extends FormElement{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue
-	private Integer id;
-	
-	@OneToMany
+	@ManyToMany
 	private List<FormElement> groupFormElements;
+	
+	@Column(name="group_Id")
+	private int groupId;
 
-	public Integer getId() {
-		return id;
+	public int getGroupId() {
+		return groupId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
 	public List<FormElement> getGroupFormElements() {

@@ -8,12 +8,12 @@
 package com.object.form.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="textbox")
+@DiscriminatorValue("TextBox")
 public class Textbox extends FormElement{
 
 	private static final long serialVersionUID = 1L;
@@ -29,9 +29,6 @@ public class Textbox extends FormElement{
 	
 	@Column(name = "size")
 	private Integer size;
-	
-	@OneToOne
-	private TextboxAnswer textboxAnswer;
 	
 	public String getValue() {
 		return Value;
@@ -56,12 +53,6 @@ public class Textbox extends FormElement{
 	}
 	public void setSize(Integer size) {
 		this.size = size;
-	}
-	public TextboxAnswer getTextboxAnswer() {
-		return textboxAnswer;
-	}
-	public void setTextboxAnswer(TextboxAnswer textboxAnswer) {
-		this.textboxAnswer = textboxAnswer;
 	}
 
 }

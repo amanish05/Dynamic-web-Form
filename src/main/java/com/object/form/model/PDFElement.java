@@ -8,12 +8,25 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+@Entity
 public class PDFElement implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	@Column(name="pdfElement_Id")
 	private Integer id;
-	private Integer name;
+	
+	@Column(name="name")
+	private String name;
+	
+	@OneToOne
 	private FormElement formElement;
 	
 	public Integer getId() {
@@ -22,10 +35,10 @@ public class PDFElement implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getName() {
+	public String getName() {
 		return name;
 	}
-	public void setName(Integer name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public FormElement getFormElement() {

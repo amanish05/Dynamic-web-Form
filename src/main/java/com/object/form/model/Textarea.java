@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="textarea")
+@DiscriminatorValue("TextArea")
 public class Textarea extends FormElement{
 	
 	private static final long serialVersionUID = 1L;
@@ -32,9 +32,6 @@ public class Textarea extends FormElement{
 	
 	@Column(name = "max_length")
 	private Integer maxLength;
-	
-	@OneToOne
-	private TextareaAnswer textareaAnswer;
 	
 	public String getTextValue() {
 		return textValue;
@@ -71,12 +68,6 @@ public class Textarea extends FormElement{
 	}
 	public void setMaxLength(Integer maxLength) {
 		this.maxLength = maxLength;
-	}
-	public TextareaAnswer getTextareaAnswer() {
-		return textareaAnswer;
-	}
-	public void setTextareaAnswer(TextareaAnswer textareaAnswer) {
-		this.textareaAnswer = textareaAnswer;
 	}
 	
 }

@@ -23,6 +23,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -36,7 +37,7 @@ public class Form implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE)
-	@Column(name="Form_Id", unique = true, nullable = false)
+	@Column(name="Id", unique = true, nullable = false)
 	private Integer id;
 	
 	@Column(name="Title", length=40)
@@ -58,7 +59,8 @@ public class Form implements Serializable{
 	@Column(name="Pages")	
 	private List<Page> pages;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy="form")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="ownerId")
 	private Member ownedBy;
 	
 	@OneToOne(cascade = CascadeType.ALL)

@@ -20,9 +20,6 @@ public class Choice implements Serializable{
 	
 	private String text;
 	
-	@ManyToOne
-	private MultipleChoiceAnswer multipleChoiceAnswers;
-	
 	public String getId() {
 		return id;
 	}

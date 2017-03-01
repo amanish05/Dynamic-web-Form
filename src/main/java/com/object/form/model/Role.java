@@ -31,17 +31,7 @@ public class Role implements Serializable{
 	@Column(name="Name")
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(name = "Member_Id")
-	private Member member;
-		
-	public Member getMember() {
-		return member;
-	}
-	public void setMember(Member member) {
-		this.member = member;
-	}
-		
+	
 	public String getId() {
 		return id;
 	}
