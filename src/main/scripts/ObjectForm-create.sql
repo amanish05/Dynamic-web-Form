@@ -72,3 +72,15 @@ VALUES('1', '100', '1', 'text area test');
 //Text Box Answer insert
 INSERT INTO textboxanswers(id, user, form_Form_Id, value)
 VALUES('1', '100', '1', 'text box test');
+
+//Text Box for Name Of Applicant
+INSERT INTO FormElement(id, name, title, value)
+VALUES(1, 'Name', 'NAME OF APPLICANT (Last, First, Middle):', 'Trump, Donald, John')
+
+//DateText for Date of Birth
+INSERT INTO FormElement(id, name, title, date_format, value)
+VALUES(2, 'Date', 'DATE OF BIRTH (Mo./Day/Year):', 'mm/dd/yyyy', '06/14/1946')
+
+//Text Box for Place of Birth
+INSERT INTO FormElement(id, name, title, value)
+VALUES(3, 'PlaceOfBirth', 'PLACE OF BIRTH (City and Country):', )
