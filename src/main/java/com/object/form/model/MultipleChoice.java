@@ -22,7 +22,7 @@ public class MultipleChoice extends FormElement{
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "number_of_allowed_select")
-	private Integer numberOfAllowedSelect;
+	private int numberOfAllowedSelect;
 	
 	@Column(name = "multiple_choice_type")
 	private int choiceType;

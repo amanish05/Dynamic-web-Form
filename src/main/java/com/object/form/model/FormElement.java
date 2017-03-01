@@ -45,7 +45,7 @@ public abstract class FormElement implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
-	private Integer id;
+	private int id;
 	
 	@Column(name = "title")
 	private String title;

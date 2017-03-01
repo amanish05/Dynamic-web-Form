@@ -34,7 +34,7 @@ public class Member implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name="Id")
-	private String id;
+	private Integer id;
 	
 	@Column(name="First_Name")
 	private String firstName;
@@ -60,10 +60,10 @@ public class Member implements Serializable{
     inverseJoinColumns=@JoinColumn(name="role_id"))
 	private List<Role> roles;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFirstName() {
