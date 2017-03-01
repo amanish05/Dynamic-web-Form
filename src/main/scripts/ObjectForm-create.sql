@@ -45,3 +45,30 @@ INSERT INTO public.addresses(
 INSERT INTO public.roles(
             role_id, name, member_id)
     VALUES ('3', 'User', '3');
+
+
+//Answer and Form Elements table insert
+INSERT INTO Answer_FormElement(Answer_id, formElements_form_element_id)
+VALUES('1', 1);
+
+//Form Elements and Answer table insert
+INSERT INTO FormElement_Answer(FormElement_form_element_id, answers_id)
+VALUES(1, '1');
+
+//Multiple Choice and Multiple Choice Answer Table insert
+INSERT INTO multiplechoice_multiplechoiceanswers(MultipleChoice_form_element_id, multiAnswers_id) VALUES(1, '1');
+
+//Multiple Choice Answer table insert
+INSERT INTO multiplechoiceanswers(id, user, form_Form_Id) 
+VALUES('1', '100', '1');
+
+//Multiple Choice Answer and Choices Table insert
+INSERT INTO multiplechoiceanswers_choices(MultipleChoiceAnswer_id, choiceAnswers_id) VALUES('1', '1');
+
+//Text Area Answer insert
+INSERT INTO textareaanswers(id, user, form_Form_Id, value)
+VALUES('1', '100', '1', 'text area test');
+
+//Text Box Answer insert
+INSERT INTO textboxanswers(id, user, form_Form_Id, value)
+VALUES('1', '100', '1', 'text box test');
