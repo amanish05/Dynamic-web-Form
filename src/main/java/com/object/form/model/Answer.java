@@ -33,12 +33,15 @@ public abstract class Answer implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
-	private String id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "memberId")
 	private Member user;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "formId")
+	private Form form;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "formElement_answers",
@@ -46,10 +49,10 @@ public abstract class Answer implements Serializable{
 		    inverseJoinColumns=@JoinColumn(name="formElement_id"))
 	private List<FormElement> formElements;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Member getUser() {
