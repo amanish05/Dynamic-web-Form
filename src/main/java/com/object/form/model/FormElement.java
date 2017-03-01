@@ -3,7 +3,7 @@
  * 
  * id: a unique identifier
  * title: the title of the element
- * name:
+ * name: the name of the element
  * isRequired: it is a boolean value that determines if the element is mandatory for the form
  * isEnabled:
  * isMultipleAnswerAllowed: this boolean value determines if the element allows multiple values in the element
@@ -14,45 +14,81 @@
  */
 package com.object.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class FormElement {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class FormElement implements Serializable {
 	
-	private String id;
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "form_element_id")
+	private Integer id;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "is_required")
 	private Boolean isRequired;
+	
+	@Column(name = "is_enabled")
 	private Boolean isEnabled;
+	
+	@Column(name = "is_multiple_answer_allowed")
 	boolean isMultipleAnswerAllowed;
+	
+	@ManyToOne
 	private Form form;
+	
+	@ManyToMany
 	private List<Answer> answers;
+	
+	@ManyToOne
 	private Page pages;
-	private PDFElement pdfElement;
 	
+//	@OneToOne
+//	@Column(name = "pdf_element")
+//	private PDFElement pdfElement;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Page getPages() {
 		return pages;
 	}
 	public void setPages(Page pages) {
 		this.pages = pages;
 	}
-	public PDFElement getPdfElement() {
-		return pdfElement;
-	}
-	public void setPdfElement(PDFElement pdfElement) {
-		this.pdfElement = pdfElement;
-	}
+//	public PDFElement getPdfElement() {
+//		return pdfElement;
+//	}
+//	public void setPdfElement(PDFElement pdfElement) {
+//		this.pdfElement = pdfElement;
+//	}
 	public List<Answer> getAnswers() {
 		return answers;
 	}
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getTitle() {
 		return title;

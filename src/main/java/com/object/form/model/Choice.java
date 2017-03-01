@@ -1,19 +1,27 @@
-/*
- * The Choice java class 
- * 
- * id: a unique number that helps identify choices from one another
- * text: the text that the choice contains
- */
 package com.object.form.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "choices")
 public class Choice implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
 	private String id;	
+	
 	private String text;
+	
+	@ManyToOne
+	private MultipleChoiceAnswer multipleChoiceAnswers;
 	
 	public String getId() {
 		return id;
@@ -27,9 +35,5 @@ public class Choice implements Serializable{
 	public void setText(String text) {
 		this.text = text;
 	}
-	
-	
-	
-	
 
 }
