@@ -1,7 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 
     create table Addresses (
-        Id varchar(255) not null,
+        Id int4 not null,
         Area varchar(50),
         City varchar(50),
         Country varchar(30),
@@ -14,20 +14,21 @@ create sequence hibernate_sequence start 1 increment 1;
 
     create table Answer (
         answerType varchar(31) not null,
-        id varchar(255) not null,
+        id int4 not null,
         textarea_value varchar(255),
         textbox_value varchar(255),
-        memberId varchar(255),
+        formId int4,
+        memberId int4,
         primary key (id)
     );
 
     create table Answer_choices (
-        MultipleChoiceAnswer_id varchar(255) not null,
-        choiceAnswers_id varchar(255) not null
+        MultipleChoiceAnswer_id int4 not null,
+        choiceAnswers_id int4 not null
     );
 
     create table choices (
-        id varchar(255) not null,
+        id int4 not null,
         text varchar(255),
         primary key (id)
     );
@@ -60,12 +61,12 @@ create sequence hibernate_sequence start 1 increment 1;
 
     create table formElement_answers (
         formElement_id int4 not null,
-        answer_id varchar(255) not null
+        answer_id int4 not null
     );
 
     create table FormElement_choices (
         MultipleChoice_id int4 not null,
-        choices_id varchar(255) not null
+        choices_id int4 not null
     );
 
     create table FormElement_FormElement (
@@ -80,23 +81,23 @@ create sequence hibernate_sequence start 1 increment 1;
         Modified_Date timestamp,
         Submission_Date timestamp,
         Title varchar(40),
-        ownerId varchar(255),
+        ownerId int4,
         primary key (Id)
     );
 
     create table member_roles (
-        member_id varchar(255) not null,
-        role_id varchar(255) not null
+        member_id int4 not null,
+        role_id int4 not null
     );
 
     create table Members (
-        Id varchar(255) not null,
+        Id int4 not null,
         Email varchar(255),
         First_Name varchar(255),
         Last_Name varchar(255),
         Middle_Name varchar(255),
         Passcode varchar(30),
-        address_Id varchar(255),
+        address_Id int4,
         primary key (Id)
     );
 
@@ -124,12 +125,12 @@ create sequence hibernate_sequence start 1 increment 1;
         pdfForm_Id int4 not null,
         path varchar(255),
         form_Id int4,
-        owner_Id varchar(255),
+        owner_Id int4,
         primary key (pdfForm_Id)
     );
 
     create table Roles (
-        Role_Id varchar(255) not null,
+        Role_Id int4 not null,
         Name varchar(255),
         primary key (Role_Id)
     );
@@ -139,6 +140,11 @@ create sequence hibernate_sequence start 1 increment 1;
 
     alter table FormElement_choices 
         add constraint UK_e27wl75sqvy7w9phqms4so4l unique (choices_id);
+
+    alter table Answer 
+        add constraint FKf6ofc87u4wjyf300c3aisy6el 
+        foreign key (formId) 
+        references forms;
 
     alter table Answer 
         add constraint FK32j5552csr2itnpo37g5ht57f 
