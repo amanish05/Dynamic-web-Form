@@ -1,12 +1,16 @@
 package com.object.form.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "textareaanswers")
+@DiscriminatorValue("TextArea")
 public class TextareaAnswer extends Answer{
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name="textarea_value")
 	private String value;
 
 	public String getValue() {

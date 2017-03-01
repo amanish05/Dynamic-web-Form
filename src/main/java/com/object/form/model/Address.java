@@ -31,7 +31,7 @@ public class Address implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	@Column(name="Address_Id")
+	@Column(name="Id")
 	private String id;
 	
 	@Column(name="House", length=40)
@@ -55,6 +55,7 @@ public class Address implements Serializable{
 	@Column(name="Country", length=30)
 	private String country;
 	
+	/*
 	@ManyToOne
 	@JoinColumn(name = "Member_Id")
 	private Member member;
@@ -65,6 +66,7 @@ public class Address implements Serializable{
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	*/
 	
 	public String getId() {
 		return id;

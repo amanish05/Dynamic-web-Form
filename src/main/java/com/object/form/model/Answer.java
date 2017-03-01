@@ -3,11 +3,17 @@ package com.object.form.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -15,21 +21,29 @@ import javax.persistence.ManyToOne;
 //using table per concrete class inheritance strategy
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="answerType",
+    discriminatorType=DiscriminatorType.STRING
+)
 public abstract class Answer implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
+	@Column(name = "id")
 	private String id;
 	
+	@ManyToOne
+	@JoinColumn(name = "memberId")
 	private Member user;
 	
-	@ManyToOne
-	private Form form;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name = "formElement_answers",
+		    joinColumns=@JoinColumn(name = "answer_id"),
+		    inverseJoinColumns=@JoinColumn(name="formElement_id"))
 	private List<FormElement> formElements;
 	
 	public String getId() {
@@ -43,12 +57,6 @@ public abstract class Answer implements Serializable{
 	}
 	public void setUser(Member user) {
 		this.user = user;
-	}
-	public Form getForm() {
-		return form;
-	}
-	public void setForm(Form form) {
-		this.form = form;
 	}
 	public List<FormElement> getFormElements() {
 		return formElements;
