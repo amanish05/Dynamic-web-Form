@@ -15,18 +15,56 @@ package com.object.form.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Addresses")
 public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	@Column(name="Address_Id")
 	private String id;
+	
+	@Column(name="House", length=40)
 	private String house;
+	
+	@Column(name="Street", length=40)
 	private String street;
+	
+	@Column(name="Area", length=50)
 	private String area;
+	
+	@Column(name="City", length=50)
 	private String city;
-	private Integer pin;
+	
+	@Column(name="Zip_Code", length=10)
+	private Integer zip;
+	
+	@Column(name="State", length=40)
 	private String state;
+	
+	@Column(name="Country", length=30)
 	private String country;
+	
+	@ManyToOne
+	@JoinColumn(name = "Member_Id")
+	private Member member;
+	
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
 	
 	public String getId() {
 		return id;
@@ -58,11 +96,12 @@ public class Address implements Serializable{
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Integer getPin() {
-		return pin;
+	
+	public Integer getZip() {
+		return zip;
 	}
-	public void setPin(Integer pin) {
-		this.pin = pin;
+	public void setZip(Integer zip) {
+		this.zip = zip;
 	}
 	public String getState() {
 		return state;

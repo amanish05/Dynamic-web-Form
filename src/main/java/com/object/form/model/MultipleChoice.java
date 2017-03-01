@@ -10,12 +10,29 @@ package com.object.form.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 // Multiple choice questions
-public class MultipleChoice extends  FormElement{
+@Entity
+@Table(name="multiplechoice")
+public class MultipleChoice extends FormElement{
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "number_of_allowed_select")
 	private Integer numberOfAllowedSelect;
+	
+	@Column(name = "multiple_choice_type")
 	private MultipleChoiceType choiceType;
+	
+	@OneToMany
 	private List<Choice> choices;
+	
+	@OneToMany
+	private List<MultipleChoiceAnswer> multiAnswers;
 	
   public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
@@ -35,4 +52,11 @@ public class MultipleChoice extends  FormElement{
 	public void setChoices(List<Choice> choices) {
 		this.choices = choices;
 	}
+	public List<MultipleChoiceAnswer> getMultiAnswers() {
+		return multiAnswers;
+	}
+	public void setMultiAnswers(List<MultipleChoiceAnswer> multiAnswers) {
+		this.multiAnswers = multiAnswers;
+	}
+	
 }

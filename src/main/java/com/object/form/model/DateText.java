@@ -9,11 +9,21 @@ package com.object.form.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="datetext")
 public class DateText extends FormElement{
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "default_date")
 	private Date defaultDate;
+	
+	@Column(name = "date_format")
 	private String dateFormat;
-	private Form form;
 	
 	public Date getDefaultDate() {
 		return defaultDate;
@@ -27,10 +37,5 @@ public class DateText extends FormElement{
 	public void setDateFormat(String dateFormat) {
 		this.dateFormat = dateFormat;
 	}
-	public Form getForm() {
-		return form;
-	}
-	public void setForm(Form form) {
-		this.form = form;
-	}
+	
 }

@@ -7,12 +7,31 @@
  */
 package com.object.form.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="textbox")
 public class Textbox extends FormElement{
 
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "value")
 	private String Value;
+	
+	@Column(name = "default_value")
 	private String defaultValue;
+	
+	@Column(name = "max_length")
 	private Integer maxLength;
+	
+	@Column(name = "size")
 	private Integer size;
+	
+	@OneToOne
+	private TextboxAnswer textboxAnswer;
 	
 	public String getValue() {
 		return Value;
@@ -38,4 +57,11 @@ public class Textbox extends FormElement{
 	public void setSize(Integer size) {
 		this.size = size;
 	}
+	public TextboxAnswer getTextboxAnswer() {
+		return textboxAnswer;
+	}
+	public void setTextboxAnswer(TextboxAnswer textboxAnswer) {
+		this.textboxAnswer = textboxAnswer;
+	}
+
 }
