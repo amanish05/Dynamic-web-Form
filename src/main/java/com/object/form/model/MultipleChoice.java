@@ -14,7 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("MultipleChoice")
@@ -23,7 +22,7 @@ public class MultipleChoice extends FormElement{
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "number_of_allowed_select")
-	private Integer numberOfAllowedSelect;
+	private int numberOfAllowedSelect;
 	
 	@Column(name = "multiple_choice_type")
 	private int choiceType;
