@@ -72,3 +72,77 @@ VALUES('1', '100', '1', 'text area test');
 //Text Box Answer insert
 INSERT INTO textboxanswers(id, user, form_Form_Id, value)
 VALUES('1', '100', '1', 'text box test');
+
+// *** Form for fields 1-9
+INSERT INTO forms(id, Description, Title, ownerId)
+VALUES(1, 'Divorce Papers', 'CONSULAR PROCESSING GENERAL INFORMATION', 1)
+
+// 1. Text Box for Name Of Applicant
+INSERT INTO FormElement(id, name, title, value)
+VALUES(1, 'name', 'NAME OF APPLICANT (Last, First, Middle):', 'Trump, Donald, John')
+
+// 2. DateText for Date of Birth
+INSERT INTO FormElement(id, name, title, date_format, value)
+VALUES(2, 'date', 'DATE OF BIRTH (Mo./Day/Year):', 'mm/dd/yyyy', '06/14/1946')
+
+// 3. Text Box for Place of Birth
+INSERT INTO FormElement(id, name, title, value)
+VALUES(3, 'placeOfbirth', 'PLACE OF BIRTH (City and Country):', 'New York, United States of America')
+
+// 4. Text Box for Nationality
+INSERT INTO FormElement(id, name, title, value)
+VALUES(4, 'nationality', 'NATIONALITY:', 'American')
+
+// 5. Group Element with Text Boxes for Contact Information
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(5, 'priphonenumber', 'Primary Phone Number:', '(111) 111-1111', 1)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(6, 'secphonenumber', 'Secondary Phone Number:', '(222) 222-2222', 1)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(7, 'workphonenumber', 'Work Phone Number:', '(333) 333-3333', 1)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(8, 'email', 'Email Address:', 'donaldjtrump@gmail.com', 1)
+
+// 6. Group Element with Text Boxes for Current Residence
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(9, 'homeaddress', 'Street Address:', '123 Fake Street', 2)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(10, 'hcity', 'City:', 'Los Angeles', 2)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(11, 'hstate', 'State:', 'CA', 2)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(12, 'hzip', 'Zip:', '11111', 2)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(13, 'hcountry', 'Country:', 'USA', 2)
+
+// 7. Group Element with Text Boxes and Date Texts for Current Occupation
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(14, 'companyname','Company Name:', 'Donald Trump', 3)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(15, 'companyaddress', 'Street Address:', '123 Real Street', 3)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(16, 'citystate', 'City/State:', 'Los Angeles, CA' 3)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(17, 'companyzip', 'Zip/ Postal Code (If any):', '12345', 3)
+INSERT INTO FormElement(id, name, title, value, group_Id)
+VALUES(18, 'occupation', 'Occupation:', 'Freeloader', 3)
+INSERT INTO FormElement(id, name, title, date_format, value, group_Id)
+VALUES(19, 'comstartdate', 'From (Mo./Day/Year):', 'mm/dd/yyyy', '01/01/1946', 3)
+INSERT INTO FormElement(id, name, title, date_format, value, group_Id)
+VALUES(20, 'comenddate', 'To (Mo./Day/Year):', 'mm/dd/yyyy', '03/01/2017', 3)
+
+// 8. Multiple Choice for Marital Status
+INSERT INTO choices(id, text)
+VALUES(1, 'Single')
+INSERT INTO choices(id, text)
+VALUES(2, 'Married')
+INSERT INTO choices(id, text)
+VALUES(3, 'Divorced')
+INSERT INTO choices(id, text)
+VALUES(4, 'Widowed')
+INSERT INTO FormElement(id, name, title, multiple_choice_type, number_of_allowed_select)
+VALUES(21, 'martialstatus', 'MARITAL STATUS:', 'RadioButton', 1)
+
+// 9. Text Box for Number of Marriages
+INSERT INTO FormElement(id, name, title, value)
+VALUES(22, 'numofmarriages', 'HOW MANY TIMES HAVE YOU BEEN MARRIED?', '500 times')
