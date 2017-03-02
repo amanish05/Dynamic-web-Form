@@ -37,7 +37,9 @@
         primary key (id)
     );
     
+
     CREATE UNIQUE INDEX "ANSWER_UNIQUE" ON Answer (id);
+
     --------------------------------------------------------
 	--  Constraints for Table Answer
 	--------------------------------------------------------
@@ -57,7 +59,9 @@
         MultipleChoiceAnswer_id int4 not null,
         choiceAnswers_id int4 not null
     );
+
     CREATE UNIQUE INDEX "ANSWER-CHOICES_UNIQUE" ON Answer (id);
+
     --------------------------------------------------------
 	--  Constraints for Table Answer_choices
 	--------------------------------------------------------
@@ -88,7 +92,9 @@
 --  DDL for Table FormElement
 --------------------------------
 
-    create table FormElement (
+
+    create table FormElement 
+    (
         elementType varchar(31) not null,
         id int4 not null,
         is_enabled boolean,
@@ -97,14 +103,12 @@
         name varchar(255),
         title varchar(255),
         group_Id int4,
-        value varchar(255),
         default_value varchar(255),
         max_length int4,
         size int4,
         column_value int4,
         min_length int4,
         row_value int4,
-        text_value varchar(255),
         date_format varchar(255),
         default_date timestamp,
         multiple_choice_type int4,
@@ -339,47 +343,50 @@
     );
 
  
-    
-    
-
 --------------------------------------------------------
 --  Add three users: one administrator, one staff, and one regular user.
 --------------------------------------------------------
 
 --FIRST MEMBER
-INSERT INTO members(id, email, first_name, last_name, middle_name, passcode)
-    VALUES ('1', 'test@test.com', 'Manish', '', 'Kumar', 'Xyz@123');
-
 INSERT INTO addresses(id, area, city, country, house, state, street, zip_code)
-    VALUES ('1', 'College Square', 'Los Angeles', 'United States', '3', 'CA', 'Street', '90032');
+    VALUES ('1', 'College Square', 'Los Angeles', 'United States', '1', 'CA', 'Street', '90032');
+    
+INSERT INTO members(id, email, first_name, last_name, middle_name, passcode,address_ID)
+    VALUES ('1', 'm.vahedi@gmail.com', 'Mohammad', 'Vahedi', '', 'Xyz@123',1);
 
 INSERT INTO roles(role_id, name)
     VALUES ('1', 'Admin');
     
-    
+INSERT INTO member_roles(member_id, role_id)
+    VALUES ('1', '1');
+        
 --SECOND MEMBER
-INSERT INTO members(id, email, first_name, last_name, middle_name, passcode)
-    VALUES ('2', 'test@test.com', 'Kumar', '', 'Manish', 'Xyz@123');
-
 INSERT INTO addresses(id, area, city, country, house, state, street, zip_code)
-    VALUES ('2', 'College Square', 'Los Angeles', 'United States', '3', 'CA', 'Street', '90032');
+    VALUES ('2', 'College Square', 'Los Angeles', 'United States', '2', 'CA', 'Street', '90032');
+    
+INSERT INTO members(id, email, first_name, last_name, middle_name, passcode,address_Id)
+    VALUES ('2', 'mkumar4@calstatela.edu', 'Manish', 'Kumar', '', 'Xyz@123','2');
 
 INSERT INTO roles(role_id, name)
     VALUES ('2', 'Staff');
     
-    
---THIRD MEMBER
-INSERT INTO members(id, email, first_name, last_name, middle_name, passcode)
-    VALUES ('3', 'test@test.com', 'Manish', '', 'Kumar', 'Xyz@123');
+INSERT INTO member_roles(member_id, role_id)
+    VALUES ('2', '2');    
 
+
+--THIRD MEMBER
 INSERT INTO addresses(id, area, city, country, house, state, street, zip_code)
     VALUES ('3', 'College Square', 'Los Angeles', 'United States', '3', 'CA', 'Street', '90032');
+
+INSERT INTO members(id, email, first_name, last_name, middle_name, passcode, address_Id)
+    VALUES ('3', 'test@test.com', 'Steve', 'James', '', 'Xyz@123','3');
 
 INSERT INTO roles( role_id, name)
     VALUES ('3', 'User');
     
-
-    
+INSERT INTO member_roles(member_id, role_id)
+    VALUES ('3', '3');    
+   
     
 
 ------------------------------------------------------------------------
@@ -391,71 +398,71 @@ INSERT INTO forms(id, Description, Title, ownerId)
 VALUES(1, 'Divorce Papers', 'CONSULAR PROCESSING GENERAL INFORMATION', 1);
     
 -- 1. Text Box for Name Of Applicant
-INSERT INTO FormElement(elementType, id, name, title, value)
-	VALUES('TextBox', 01, 'name', 'NAME OF APPLICANT (Last, First, Middle):', 'Trump, Donald, John');
+INSERT INTO FormElement(elementType, id, name, title)
+	VALUES('TextBox', 01, 'name', 'NAME OF APPLICANT (Last, First, Middle):');
 
 -- 2. DateText for Date of Birth
 INSERT INTO FormElement(elementType, id, name, title, date_format, value)
 	VALUES('DateText', 02, 'date', 'DATE OF BIRTH (Mo./Day/Year):', 'mm/dd/yyyy', '06/14/1946');
 
 -- 3. Text Box for Place of Birth
-INSERT INTO FormElement(elementType, id, name, title, value)
-	VALUES('TextBox', 03, 'placeOfbirth', 'PLACE OF BIRTH (City and Country):', 'New York, United States of America');
+INSERT INTO FormElement(elementType, id, name, title)
+	VALUES('TextBox', 03, 'placeOfbirth', 'PLACE OF BIRTH (City and Country):');
 
 -- 4. Text Box for Nationality
-INSERT INTO FormElement(elementType, id, name, title, value)
-	VALUES('TextBox', 04, 'nationality', 'NATIONALITY:', 'American');
+INSERT INTO FormElement(elementType, id, name, title)
+	VALUES('TextBox', 04, 'nationality', 'NATIONALITY:');
 
 -- 5. Group Element with Text Boxes for Contact Information
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 05, 'priphonenumber', 'Primary Phone Number:', '(111) 111-1111', 1);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 05, 'priphonenumber', 'Primary Phone Number:', 1);
 
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 06, 'secphonenumber', 'Secondary Phone Number:', '(222) 222-2222', 1);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 06, 'secphonenumber', 'Secondary Phone Number:', 1);
 
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 07, 'workphonenumber', 'Work Phone Number:', '(333) 333-3333', 1);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 07, 'workphonenumber', 'Work Phone Number:', 1);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 08, 'email', 'Email Address:', 'donaldjtrump@gmail.com', 1);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 08, 'email', 'Email Address:', 1);
 
 -- 6. Group Element with Text Boxes for Current Residence
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 09, 'homeaddress', 'Street Address:', '123 Fake Street', 2);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 09, 'homeaddress', 'Street Address:', 2);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 10, 'hcity', 'City:', 'Los Angeles', 2);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 10, 'hcity', 'City:', 2);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 11, 'hstate', 'State:', 'CA', 2);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 11, 'hstate', 'State:', 2);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 12, 'hzip', 'Zip:', '11111', 2);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 12, 'hzip', 'Zip:', 2);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 13, 'hcountry', 'Country:', 'USA', 2);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 13, 'hcountry', 'Country:', 2);
 
 -- 7. Group Element with Text Boxes and Date Texts for Current Occupation
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 14, 'companyname','Company Name:', 'Donald Trump', 3);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 14, 'companyname','Company Name:', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 15, 'companyaddress', 'Street Address:', '123 Real Street', 3);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 15, 'companyaddress', 'Street Address:', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 16, 'citystate', 'City/State:', 'Los Angeles, CA', 3);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 16, 'citystate', 'City/State:', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 17, 'companyzip', 'Zip/ Postal Code (If any):', '12345', 3);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 17, 'companyzip', 'Zip/ Postal Code (If any):', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, value, group_Id)
-	VALUES('TextBox', 18, 'occupation', 'Occupation:', 'Freeloader', 3);
+INSERT INTO FormElement(elementType, id, name, title, group_Id)
+	VALUES('TextBox', 18, 'occupation', 'Occupation:', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, date_format, value, group_Id)
-	VALUES('DateText', 19, 'comstartdate', 'From (Mo./Day/Year):', 'mm/dd/yyyy', '01/01/1946', 3);
+INSERT INTO FormElement(elementType, id, name, title, date_format, group_Id)
+	VALUES('DateText', 19, 'comstartdate', 'From (Mo./Day/Year):', 'mm/dd/yyyy', 3);
 	
-INSERT INTO FormElement(elementType, id, name, title, date_format, value, group_Id)
-	VALUES('DateText', 20, 'comenddate', 'To (Mo./Day/Year):', 'mm/dd/yyyy', '03/01/2017', 3);
+INSERT INTO FormElement(elementType, id, name, title, date_format, group_Id)
+	VALUES('DateText', 20, 'comenddate', 'To (Mo./Day/Year):', 'mm/dd/yyyy', 3);
 
 -- 8. Multiple Choice for Marital Status
 INSERT INTO choices(id, text)
@@ -474,8 +481,8 @@ INSERT INTO FormElement(elementType, id, name, title, multiple_choice_type, numb
 	VALUES('MultipleChoice', 21, 'martialstatus', 'MARITAL STATUS:', 1, 1);
 
 -- 9. Text Box for Number of Marriages
-INSERT INTO FormElement(elementType, id, name, title, value)
-	VALUES('TextBox', 22, 'numofmarriages', 'HOW MANY TIMES HAVE YOU BEEN MARRIED?', '500 times');
+INSERT INTO FormElement(elementType, id, name, title)
+	VALUES('TextBox', 22, 'numofmarriages', 'HOW MANY TIMES HAVE YOU BEEN MARRIED?');
 	
 	
 ------------------------------------------------------------------------
@@ -483,71 +490,139 @@ INSERT INTO FormElement(elementType, id, name, title, value)
 ------------------------------------------------------------------------
 
 -- TextBox Answer Insert
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 81, 1, 1, 'Trump, Donald, John');
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 1,,,'Hopkins,Steven', 1,3);
 	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 82, 1, 1, 'New York, United States of America');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 83, 1, 1, 'American');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 84, 1, 1, '(111) 111-1111');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 85, 1, 1, '(222) 222-2222');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 86, 1, 1, '(333) 333-3333');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 87, 1, 1, 'donaldjtrump@gmail.com');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 88, 1, 1, '123 Fake Street');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 89, 1, 1, 'Los Angeles');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 90, 1, 1, 'CA');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 91, 1, 1, '11111');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 92, 1, 1, 'USA');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 93, 1, 1, 'Donald Trump');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 94, 1, 1, '123 Real Street');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 95, 1, 1, 'Los Angeles, CA');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 96, 1, 1, '12345');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 97, 1, 1, 'Freeloader');
-	
-INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
-	VALUES('TextBox', 98, 1, 1, '500 times');
-	
--- Form Elements and Answer table insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('TextArea', 2, 1, 1);
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(1,1)	
 
--- Multiple Choice and Multiple Choice Answer Table insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('MultipleChoice', 3, 1, 1);
-	
-INSERT INTO Answer_choices(MultipleChoiceAnswer_id, choiceAnswers_id)
-	VALUES(3, 2);
 
--- Text Area Answer insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('TextArea', 6, 1, 1);
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextDateA', 2,'09/23/1985',,, 1, 3);
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(2,2)	
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 3,,,'Los Angeles, United States', 1, 3);
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(3,3)	
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 4,,,'American', 1, 3);
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(4,4)
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 5,,,'(606)-432-2223', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(6,5)	
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 6,,,'(606)-563-8732', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(7,6)
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 7,,,'(324)-621-6547', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(8,7)
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 8,,,'steven12@yahoo.com', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(9,8)
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 9,,,'12 Fare Oaks', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(11,9)	
+
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 10,,,'Passadena', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(12,10)	
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 11,,,'California', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(13,11)	
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 12,,,'90122', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(14,12)		
+			
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 13,,,'United States', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(15,13)
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 14,,,'Hido Co.', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(17,14)						
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 15,,,'22 Fare Oaks', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(18,15)
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 16,,,'Passadena', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(19,16)			
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 17,,,'90101', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(20,17)				
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 18,,,'Software Engineer', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(21,18)
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 19,'01/01/2015',,, 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(22,19)							
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 20,'01/12/2016',,, 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(23,20)		
+	
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('MultipleChoice', 21,,,, 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(24,21)		
+	
+INSERT INTO Answer_choices(MultipleChoiceAnswer_id,choiceAnswer_id)
+	VALUES(21,2)		
+
+INSERT INTO Answer(answerType, id, date_value, textarea_value, textbox_value ,formId, memberId)
+	VALUES('TextBox', 22,,,'One', 1, 3);	
+
+INSERT INTO formElement_answers(formElement_id,answer_id)
+	VALUES(25,22)

@@ -13,9 +13,6 @@ public class Textarea extends FormElement{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "text_value")
-	private String textValue;
-	
 	@Column(name = "default_value")
 	private String defaultValue;
 	
@@ -31,12 +28,7 @@ public class Textarea extends FormElement{
 	@Column(name = "max_length")
 	private Integer maxLength;
 	
-	public String getTextValue() {
-		return textValue;
-	}
-	public void setTextValue(String textValue) {
-		this.textValue = textValue;
-	}
+	
 	public String getDefaultValue() {
 		return defaultValue;
 	}
