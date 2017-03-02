@@ -15,6 +15,7 @@ create sequence hibernate_sequence start 1 increment 1;
     create table Answer (
         answerType varchar(31) not null,
         id int4 not null,
+        date_value timestamp,
         textarea_value varchar(255),
         textbox_value varchar(255),
         formId int4,
