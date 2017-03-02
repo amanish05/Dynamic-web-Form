@@ -19,10 +19,10 @@ public class Textarea extends FormElement{
 	@Column(name = "default_value")
 	private String defaultValue;
 	
-	@Column(name = "column")
+	@Column(name = "column_value")
 	private Integer column;
 	
-	@Column(name = "row")
+	@Column(name = "row_value")
 	private Integer row;
 	
 	@Column(name = "min_length")
