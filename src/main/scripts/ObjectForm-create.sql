@@ -482,10 +482,61 @@ INSERT INTO FormElement(elementType, id, name, title, value)
 --  Add one set of answers to the form by a user.
 ------------------------------------------------------------------------
 
--- Answer and Form Elements table insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('TextBox', 1, 1, 1);
-
+-- TextBox Answer Insert
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 81, 1, 1, 'Trump, Donald, John');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 82, 1, 1, 'New York, United States of America');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 83, 1, 1, 'American');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 84, 1, 1, '(111) 111-1111');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 85, 1, 1, '(222) 222-2222');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 86, 1, 1, '(333) 333-3333');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 87, 1, 1, 'donaldjtrump@gmail.com');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 88, 1, 1, '123 Fake Street');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 89, 1, 1, 'Los Angeles');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 90, 1, 1, 'CA');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 91, 1, 1, '11111');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 92, 1, 1, 'USA');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 93, 1, 1, 'Donald Trump');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 94, 1, 1, '123 Real Street');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 95, 1, 1, 'Los Angeles, CA');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 96, 1, 1, '12345');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 97, 1, 1, 'Freeloader');
+	
+INSERT INTO Answer(answerType, id, formId, memberId, textbox_value)
+	VALUES('TextBox', 98, 1, 1, '500 times');
+	
 -- Form Elements and Answer table insert
 INSERT INTO Answer(answerType, id, formId, memberId)
 	VALUES('TextArea', 2, 1, 1);
@@ -493,19 +544,10 @@ INSERT INTO Answer(answerType, id, formId, memberId)
 -- Multiple Choice and Multiple Choice Answer Table insert
 INSERT INTO Answer(answerType, id, formId, memberId)
 	VALUES('MultipleChoice', 3, 1, 1);
-
--- Multiple Choice Answer table insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('MultipleChoice', 4, 1, 1);
-
--- Multiple Choice Answer and Choices Table insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('MultipleChoice', 5, 1, 1);
+	
+INSERT INTO Answer_choices(MultipleChoiceAnswer_id, choiceAnswers_id)
+	VALUES(3, 2);
 
 -- Text Area Answer insert
 INSERT INTO Answer(answerType, id, formId, memberId)
 	VALUES('TextArea', 6, 1, 1);
-
--- Text Box Answer insert
-INSERT INTO Answer(answerType, id, formId, memberId)
-	VALUES('TextBox', 7, 1, 1);
