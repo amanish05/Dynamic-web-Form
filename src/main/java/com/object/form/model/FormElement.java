@@ -29,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -73,9 +74,8 @@ public abstract class FormElement implements Serializable {
 	@ManyToMany(mappedBy="elements")
 	private List<Page> pages;
 	
-//	@OneToOne
-//	@Column(name = "pdf_element")
-//	private PDFElement pdfElement;
+	@OneToOne
+	private PDFElement pdfElement;
 	
 	public Integer getId() {
 		return id;
@@ -89,12 +89,12 @@ public abstract class FormElement implements Serializable {
 	public void setPages(List<Page> pages) {
 		this.pages = pages;
 	}
-//	public PDFElement getPdfElement() {
-//		return pdfElement;
-//	}
-//	public void setPdfElement(PDFElement pdfElement) {
-//		this.pdfElement = pdfElement;
-//	}
+	public PDFElement getPdfElement() {
+		return pdfElement;
+	}
+	public void setPdfElement(PDFElement pdfElement) {
+		this.pdfElement = pdfElement;
+	}
 	public List<Answer> getAnswers() {
 		return answers;
 	}
