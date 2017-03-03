@@ -1,23 +1,34 @@
 /*
- * Textarea class handles the text area aspect of forms.
+ * Text area class handles the text area aspect of forms.
  */
 package com.object.form.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("TextArea")
 public class Textarea extends FormElement{
 	
-	private String textValue;
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "default_value")
 	private String defaultValue;
+	
+	@Column(name = "column_value")
 	private Integer column;
+	
+	@Column(name = "row_value")
 	private Integer row;
+	
+	@Column(name = "min_length")
 	private Integer minLength;
+	
+	@Column(name = "max_length")
 	private Integer maxLength;
 	
-	public String getTextValue() {
-		return textValue;
-	}
-	public void setTextValue(String textValue) {
-		this.textValue = textValue;
-	}
+	
 	public String getDefaultValue() {
 		return defaultValue;
 	}
@@ -48,4 +59,5 @@ public class Textarea extends FormElement{
 	public void setMaxLength(Integer maxLength) {
 		this.maxLength = maxLength;
 	}
+	
 }

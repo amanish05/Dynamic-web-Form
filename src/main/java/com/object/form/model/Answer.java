@@ -1,24 +1,58 @@
-/*
- * The java class Answer is used to hold all of our answers that we get from the form elements.
- * 
- * id: a unique number which helps us identify between different answers
- * user: a reference to a Member object that created the answer
- * form: a reference to the form where the answer belongs
- * formElements: a reference to all the form elements where the answer is in
- */
 package com.object.form.model;
 
-public abstract class Answer {
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+
+//using table per concrete class inheritance strategy
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="answerType",
+    discriminatorType=DiscriminatorType.STRING
+)
+public abstract class Answer implements Serializable{
 	
-	private String id;
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "memberId")
 	private Member user;
+
+	@ManyToOne
+	@JoinColumn(name = "formId")
 	private Form form;
-	private FormElement formElements;
 	
-	public String getId() {
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name = "formElement_answers",
+		    joinColumns=@JoinColumn(name = "answer_id"),
+		    inverseJoinColumns=@JoinColumn(name="formElement_id"))
+	private List<FormElement> formElements;
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Member getUser() {
@@ -27,16 +61,11 @@ public abstract class Answer {
 	public void setUser(Member user) {
 		this.user = user;
 	}
-	public Form getForm() {
-		return form;
-	}
-	public void setForm(Form form) {
-		this.form = form;
-	}
-	public FormElement getFormElements() {
+	public List<FormElement> getFormElements() {
 		return formElements;
 	}
-	public void setFormElements(FormElement formElements) {
+	public void setFormElements(List<FormElement> formElements) {
 		this.formElements = formElements;
 	}
+	
 }

@@ -15,14 +15,14 @@ package com.object.form.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -33,8 +33,8 @@ public class Member implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	@Column(name="Member_Id")
-	private String id;
+	@Column(name="Id")
+	private Integer id;
 	
 	@Column(name="First_Name")
 	private String firstName;
@@ -51,20 +51,19 @@ public class Member implements Serializable{
 	@Column(name="Passcode", columnDefinition = "varchar(30)")
 	private char[] passcode;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "member")
-	private List<Address> address;
+	@OneToOne
+	private Address address;
 			
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "member")	
+	@ManyToMany
+	@JoinTable(name = "member_roles",
+    joinColumns=@JoinColumn(name = "member_id"),
+    inverseJoinColumns=@JoinColumn(name="role_id"))
 	private List<Role> roles;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Form form;
-	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -91,10 +90,10 @@ public class Member implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}	
-	public List<Address> getAddress() {
+	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(List<Address> address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 	public char[] getPasscode() {

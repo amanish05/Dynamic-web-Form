@@ -7,19 +7,26 @@
  */
 package com.object.form.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("TextBox")
 public class Textbox extends FormElement{
 
-	private String Value;
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "default_value")
 	private String defaultValue;
+	
+	@Column(name = "max_length")
 	private Integer maxLength;
+	
+	@Column(name = "size")
 	private Integer size;
 	
-	public String getValue() {
-		return Value;
-	}
-	public void setValue(String value) {
-		Value = value;
-	}
+	
 	public String getDefaultValue() {
 		return defaultValue;
 	}
@@ -38,4 +45,5 @@ public class Textbox extends FormElement{
 	public void setSize(Integer size) {
 		this.size = size;
 	}
+
 }

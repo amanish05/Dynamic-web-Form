@@ -11,17 +11,29 @@
 package com.object.form.model;
 
 import java.io.Serializable;
-import java.util.List;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+@Entity
 public class PDFForm implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	@Column(name="pdfForm_Id")
 	private Integer id;
+	
+	@OneToOne
  	private Form form;
+	
+	@Column(name="path")
 	private String path;
+	
+	@OneToOne
 	private Member owner;
-	private List<PDFElement> pdfElements;
 	
 	public Integer getId() {
 		return id;
@@ -46,12 +58,6 @@ public class PDFForm implements Serializable{
 	}
 	public void setOwner(Member owner) {
 		this.owner = owner;
-	}
-	public List<PDFElement> getPdfElements() {
-		return pdfElements;
-	}
-	public void setPdfElements(List<PDFElement> pdfElements) {
-		this.pdfElements = pdfElements;
 	}
 
 }

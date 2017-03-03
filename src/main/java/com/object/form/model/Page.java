@@ -11,14 +11,18 @@
 package com.object.form.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="pages")
@@ -41,8 +45,11 @@ public class Page implements Serializable{
 	@JoinColumn(name="Form_Id")
 	private Form form;
 	
-	//This need to be Implemented. Please add getter and setter with appropriate relationship
-	//private List<FormElement> elements;
+	@ManyToMany
+	@JoinTable(name = "page_formElements",
+    joinColumns=@JoinColumn(name = "page_id"),
+    inverseJoinColumns=@JoinColumn(name="formElement_id"))
+	private List<FormElement> elements;
 	
 	public Integer getId() {
 		return id;
@@ -67,5 +74,12 @@ public class Page implements Serializable{
 	}
 	public void setForm(Form form) {
 		this.form = form;
-	}		
+	}
+	public List<FormElement> getElements() {
+		return elements;
+	}
+	public void setElements(List<FormElement> elements) {
+		this.elements = elements;
+	}	
+	
 }

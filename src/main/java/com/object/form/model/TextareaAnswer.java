@@ -1,12 +1,16 @@
-/*
- * TextareaAnswer class stores the answer that was received from the Textarea class.
- * value: The value or answer of the text area as a string.
- */
 package com.object.form.model;
 
-//class to get text area answers from the user
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("TextArea")
 public class TextareaAnswer extends Answer{
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name="textarea_value")
 	private String value;
 
 	public String getValue() {
