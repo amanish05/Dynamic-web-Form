@@ -17,9 +17,6 @@ public class Textbox extends FormElement{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "value")
-	private String Value;
-	
 	@Column(name = "default_value")
 	private String defaultValue;
 	
@@ -29,12 +26,7 @@ public class Textbox extends FormElement{
 	@Column(name = "size")
 	private Integer size;
 	
-	public String getValue() {
-		return Value;
-	}
-	public void setValue(String value) {
-		Value = value;
-	}
+	
 	public String getDefaultValue() {
 		return defaultValue;
 	}
