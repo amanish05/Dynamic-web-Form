@@ -1,4 +1,4 @@
-package objectform.web.controller;
+package com.object.form.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
