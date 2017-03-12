@@ -13,13 +13,13 @@ import com.object.form.services.DemoServices;
 @Controller
 public class Demo {
 	
-	@Inject
-	private DemoServices demo;
+	//@Inject
+	//private DemoServices demo;
 	
 	@RequestMapping(value = "/demo.jsp", method = RequestMethod.GET)
 	public String readClient(ModelMap model){
 		
-		model.put("members", demo.getAllUSers());
+		//model.put("members", demo.getAllUSers());
 		return "demo";		
 		
 	}
