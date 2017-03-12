@@ -9,8 +9,8 @@
     	<description>PostgreSQL Persistence Unit</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         
-        <!-- This is where we tell JPA/Hibernate about our @Entity objects -->
-		<class>com.object.form.model.Form</class>
+        <!-- This is where we tell JPA/Hibernate about our @Entity objects
+		<class>com.object.form.model.Form</class>  -->
 		
         <properties>
         	<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -22,6 +22,12 @@
             <property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.transaction.flush_before_completion" value="true" />
+			
+			<property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.cache.use_query_cache" value="true" />
+            <property name="hibernate.cache.region.factory_class"
+                value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+            <property name="hibernate.show_sql" value="false" />
 			
         </properties>
     </persistence-unit>
