@@ -72,9 +72,13 @@
 	</security:http>
 	
 	<bean id="DaoService" class="com.object.form.services.DemoServices">        
-    </bean>
+    </bean>   
    
    <bean id="DemoDAO" class="com.object.form.dao.DemoDAO">       
    </bean>
-
+   
+   <bean id="HomeServices" class="com.object.form.services.HomeServices">        
+    </bean>
+	<bean id="FormDAO" class="com.object.form.dao.FormDAO">       
+   </bean>
 </beans>
