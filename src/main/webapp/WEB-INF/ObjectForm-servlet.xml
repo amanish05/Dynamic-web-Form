@@ -16,14 +16,19 @@
 	<!-- It register the beans in context and scan the annotations inside beans and activate them -->
 	<context:component-scan base-package="com.object.form" />
 
+    <!-- This allow for dispatching requests to Controllers -->
+    <mvc:annotation-driven />
+	
+	 <!-- It register the beans in context and scan the annotations inside beans and activate them -->
+    <context:component-scan base-package="com.object.form" />
+	
 	<!-- This helps in mapping the logical view names to directly view files under a certain pre-configured directory -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-
-	<!-- To validate the posted data of form 
-		<bean id="formValidator" class="com.object.form.validator"/> 
-	-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <!-- To validate the posted data of form 
+    <bean id="formValidator" class="com.object.form.validator" />
+    -->
 </beans>
