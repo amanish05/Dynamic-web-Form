@@ -1,4 +1,4 @@
-package objectform.web.controller;
+package com.object.form.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ObjectFormController {
 	
-	@RequestMapping({"/index.html", "/mainpage.html"})
+	/*@RequestMapping({"/index.html", "/mainpage.html"})
     public String mainPage() {
         return "mainpage";
-    }
+    }*/
 	
 	@RequestMapping(value = "/adminpage.html", method = RequestMethod.GET)
     public String adminLogin(ModelMap maps) {
