@@ -1,35 +1,29 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
-    version="2.1">
 
-    <persistence-unit name="ObjectForm" transaction-type="RESOURCE_LOCAL">
-    
-    	<description>PostgreSQL Persistence Unit</description>
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        
-        <!-- This is where we tell JPA/Hibernate about our @Entity objects
-		<class>com.object.form.model.Form</class>  -->
-		
-        <properties>
-        	<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/cs5220" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="postgres" />
-        	
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-            <property name="hibernate.show_sql" value="true" />
+	version="2.1">
+
+	<persistence-unit name="ObjectForm" transaction-type="RESOURCE_LOCAL">
+
+		<description>PostgreSQL Persistence Unit</description>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<!-- This is where we tell JPA/Hibernate about our @Entity objects <class>com.object.form.model.Form</class> -->
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.transaction.flush_before_completion" value="true" />
-			
-			<property name="hibernate.cache.use_second_level_cache" value="true" />
-            <property name="hibernate.cache.use_query_cache" value="true" />
-            <property name="hibernate.cache.region.factory_class"
-                value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
-            <property name="hibernate.show_sql" value="false" />
-			
-        </properties>
-    </persistence-unit>
 
+			<property name="hibernate.transaction.flush_before_completion" value="true" />
+
+			<property name="hibernate.cache.use_second_level_cache"	value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+			<property name="hibernate.show_sql" value="false" />
+
+		</properties>
+	</persistence-unit>
 </persistence>
