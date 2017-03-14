@@ -1,6 +1,6 @@
 package com.object.form.controller;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,11 +12,11 @@ import com.object.form.services.DemoServices;
 
 @Controller
 public class Demo {
-	
-	@Inject
+
+	@Autowired
 	private DemoServices demo;
 	
-	@RequestMapping(value = "/demo.jsp", method = RequestMethod.GET)
+	@RequestMapping(value = "/demo.html", method = RequestMethod.GET)
 	public String readClient(ModelMap model){
 		
 		model.put("members", demo.getAllUSers());

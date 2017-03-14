@@ -16,20 +16,29 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-4.2.xsd">
         
-   	   	
-	<!-- Simple implementation of the standard JDBC DataSource interface, configuring the plain old JDBC DriverManager via bean properties -->
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/cs5220" />
-        <property name="username" value="postgres" />
-        <property name="password" value="postgres" />
-        <property name="initialSize" value="1" />
-    </bean>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="ObjectForm" />
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+	<!-- Context to allow for dispatching requests with annotated controller methods using annotations -->
+	<mvc:annotation-driven />
+	
+	<!-- Allow to read credentials from properties file -->
+	
+	<!-- <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="db.properties" />
+	</bean> -->
+	
+	<!-- Simple implementation of the standard JDBC DataSource interface, configuring 	the plain old JDBC DriverManager via bean properties -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/cs5220" />
+		<property name="username" value="postgres" />
+		<property name="password" value="postgres" />
+		<property name="initialSize" value="1" />		
+	</bean>
+
+	<bean id="entityManagerFactory"	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="ObjectForm" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
 	 <!-- This transaction manager is appropriate for applications that use a single JPA EntityManagerFactory for transactional data access. 
         JTA (usually through JtaTransactionManager) is necessary for accessing multiple transactional resources within the same transaction. -->
@@ -37,12 +46,11 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-    <context:annotation-config />
-
-	 <!-- responsible for registering the necessary Spring components that power annotation-driven transaction management; 
-        such as when @Transactional methods are invoked -->
+	<context:annotation-config />
+	 
+	 <!-- responsible for registering the necessary Spring components that power annotation-driven transaction management; such as when @Transactional methods are invoked -->
     <tx:annotation-driven />
     
     <!--  Context to allow for dispatching requests with annotated controller methods using annotations  -->
@@ -51,14 +59,26 @@
 	<!--  Register the beans in context; and it also scans the annotations inside beans and activate them -->
     <context:component-scan base-package="com.object.form.model" />
 
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:jdbc-user-service data-source-ref="dataSource" />
-        </security:authentication-provider>
-    </security:authentication-manager>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 
-    <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/users.html" access="hasRole('ROLE_ADMIN')" />
-    </security:http>
-
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/users.html"
+			access="hasRole('ROLE_ADMIN')" />
+	</security:http>
+	
+	<bean id="DaoService" class="com.object.form.services.DemoServices">        
+    </bean>   
+   
+   <bean id="DemoDAO" class="com.object.form.dao.DemoDAO">       
+   </bean>
+   
+   <bean id="HomeServices" class="com.object.form.services.HomeServices">        
+    </bean>
+	<bean id="FormDAO" class="com.object.form.dao.FormDAO">       
+   </bean>
 </beans>

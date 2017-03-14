@@ -1,6 +1,8 @@
 package com.object.form.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,40 +17,39 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+@SuppressWarnings("unchecked")
 @Repository
 @Transactional
-public class AbstractObjectFormDAO<T extends Serializable>  {
+public abstract class AbstractObjectFormDAO<T extends Serializable>  {
 	
 	@PersistenceContext
 	private EntityManager em;
-	 
+	private Class<T> daoType;
 	
-	public T create(T entity) {
-		
-		em.getTransaction().begin();
-		em.persist(entity);
-		em.getTransaction().commit();
-		em.close();
+	public AbstractObjectFormDAO(){
+		Type e = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) e;
+        daoType = (Class) pt.getActualTypeArguments()[0];
+	}
+	
+	public T create(T entity) {		
+		em.persist(entity);		
 		return entity;
 	}
 	 	
 	
-	 public T update(T entity) {
-		
-		em.getTransaction().begin();
-		T updatedEntity = em.merge(entity);
-		em.getTransaction().commit();
-		em.close();
+	 public T update(T entity) {		
+		T updatedEntity = em.merge(entity);		
 		return updatedEntity;
 	}
 		
 	
 	public void delete(T entity) {
-		
-		em.getTransaction().begin();
-		em.remove(entity);
-		em.getTransaction().commit();
-		em.close();
+		em.remove(entity);		
+	}
+	
+	public void updateList(List<T> entityList) {
+		// TODO Auto-generated method stub		
 	}
 	
 	public List<T> findByCriteria(Map<String, String> params, Class<T> c) {
@@ -60,22 +61,13 @@ public class AbstractObjectFormDAO<T extends Serializable>  {
 
 		params.forEach((k, v) -> predicates.add(cb.equal(t.get(k), v)));
 		q.select(t).where(predicates.toArray(new Predicate[] {}));
-		List<T> results = em.createQuery(q).getResultList();
-		em.close();
+		List<T> results = em.createQuery(q).getResultList();	
 
 		return results;
 	}
-
 	
-	public void updateList(List<T> entityList) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@SuppressWarnings("unchecked")
-	public  List<T> getMembers(){
-	
-		List<T> results = em.createQuery("Select * from Members").getResultList();
+	public  List<T> getMembers(){	
+		List<T> results = (List<T>) em.createQuery("from Member order by id", daoType ).getResultList();
 		return results;
-	};
+	}
 }
