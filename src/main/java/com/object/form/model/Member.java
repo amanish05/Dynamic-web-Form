@@ -25,6 +25,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name= "Members")
 public class Member implements Serializable{
@@ -52,6 +55,7 @@ public class Member implements Serializable{
 	private char[] passcode;
 	
 	@OneToOne
+	@Cascade(value = CascadeType.ALL)
 	private Address address;
 			
 	@ManyToMany

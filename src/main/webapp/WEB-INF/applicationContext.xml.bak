@@ -20,9 +20,9 @@
 	<!-- Simple implementation of the standard JDBC DataSource interface, configuring the plain old JDBC DriverManager via bean properties -->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/cs5220" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
         <property name="username" value="postgres" />
-        <property name="password" value="postgres" />
+        <property name="password" value="woaicy1221" />
         <property name="initialSize" value="1" />
     </bean>
 
@@ -49,7 +49,7 @@
     <mvc:annotation-driven />
 
 	<!--  Register the beans in context; and it also scans the annotations inside beans and activate them -->
-    <context:component-scan base-package="com.object.form.model" />
+    <context:component-scan base-package="com.object.form" />
 
     <security:authentication-manager>
         <security:authentication-provider>
