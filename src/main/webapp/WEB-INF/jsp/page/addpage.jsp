@@ -8,14 +8,9 @@
 <link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<title>Form Editor Version 1.337</title>
+<title>Add Page Version 1.337</title>
 </head>
 <body>
-	<form:form modelAttribute="form">
-	Form Title: <form:input path="title"/> <br />
-	Description: <form:textarea cols="50" rows="5" path="description"/> <br />
-	</form:form>
+
 </body>
 </html>

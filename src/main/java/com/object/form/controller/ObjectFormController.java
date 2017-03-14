@@ -2,6 +2,7 @@ package com.object.form.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.object.form.model.Form;
 import com.object.form.services.HomeServices;
@@ -66,7 +68,8 @@ public class ObjectFormController {
     }
 	
 	@RequestMapping(value = "/generatedforms.html", method = RequestMethod.GET)
-    public String generatedForms(ModelMap maps) {
+    public String generatedForms(ModelMap model) {
+		model.put("forms", home.getAllForms());
         return "generatedforms";
     }
 	
@@ -98,10 +101,13 @@ public class ObjectFormController {
     }
 	
 	@RequestMapping(value = "/CreateForm.html", method = RequestMethod.POST)
-    public String createForm(@ModelAttribute Form form, BindingResult result) {
+    public String createForm(@ModelAttribute Form form, BindingResult result, SessionStatus sessionStatus) {
 		
 		form = singleForm.saveForm(form);
-		return "Home.html";
+		sessionStatus.setComplete();
+		return "redirect:Home.html";
     }
+	
+	
 	
 }

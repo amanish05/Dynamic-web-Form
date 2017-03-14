@@ -87,7 +87,7 @@
 									<td>${form.ownedBy}</td>									
 									<td><a class="btn btn-primary btn-sm"
 										href="EditForm.html?id=${form.id}">Edit</a> <a
-										class="btn btn-danger" href="DisableForm?id=${form.id}">Disable</a></td>
+										class="btn btn-danger" href="DisableForm.html?id=${form.id}">Disable</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
