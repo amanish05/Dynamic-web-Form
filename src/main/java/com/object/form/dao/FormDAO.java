@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import com.object.form.model.Form;
 
+
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE )
 public class FormDAO extends AbstractObjectFormDAO<Form> implements ObjectFormDAOI<Form>{
-	
 
 }

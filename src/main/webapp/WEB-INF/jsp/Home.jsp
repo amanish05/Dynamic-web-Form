@@ -25,7 +25,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	      <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
-	        <li class="active"><a href="#">Create New Form<span class="sr-only">(current)</span></a></li>	        
+	        <li class="active"><a href="CreateForm.html">Create New Form<span class="sr-only">(current)</span></a></li>	        
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Management<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
@@ -86,7 +86,7 @@
 									<td>${form.createdDate}</td>
 									<td>${form.ownedBy}</td>									
 									<td><a class="btn btn-primary btn-sm"
-										href="EditForm?id=${form.id}">Edit</a> <a
+										href="EditForm.html?id=${form.id}">Edit</a> <a
 										class="btn btn-danger" href="DisableForm?id=${form.id}">Disable</a></td>
 								</tr>
 							</c:forEach>

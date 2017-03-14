@@ -3,6 +3,8 @@ package com.object.form.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.object.form.model.Form;
+
 public interface ObjectFormDAOI<T> {
 	
 	T create(T entity);
@@ -11,5 +13,5 @@ public interface ObjectFormDAOI<T> {
 	void updateList(List<T> entityList);
 	List<T> findByCriteria(Map<String, String> params, Class<T> c);
 	List<T> getMembers();
-
+	
 }

@@ -17,6 +17,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.object.form.model.Form;
+
 @SuppressWarnings("unchecked")
 @Repository
 @Transactional
@@ -70,4 +72,13 @@ public abstract class AbstractObjectFormDAO<T extends Serializable>  {
 		List<T> results = (List<T>) em.createQuery("from Member order by id", daoType ).getResultList();
 		return results;
 	}
+	
+	public Form getSingleForm(Integer id){
+		return (Form) em.find(Form.class, id);
+	}
+	
+	public Form saveForm(Form form) {
+		return em.merge(form);
+	}
+	
 }

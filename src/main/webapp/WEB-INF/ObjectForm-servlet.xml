@@ -29,11 +29,6 @@
     </bean>
     
     <!-- To validate the posted data of form 
-<<<<<<< HEAD
-    <bean id="formValidator" class="com.object.form.validator" />  
-	-->
-=======
     <bean id="formValidator" class="com.object.form.validator" />
     -->
->>>>>>> 677d0d5d8c6692ae5b489b8713b3c6428701ce1c
 </beans>
