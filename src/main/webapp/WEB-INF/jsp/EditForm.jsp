@@ -17,5 +17,6 @@
 	Form Title: <form:input path="title"/> <br />
 	Description: <form:textarea cols="50" rows="5" path="description"/> <br />
 	</form:form>
+	<input type="submit" name="edit" value="Edit" />
 </body>
 </html>

@@ -17,7 +17,7 @@ import com.object.form.services.HomeServices;
 import com.object.form.services.SingleFormServices;
 
 @Controller
-@SessionAttributes({"form"})
+@SessionAttributes({"form", "pages"})
 public class ObjectFormController {
 	
 	@Autowired
@@ -108,6 +108,10 @@ public class ObjectFormController {
 		return "redirect:Home.html";
     }
 	
-	
+	@RequestMapping(value = "/page/pagelistview.html", method = RequestMethod.GET)
+    public String viewPages( @RequestParam Integer id, ModelMap models) {
+		models.put("pages", singleForm.getSingleForm(id).getPages());
+        return "page/pagelistview";
+    }
 	
 }
