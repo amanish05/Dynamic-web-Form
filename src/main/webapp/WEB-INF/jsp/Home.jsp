@@ -25,7 +25,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	      <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
-	        <li class="active"><a href="CreateForm.html">Create New Form<span class="sr-only">(current)</span></a></li>	        
+	        <li class="active"><a href="createform.html">Create New Form<span class="sr-only">(current)</span></a></li>	        
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Management<span class="caret"></span></a>
 	          <ul class="dropdown-menu">

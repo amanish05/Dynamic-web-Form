@@ -2,33 +2,25 @@ package com.object.form.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-
 import com.object.form.model.Form;
-import com.object.form.services.HomeServices;
-import com.object.form.services.SingleFormServices;
+import com.object.form.model.dao.FormDao;
 
 @Controller
 @SessionAttributes({"form", "pages"})
 public class ObjectFormController {
 	
 	@Autowired
-	private HomeServices home;
-	
-	@Autowired
-	private SingleFormServices singleForm;
+	private FormDao formdao;
 	
 	@RequestMapping("/Home.html")
     public String mainPage(ModelMap model) {
-		model.put("forms", home.getAllForms());
+		model.put("forms", formdao.getForms());
         return "Home";
     }
 	
@@ -69,7 +61,7 @@ public class ObjectFormController {
 	
 	@RequestMapping(value = "/generatedforms.html", method = RequestMethod.GET)
     public String generatedForms(ModelMap model) {
-		model.put("forms", home.getAllForms());
+		model.put("forms", formdao.getForms());
         return "generatedforms";
     }
 	
@@ -88,30 +80,41 @@ public class ObjectFormController {
         return "registeredusers";
     }
 	
-	@RequestMapping(value = "/EditForm.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/form/editform.html", method = RequestMethod.GET)
     public String editForm( @RequestParam Integer id, ModelMap models) {
-		models.put("form", singleForm.getSingleForm(id));
-        return "EditForm";
+		models.put("form", formdao.getForm(id));
+        return "form/editform";
     }
 	
-	@RequestMapping(value = "/CreateForm.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/form/editform.html", method = RequestMethod.POST)
+    public String editForm(@ModelAttribute Form form) {
+		form = formdao.saveForm(form);
+        return "../redirect:generatedforms.html";
+    }
+	
+	@RequestMapping(value = "/createform.html", method = RequestMethod.GET)
     public String createForm(ModelMap models) {
         models.put("form", new Form());
-		return "CreateForm";
+		return "createform";
     }
 	
-	@RequestMapping(value = "/CreateForm.html", method = RequestMethod.POST)
-    public String createForm(@ModelAttribute Form form, BindingResult result, SessionStatus sessionStatus) {
+	@RequestMapping(value = "/createform.html", method = RequestMethod.POST)
+    public String createForm(@ModelAttribute Form form) {
 		
-		form = singleForm.saveForm(form);
-		sessionStatus.setComplete();
+		form = formdao.saveForm(form);
 		return "redirect:Home.html";
     }
 	
 	@RequestMapping(value = "/page/pagelistview.html", method = RequestMethod.GET)
     public String viewPages( @RequestParam Integer id, ModelMap models) {
-		models.put("pages", singleForm.getSingleForm(id).getPages());
+		models.put("pages", formdao.getForm(id).getPages());
         return "page/pagelistview";
     }
+	
+//	@RequestMapping(value = "/page/pagelistview.html", method = RequestMethod.POST)
+//    public String viewPages( @RequestParam Integer id, ModelMap models) {
+//		models.put("pages", formdao.getForm(id).getPages());
+//        return "page/pagelistview";
+//    }
 	
 }

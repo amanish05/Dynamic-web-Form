@@ -13,6 +13,13 @@
 <title>Form Creator Version 1.337</title>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="mainpage.html">Form
+				Builder Login</a></li>
+		<li class="breadcrumb-item"><a href="adminpage.html">Admin</a></li>
+		<li class="breadcrumb-item">Generated Forms</li>
+		<li class="breadcrumb-item active">Form Creation</li>
+	</ol>
 	<h3>Create New Form</h3>
 	<h4>Please enter the following information</h4>
 	<form:form modelAttribute="form">
@@ -20,17 +27,18 @@
 		<thead>
 			<tr>
 				<th>
-					Form Title: <form:input width="1000px" path="title"/> 
+					Form Title: <form:input path="title"/> 
 				</th>
 			</tr>
 			<tr>
 				<th>
-					Description: <form:textarea rows="5" cols="50" path="description"></form:textarea> <br />
+					Description: <form:textarea path="description" rows="5" cols="50"></form:textarea> <br />
 				</th>
 			</tr>
 		</thead>
 	</table>
-	</form:form>
 	<input type="submit" name="add" value="Add"/>
+	</form:form>
+	
 </body>
 </html>

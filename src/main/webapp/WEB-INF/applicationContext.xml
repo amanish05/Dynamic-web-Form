@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:security="http://www.springframework.org/schema/security"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,14 +10,8 @@
         http://www.springframework.org/schema/context/spring-context-4.3.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-        http://www.springframework.org/schema/mvc 
-        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-4.2.xsd">
-        
-
-	<!-- Context to allow for dispatching requests with annotated controller methods using annotations -->
-	<mvc:annotation-driven />
 	
 	<!-- Allow to read credentials from properties file -->
 	
@@ -52,9 +45,6 @@
 	 
 	 <!-- responsible for registering the necessary Spring components that power annotation-driven transaction management; such as when @Transactional methods are invoked -->
     <tx:annotation-driven />
-    
-    <!--  Context to allow for dispatching requests with annotated controller methods using annotations  -->
-    <mvc:annotation-driven />
 
 	<!--  Register the beans in context; and it also scans the annotations inside beans and activate them -->
     <context:component-scan base-package="com.object.form.model" />
@@ -70,15 +60,5 @@
 		<security:intercept-url pattern="/users.html"
 			access="hasRole('ROLE_ADMIN')" />
 	</security:http>
-	
-	<bean id="DaoService" class="com.object.form.services.DemoServices">        
-    </bean>   
-   
-   <bean id="DemoDAO" class="com.object.form.dao.DemoDAO">       
-   </bean>
-   
-   <bean id="HomeServices" class="com.object.form.services.HomeServices">        
-    </bean>
-	<bean id="FormDAO" class="com.object.form.dao.FormDAO">       
-   </bean>
+
 </beans>

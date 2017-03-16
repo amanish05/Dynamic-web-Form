@@ -34,7 +34,7 @@
 				<td>${form.createdDate}</td>
 				<td>${form.ownedBy}</td>
 				<td><a href="page/pagelistview.html?id=${form.id}"><button type="button" class="btn btn-info">View</button></a>
-					<a href="EditForm.html?id=${form.id}"><button type="button" class="btn btn-warning">Edit</button></a>
+					<a href="form/editform.html?id=${form.id}"><button type="button" class="btn btn-warning">Edit</button></a>
 					<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
 				</td>
 			</tr>
