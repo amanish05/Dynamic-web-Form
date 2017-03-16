@@ -10,12 +10,20 @@
 <title>Form Editor Version 1.337</title>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="mainpage.html">Form
+				Builder Login</a></li>
+		<li class="breadcrumb-item"><a href="../adminpage.html">Admin</a></li>
+		<li class="breadcrumb-item">Generated Forms</li>
+		<li class="breadcrumb-item active">Page List View</li>
+	</ol>
 	<c:if test="${empty pages}">
 		<h3>There are no pages to display</h3>
 	</c:if>
 		<table class="table">
 			<thead>
 				<tr>
+					<th>Page ID</th>
 					<th>Page Number</th>
 					<th>Operations</th>
 				</tr>
@@ -24,9 +32,14 @@
 					<thead>
 						<c:forEach items="${pages}" var="page">
 							<tr>
+								<td>${page.id}</td>
 								<td>${page.number}</td>
+								<td>${page.form.id}</td>
 								<td><a href="#"><button type="button" class="btn btn-info">View</button></a>
+									<a href="#"><button type="button" class="btn btn-warning">Edit</button></a>
+									<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
 								</td>
+								
 							</tr>
 						</c:forEach>
 					</thead>

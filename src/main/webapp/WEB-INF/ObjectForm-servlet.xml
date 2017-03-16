@@ -22,7 +22,4 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    <!-- To validate the posted data of form 
-    <bean id="formValidator" class="com.object.form.validator" />
-    -->
 </beans>

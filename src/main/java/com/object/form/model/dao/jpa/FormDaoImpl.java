@@ -33,9 +33,9 @@ public class FormDaoImpl implements FormDao {
 	
 	@Override
 	@Transactional
-	public boolean delete(Form form)
+	public void delete(Form form)
 	{
-		return true;
+		entityManager.remove(form);
 	}
 	
 	@Override

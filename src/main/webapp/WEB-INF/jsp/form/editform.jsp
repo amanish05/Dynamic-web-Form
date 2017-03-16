@@ -17,14 +17,31 @@
 				Builder Login</a></li>
 		<li class="breadcrumb-item"><a href="adminpage.html">Admin</a></li>
 		<li class="breadcrumb-item">Generated Forms</li>
-		<li class="breadcrumb-item">Form Creation</li>
 		<li class="breadcrumb-item active">Edit Form</li>
 	</ol>
 <body>
 	<form:form modelAttribute="form">
-	Form Title: <form:input path="title"/> <br />
-	Description: <form:textarea cols="50" rows="5" path="description"/> <br />
-	<input type="submit" name="edit" value="Edit" />
+		<div class="form-group">
+			<label for="formTitle" class="col-sm-2 control-label">Form
+				Title:</label>
+			<div class="col-sm-10">
+				<form:input path="title" type="text" class="form-control" id="formTitle"
+					placeholder="Enter The Form Title" name="formTitle"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="formName" class="col-sm-2 control-label">Description:</label>
+			<div class="col-sm-10">
+				<form:input path="description" type="text" class="form-control" id="formName"
+					placeholder="Enter The Form Description" name="formName"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" name="Add Form"
+					value="Edit Form" class="btn btn-warning">
+			</div>
+		</div>
 	</form:form>
 	
 </body>

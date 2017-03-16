@@ -18,7 +18,7 @@
 	<table class="table">
 		<thead class="thead-default">
 			<tr>
-				<th>Number Of Forms</th>
+				<th>Form ID</th>
 				<th>Form Name</th>
 				<th>Creation Date</th>
 				<th>Owner</th>
@@ -33,13 +33,15 @@
 				<td>${form.title}</td>
 				<td>${form.createdDate}</td>
 				<td>${form.ownedBy}</td>
-				<td><a href="page/pagelistview.html?id=${form.id}"><button type="button" class="btn btn-info">View</button></a>
+				<td>
 					<a href="form/editform.html?id=${form.id}"><button type="button" class="btn btn-warning">Edit</button></a>
-					<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
+					<a href="removeform.html?id=${form.id}"><button type="button" class="btn btn-danger">Delete</button></a>
 				</td>
 			</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<a href="generatenewform.html"><button type="button" class="btn btn-info">Add Form</button></a>
+	<a href="page/pagelistview.html"><button type="button" class="btn btn-info">View All Pages</button></a>
 </body>
 </html>

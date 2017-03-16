@@ -8,8 +8,6 @@
 <link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet">
 <title>Form Creator Version 1.337</title>
 </head>
 <body>
