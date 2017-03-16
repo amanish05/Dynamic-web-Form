@@ -36,6 +36,12 @@ public class MultipleChoice extends FormElement{
 	public void setNumberOfAllowedSelect(Integer numberOfAllowedSelect) {
 		this.numberOfAllowedSelect = numberOfAllowedSelect;
 	}
+	public int getChoiceType() {
+		return choiceType;
+	}
+	public void setChoiceType(int choiceType) {
+		this.choiceType = choiceType;
+	}
 	public List<Choice> getChoices() {
 		return choices;
 	}

@@ -1,20 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet">
-<meta charset="UTF-8">
-<title>Generate New Form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<title>Form Editor Version 1.337</title>
 </head>
-<body>
-	<ol class="breadcrumb">
+<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="mainpage.html">Form
 				Builder Login</a></li>
 		<li class="breadcrumb-item"><a href="adminpage.html">Admin</a></li>
-		<li class="breadcrumb-item active">Generate New Form</li>
+		<li class="breadcrumb-item">Generated Forms</li>
+		<li class="breadcrumb-item active">Edit Form</li>
 	</ol>
+<body>
 	<form:form modelAttribute="form">
 		<div class="form-group">
 			<label for="formTitle" class="col-sm-2 control-label">Form
@@ -34,9 +39,10 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<input type="submit" name="Add Form"
-					value="Add Form" class="btn btn-primary">
+					value="Edit Form" class="btn btn-warning">
 			</div>
 		</div>
 	</form:form>
+	
 </body>
 </html>

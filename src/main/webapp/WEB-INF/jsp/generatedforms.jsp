@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,29 +18,30 @@
 	<table class="table">
 		<thead class="thead-default">
 			<tr>
-				<th>Number Of Forms</th>
+				<th>Form ID</th>
 				<th>Form Name</th>
+				<th>Creation Date</th>
+				<th>Owner</th>
 				<th>Operations</th>
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach items="${forms}" var="form">
+			
 			<tr>
-				<th scope="row">1</th>
-				<td>Form Name 1</td>
-				<td><a href="#"><button type="button" class="btn btn-info">View</button></a>
-					<a href="#"><button type="button" class="btn btn-warning">Edit</button></a>
-					<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
+				<td>${form.id}</td>
+				<td>${form.title}</td>
+				<td>${form.createdDate}</td>
+				<td>${form.ownedBy}</td>
+				<td>
+					<a href="form/editform.html?id=${form.id}"><button type="button" class="btn btn-warning">Edit</button></a>
+					<a href="removeform.html?id=${form.id}"><button type="button" class="btn btn-danger">Delete</button></a>
 				</td>
 			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Form Name 2</td>
-				<td><a href="#"><button type="button" class="btn btn-info">View</button></a>
-					<a href="#"><button type="button" class="btn btn-warning">Edit</button></a>
-					<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
-				</td>
-			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
+	<a href="generatenewform.html"><button type="button" class="btn btn-info">Add Form</button></a>
+	<a href="page/pagelistview.html"><button type="button" class="btn btn-info">View All Pages</button></a>
 </body>
 </html>
