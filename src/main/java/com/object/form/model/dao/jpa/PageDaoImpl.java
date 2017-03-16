@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.object.form.model.FormElement;
 import com.object.form.model.Page;
 import com.object.form.model.dao.PageDao;
 
@@ -41,6 +42,12 @@ public class PageDaoImpl implements PageDao{
 	public List<Page> getPages() {
 		return entityManager.createQuery( "from Page order by id", Page.class )
 	            .getResultList();
+	}
+
+	@Override
+	public List<FormElement> getElementsByPageId(Integer id) {
+		
+		return this.getPage(id).getElements();
 	}
 
 }

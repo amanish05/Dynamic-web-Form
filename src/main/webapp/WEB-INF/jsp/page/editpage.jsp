@@ -8,7 +8,7 @@
 <link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Page</title>
+<title>Edit Page</title>
 </head>
 <body>
 	<ol class="breadcrumb">
@@ -17,7 +17,7 @@
 		<li class="breadcrumb-item"><a href="adminpage.html">Admin</a></li>
 		<li class="breadcrumb-item">Generate New Form</li>
 		<li class="breadcrumb-item">Page List View</li>
-		<li class="breadcrumb-item active">Add Page</li>
+		<li class="breadcrumb-item active">Edit Page</li>
 	</ol>
 	<form:form modelAttribute="page">
 		<div class="page-group">
@@ -27,7 +27,7 @@
 					 name="pageNumber"/>
 			</div>
 		</div>
-		<!--  
+		<%/* 
 		<div class="page-group">
 			<label for="formId" class="col-sm-2 control-label">Form Id:</label>
 			<div class="col-sm-10">
@@ -35,11 +35,11 @@
 				 name="formId"/>
 			</div>
 		</div>
-		-->
+		*/%>
 		<div class="page-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<input type="submit" name="Add Page"
-					value="Add Page" class="btn btn-primary">
+					value="Edit Page" class="btn btn-warning">
 			</div>
 		</div>
 	</form:form>

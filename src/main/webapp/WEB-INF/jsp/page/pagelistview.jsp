@@ -25,6 +25,7 @@
 				<tr>
 					<th>Page ID</th>
 					<th>Page Number</th>
+					<th>Form ID</th>
 					<th>Operations</th>
 				</tr>
 			</thead>
@@ -35,9 +36,9 @@
 								<td>${page.id}</td>
 								<td>${page.number}</td>
 								<td>${page.form.id}</td>
-								<td><a href="#"><button type="button" class="btn btn-info">View</button></a>
-									<a href="#"><button type="button" class="btn btn-warning">Edit</button></a>
-									<a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
+								<td><a href="../form/formelementlist.html?id=${page.id}"><button type="button" class="btn btn-info">View Elements</button></a>
+									<a href="editpage.html?id=${page.id}"><button type="button" class="btn btn-warning">Edit</button></a>
+									<a href="deletepage.html?id=${page.id}"><button type="button" class="btn btn-danger">Delete</button></a>
 								</td>
 								
 							</tr>
