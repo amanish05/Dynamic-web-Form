@@ -27,6 +27,11 @@ public class ObjectFormController {
 	@Autowired
 	private FormElementDao elementdao;
 	
+	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
+	public String mainPage() {
+		return "login";
+	}
+	
 	@RequestMapping(value = "/adminpage.html", method = RequestMethod.GET)
     public String adminLogin(ModelMap maps) {
         return "adminpage";
@@ -35,21 +40,6 @@ public class ObjectFormController {
 	@RequestMapping(value = "/adminpage.html", method = RequestMethod.POST)
     public String adminLogin() {
         return "adminpage";
-    }
-	
-	@RequestMapping(value = "/userpage.html", method = RequestMethod.GET)
-    public String userLogin(ModelMap maps) {
-        return "userpage";
-    }
-	
-	@RequestMapping(value = "/userpage.html", method = RequestMethod.POST)
-    public String userLogin() {
-        return "userpage";
-    }
-	
-	@RequestMapping(value = "/registernewuser.html", method = RequestMethod.GET)
-    public String registerNewUser(ModelMap maps) {
-        return "registernewuser";
     }
 	
 	@RequestMapping(value = "/generatenewform.html", method = RequestMethod.GET)
