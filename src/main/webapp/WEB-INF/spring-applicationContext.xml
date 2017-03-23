@@ -27,17 +27,18 @@
 	<!--  Register the beans in context; and it also scans the annotations inside beans and activate them -->
     <context:component-scan base-package="com.object.form" /> 	
 
+	<context:property-placeholder location="classpath:build.properties" />
 	<!-- Simple implementation of the standard JDBC DataSource interface, configuring the plain old JDBC DriverManager via bean properties -->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/post" />
-        <property name="username" value="postgres" />
-        <property name="password" value="woaicy1221" />
+        <property name="driverClassName" value="${db.driver}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
         <property name="initialSize" value="1" />
     </bean>
 
  	<bean id="persistenceProvider" class="org.hibernate.jpa.HibernatePersistenceProvider" />
- 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+ 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" p:database="MYSQL" />
 	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
  
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -52,7 +53,7 @@
         </property>
         <property name="jpaProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.dialect">${db.dialect}</prop>
 				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">false</prop>
