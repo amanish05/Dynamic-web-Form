@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>  	
+	
+	<definition name="Home" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Home" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/Home.jsp" /> 
+	</definition>
+	
+	<definition name="form/NewForm" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Create Form" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/NewForm.jsp" /> 
+	</definition>
+  
+	<definition name="form/EditForm" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Edit Form" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/form/EditForm.jsp" /> 
+	</definition>
+  
+	<definition name="form/AddElement" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Add Element" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/AddElement.jsp" /> 
+	</definition>
+	
+	<definition name="form/EditElement" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Edit Element" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/EditElement.jsp" /> 
+	</definition>
+	
+	<definition name="form/textbox" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Add Element" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/textbox.jsp" /> 
+	</definition>
+	
+	<definition name="form/Edittextbox" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Update Element" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/Edittextbox.jsp" /> 
+	</definition>
+		
+	<definition name="form/checkbox" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Add Element" /> 
+		<put-attribute name="body" value="/WEB-INF/jsp/form/checkbox.jsp" /> 
+	</definition>
+  
+</tiles-definitions>
