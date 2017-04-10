@@ -1,22 +1,19 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+    version="2.1">
 
-	version="2.1">
-
-	<persistence-unit name="ObjectForm" transaction-type="RESOURCE_LOCAL">
-
+    <persistence-unit name="FormGenerator">
 		<description>PostgreSQL Persistence Unit</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<!-- <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" /> -->
+            <property name="hibernate.show_sql" value="true" />
+        </properties>
+    </persistence-unit>
 
-		<!-- This is where we tell JPA/Hibernate about our @Entity objects <class>com.object.form.model.Form</class> -->
 
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-			<property name="hibernate.show_sql" value="true" />
-
-
-		</properties>
-	</persistence-unit>
 </persistence>
