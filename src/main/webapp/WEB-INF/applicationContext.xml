@@ -49,12 +49,4 @@
     <context:component-scan base-package="formgenerator.model" />
 
 
-<<<<<<< HEAD
-	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/users.html"
-			access="hasRole('ROLE_ADMIN')" />
-	</security:http>
-
-=======
->>>>>>> 4f787fbcaec251fac2a7ad07e6a5f8bd4cd9d43f
 </beans>
