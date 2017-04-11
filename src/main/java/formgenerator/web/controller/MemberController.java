@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import formgenerator.model.Member;
-import formgenerator.model.Page;
 import formgenerator.model.dao.MemberDAO;
 
 @Controller
