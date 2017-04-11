@@ -21,9 +21,17 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
+	      <filters>
+            <filter>${basedir}/src/main/resources/build.properties</filter>
+          </filters>
           <webResources>
             <resource>
-              <directory>/src/main/resources</directory>
+              <directory>/src/main/webapp/WEB-INF</directory>
+              <filtering>true</filtering>
+              <targetPath>WEB-INF</targetPath>
+              <includes>
+                <include>applicationContext.xml</include>                    
+              </includes>
             </resource>
           </webResources>
         </configuration>
