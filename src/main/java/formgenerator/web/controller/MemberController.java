@@ -1,5 +1,6 @@
 package formgenerator.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import formgenerator.model.Member;
+import formgenerator.model.Role;
 import formgenerator.model.dao.MemberDAO;
 
 @Controller
@@ -48,7 +50,9 @@ public class MemberController {
 	private String add(ModelMap model)
 	{
 		Member member = new Member();
-		
+		List <Role> rolelist = new ArrayList<Role>();
+		Role role = new Role();
+		rolelist.add(role);
 		model.put("member", member);
 		model.addAttribute("menu", "<a style='color: white' href='./list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>");
 		

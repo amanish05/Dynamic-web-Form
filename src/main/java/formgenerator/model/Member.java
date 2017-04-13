@@ -58,7 +58,7 @@ public class Member implements Serializable{
 	@OneToOne(cascade = {CascadeType.ALL })
 	private Address address;
 			
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "member_roles",
     joinColumns=@JoinColumn(name = "member_id"),
     inverseJoinColumns=@JoinColumn(name="role_id"))
