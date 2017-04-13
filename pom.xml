@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ObjectForm</groupId>
   <artifactId>ObjectForm</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>war</packaging>
   
   <profiles>
@@ -37,10 +37,23 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.0.0</version>
         <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
+	      <filters>
+            <filter>${basedir}/src/main/resources/build.properties</filter>
+          </filters>
+          <webResources>
+            <resource>
+              <directory>/src/main/webapp/WEB-INF</directory>
+              <filtering>true</filtering>
+              <targetPath>WEB-INF</targetPath>
+              <includes>
+                <include>applicationContext.xml</include>                    
+              </includes>
+            </resource>
+          </webResources>
         </configuration>
       </plugin>
     </plugins>
@@ -115,5 +128,10 @@
     	<artifactId>tiles-jsp</artifactId>
     	<version>3.0.7</version>
     </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-log4j12</artifactId>
+    	<version>1.7.25</version>
+    </dependency>    
   </dependencies>
 </project>

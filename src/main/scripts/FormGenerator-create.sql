@@ -27,6 +27,13 @@
         choiceAnswers_id int4 not null
     );
 
+    create table AssignedForms (
+        Id  serial not null,
+        FORM_ID int4,
+        MEMBER_ID int4,
+        primary key (Id)
+    );
+
     create table choices (
         id  serial not null,
         text varchar(255),
@@ -83,19 +90,17 @@
         primary key (Id)
     );
 
-    create table member_roles (
-        member_id int4 not null,
-        role_id int4 not null
-    );
-
     create table Members (
         Id  serial not null,
         Email varchar(255),
+        Enabled boolean,
         First_Name varchar(255),
         Last_Name varchar(255),
         Middle_Name varchar(255),
-        Passcode varchar(30),
+        Password varchar(100),
+        Username varchar(255),
         address_Id int4,
+        roles_Role_Id int4,
         primary key (Id)
     );
 
@@ -129,7 +134,7 @@
 
     create table Roles (
         Role_Id  serial not null,
-        Name varchar(255),
+        Name varchar(255) not null,
         primary key (Role_Id)
     );
 
@@ -138,6 +143,9 @@
 
     alter table FormElement_choices 
         add constraint UK_e27wl75sqvy7w9phqms4so4l unique (choices_id);
+
+    alter table Members 
+        add constraint UK_ctwhq1mhwjtrsvpl0kp2iqhw unique (Username);
 
     alter table Answer 
         add constraint FKf6ofc87u4wjyf300c3aisy6el 
@@ -158,6 +166,16 @@
         add constraint FKt1oirg3nqfenxouwed7jv8keu 
         foreign key (MultipleChoiceAnswer_id) 
         references Answer;
+
+    alter table AssignedForms 
+        add constraint FKabtjv10st4ug0gsk5pr9qig0n 
+        foreign key (FORM_ID) 
+        references forms;
+
+    alter table AssignedForms 
+        add constraint FKhtu4qkcxhwnqh2rhos9f0fu3k 
+        foreign key (MEMBER_ID) 
+        references Members;
 
     alter table FormElement 
         add constraint FK7koo28nnw76tn0mi9ao61pqtx 
@@ -204,20 +222,15 @@
         foreign key (ownerId) 
         references Members;
 
-    alter table member_roles 
-        add constraint FK5h9y7jfa0x18ffnnuicfpr78m 
-        foreign key (role_id) 
-        references Roles;
-
-    alter table member_roles 
-        add constraint FK2540hlyieprylcidoaniysi68 
-        foreign key (member_id) 
-        references Members;
-
     alter table Members 
         add constraint FK7fj6n2lr2xr32o18bxuwft5wm 
         foreign key (address_Id) 
         references Addresses;
+
+    alter table Members 
+        add constraint FKcrj6a1533qhkjdl2mtyaj5aje 
+        foreign key (roles_Role_Id) 
+        references Roles;
 
     alter table page_formElements 
         add constraint FK3iruri89oijg6u3np0l9pssrs 

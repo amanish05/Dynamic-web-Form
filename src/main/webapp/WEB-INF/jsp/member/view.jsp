@@ -39,7 +39,7 @@
 	</tr>
 	<tr>
 		
-		<th>Password : </th> <td>${member.passcode }</td>
+		<th>Username : </th> <td>${member.username }</td>
 		
 	</tr>
 	<tr>
@@ -79,7 +79,12 @@
 		
 		<th>Country : </th> <td>${member.address.country }</td>
 		
-	</tr>								
+	</tr>
+	<tr>
+		
+		<th>Role : </th> <td>${member.roles.name }</td>
+		
+	</tr>							
 
 </table>
 </body>

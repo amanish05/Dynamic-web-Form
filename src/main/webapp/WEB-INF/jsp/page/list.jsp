@@ -4,8 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet"/>
+<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
 <title>List of Form's Pages</title>
 </head>
