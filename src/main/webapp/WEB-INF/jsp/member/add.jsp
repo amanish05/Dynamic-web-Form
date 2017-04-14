@@ -4,8 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <title>Add Member</title>
@@ -26,7 +25,7 @@
 		<table border="1" cellspacing=0 cellpadding=5 bordercolor="#D3D3D3"
 			style="margin-top: 20px; margin-bottom: 0px; margin-right: 10px; margin-left: 10px;">
 			<tr>
-				<th>Email Address:</th>
+				<th>Email Id:</th>
 				<td><form:input path="email" /></td>
 			</tr>
 			<tr>
@@ -42,25 +41,22 @@
 				<td><form:input path="lastName" /></td>
 			</tr>
 			<tr>
-				<th>Password:</th>
-				<td><form:password path="passcode" /></td>
+				<th>User name:</th>
+				<td><form:input path="username" /></td>
 			</tr>
 			<tr>
-				<th>Role:</th>
-				<td><form:select path="roles[0].name">
-						<form:option value="MEMBER">MEMBER</form:option>
-						<form:option value="ADMIN">ADMIN</form:option>
-					</form:select></td>
+				<th>Password:</th>
+				<td><form:password path="password" /></td>
 			</tr>
 			<tr>
 				<th colspan="2">Enter Your Address:</th>
 			</tr>
 			<tr>
-				<th>Street Number:</th>
+				<th>House Number:</th>
 				<td><form:input path="address.house" /></td>
 			</tr>
 			<tr>
-				<th>Street Address:</th>
+				<th>Street Number:</th>
 				<td><form:input path="address.street" /></td>
 			</tr>
 			<tr>
@@ -83,6 +79,18 @@
 				<th>Country:</th>
 				<td><form:input path="address.country" /></td>
 			</tr>
+			<tr>
+				<th>Role</th>
+				<td><form:select path="roles.name">
+				    <form:options items="${roles}" />
+				</form:select>
+				</td>
+			</tr>
+			<tr>
+				<th>Is Enabled:</th>
+				<td> <form:checkbox path="enabled" /></td>			
+			</tr>
+			
 		</table>          
 &nbsp;&nbsp;
   	<input type="submit" class="btn btn-success" name="add" value="Save">

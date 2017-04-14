@@ -16,6 +16,7 @@ package formgenerator.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,21 +25,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({	
+	@NamedQuery(name = "assignedform.by.named.query", query = "SELECT f FROM Form f"
+			+ " INNER JOIN f.assigedForm af ON f.id = af.form  WHERE af.member.id = :memberId") 
+	})
 @Table(name="forms")
 public class Form implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@SequenceGenerator(name="form_id_seq",sequenceName="form_id_seq",initialValue = 100,allocationSize=1)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="form_id_seq")	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)   	
 	@Column(name="Id", unique = true, nullable = false)
 	private Integer id;
 	
@@ -65,10 +69,15 @@ public class Form implements Serializable{
 	@JoinColumn(name="ownerId")
 	private Member ownedBy;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Role currentMemberRole;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "form")
+	private Set<AssignedForm> assigedForm;
 	
+	public Set<AssignedForm> getAssigedForm() {
+		return assigedForm;
+	}
+	public void setAssigedForm(Set<AssignedForm> assigedForm) {
+		this.assigedForm = assigedForm;
+	}
 	public List<Page> getPages() {
 		return pages;
 	}
