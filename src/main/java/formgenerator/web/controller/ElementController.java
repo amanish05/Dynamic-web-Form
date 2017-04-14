@@ -23,7 +23,7 @@ import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.PageDAO;
 
 @Controller
-@SessionAttributes("textbox")
+@SessionAttributes({"textbox","multiplechoice"})
 public class ElementController {
 	
 	@Autowired
@@ -210,10 +210,10 @@ public class ElementController {
 	}
 	
 	@RequestMapping(value="/element/editCheckbox.html",method = RequestMethod.POST)
-	private String editCheckbox( @ModelAttribute MultipleChoice multipleChoice,@RequestParam Integer pageId, @RequestParam Integer formId, @RequestParam Integer elementId, SessionStatus status)
+	private String editCheckbox( @ModelAttribute("multiplechoice") MultipleChoice multiplechoice,@RequestParam Integer pageId, @RequestParam Integer formId, @RequestParam Integer elementId, SessionStatus status)
 	{
 
-		multipleChoice = (MultipleChoice)elementDao.saveElement(multipleChoice);
+		multiplechoice = (MultipleChoice)elementDao.saveElement(multiplechoice);
 		
 		status.setComplete();
 		
