@@ -1,6 +1,5 @@
 package formgenerator.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import formgenerator.model.Choice;
-import formgenerator.model.FormElement;
 import formgenerator.model.MultipleChoice;
-import formgenerator.model.Page;
-import formgenerator.model.Textbox;
 import formgenerator.model.dao.ChoiceDAO;
 import formgenerator.model.dao.ElementDAO;
 

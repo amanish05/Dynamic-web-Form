@@ -1,6 +1,7 @@
 package formgenerator.web.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,7 @@ public class FormController {
 		Form form = new Form();
 
 		model.put("form", form);
+		model.put("numofpages", 1);
 		model.addAttribute("menu",
 				"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
 
@@ -89,12 +91,22 @@ public class FormController {
 	}
 
 	@RequestMapping(value = { "/form/add.html" }, method = RequestMethod.POST)
-	private String add(@ModelAttribute Form form, Principal principal) {
+	private String add(@ModelAttribute Form form, @RequestParam int numofpages, Principal principal) {
 		
 		Date myDate = new Date();
 		
 		form.setCreatedDate(new java.sql.Timestamp(myDate.getTime()));
 		form.setOwnedBy(memberDao.getMemberbyUserName(principal.getName()));
+		
+		List<Page> pages = new ArrayList<Page>();
+		for(int i = 1; i <= numofpages; i++) {
+			Page page = new Page();
+			page.setNumber((byte) i);
+			page.setForm(form);
+			pages.add(page);
+		}
+		form.setPages(pages);
+		
 		formDao.saveForm(form);
 
 		return "redirect:list.html";

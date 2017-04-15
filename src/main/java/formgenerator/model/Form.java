@@ -65,7 +65,7 @@ public class Form implements Serializable{
 	@Column(name="Pages")	
 	private List<Page> pages;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name="ownerId")
 	private Member ownedBy;
 	

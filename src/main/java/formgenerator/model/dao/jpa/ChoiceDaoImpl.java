@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import formgenerator.model.Choice;
-import formgenerator.model.Page;
 import formgenerator.model.dao.ChoiceDAO;
 
 @Repository

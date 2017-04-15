@@ -52,7 +52,7 @@
 									class="btn btn-warning">Edit</button></a> 
 								<sec:authorize access="hasAuthority('Admin')">
 									<a href="delete.html?memberId=${member.id}">							
-										<button	type="button" class="btn btn-warning">Delete</button>
+										<button	type="button" class="btn btn-danger">Delete</button>
 									</a>
 								</sec:authorize>
 							</td>
