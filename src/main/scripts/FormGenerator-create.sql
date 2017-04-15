@@ -693,7 +693,7 @@ ALTER SEQUENCE forms_id_seq
 	RESTART WITH 6;
 	
 ALTER SEQUENCE members_id_seq 
-	RESTART WITH 3;
+	RESTART WITH 4;
 	
 ALTER SEQUENCE pages_page_id_seq 
 	RESTART WITH 6;
