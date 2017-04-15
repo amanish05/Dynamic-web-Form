@@ -46,7 +46,7 @@ public class FormDaoImpl implements FormDAO {
 	@Override
 	public List<Form> getForms()
 	{
-		 return entityManager.createQuery( "from Form order by id desc", Form.class )
+		 return entityManager.createQuery( "from Form order by id asc", Form.class )
 		            .getResultList();
 	}
 	

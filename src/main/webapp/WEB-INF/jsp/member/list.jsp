@@ -6,8 +6,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
-<link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet" />
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <title>Users List</title>
@@ -64,8 +62,8 @@
 	</table>
 	<br /> &nbsp;&nbsp;
 	<sec:authorize access="hasAuthority('Admin')">
-		<a href="add.html">Add new member</a>
-		<a href="assign.html">Assign Form</a>
+		<a href="add.html"><button>Add New Member</button></a>
+		<a href="assign.html"><button>Assign Form</button></a>
 	</sec:authorize>
 
 </body>
