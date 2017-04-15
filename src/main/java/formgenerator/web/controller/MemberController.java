@@ -63,6 +63,9 @@ public class MemberController {
 	@PreAuthorize("hasAuthority('Admin')")
 	private String add(ModelMap model) {
 		
+		Member member = new Member();
+		Role role = new Role();
+		member.setRoles(role);
 		model.put("member", new Member());
 		model.put("roles", Role.getRoles());
 		model.addAttribute("menu",

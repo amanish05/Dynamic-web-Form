@@ -61,7 +61,7 @@ public class Member implements Serializable{
 	@OneToOne(cascade = {CascadeType.ALL })
 	private Address address;
 			
-	@OneToOne(cascade = {CascadeType.ALL })
+	@OneToOne(cascade = CascadeType.ALL)
 	private Role roles;
 	
 	public Integer getId() {
