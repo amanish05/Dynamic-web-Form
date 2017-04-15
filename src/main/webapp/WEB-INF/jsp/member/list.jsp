@@ -61,10 +61,5 @@
 		</tbody>
 	</table>
 	<br /> &nbsp;&nbsp;
-	<sec:authorize access="hasAuthority('Admin')">
-		<a href="add.html"><button>Add New Member</button></a>
-		<a href="assign.html"><button>Assign Form</button></a>
-	</sec:authorize>
-
 </body>
 </html>
