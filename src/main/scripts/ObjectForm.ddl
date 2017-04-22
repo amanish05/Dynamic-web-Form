@@ -2,6 +2,7 @@
 ----PASSWORD FOR user "test" is test
 ------------------------------------
 
+
 INSERT INTO addresses(id, area, city, country, house, state, street, zip_code)
     VALUES (1, 'Los Angeles', 'Los Angeles', 'United States', '1111', 'CA', 'Fake Street1', '90032');
     
@@ -416,3 +417,28 @@ INSERT INTO Answer(answerType, id, textbox_value ,formId, memberId)
 INSERT INTO formElement_answers(formElement_id,answer_id)
 	VALUES(25, 22);
 
+	
+ALTER SEQUENCE addresses_id_seq 
+	RESTART WITH 4;
+
+ALTER SEQUENCE answer_id_seq 
+	RESTART WITH 23;
+	
+ALTER SEQUENCE choices_id_seq 
+	RESTART WITH 5;
+	
+ALTER SEQUENCE formelement_id_seq 
+	RESTART WITH 26;
+	
+ALTER SEQUENCE forms_id_seq 
+	RESTART WITH 6;
+	
+ALTER SEQUENCE members_id_seq 
+	RESTART WITH 4;
+	
+ALTER SEQUENCE pages_page_id_seq 
+	RESTART WITH 6;
+	
+ALTER SEQUENCE roles_role_id_seq 
+	RESTART WITH 4;
+------------------------------------
