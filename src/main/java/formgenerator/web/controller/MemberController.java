@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import formgenerator.model.Role;
 import formgenerator.model.dao.AssignFormDAO;
 import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.MemberDAO;
+import formgenerator.web.validator.MemberValidator;
 
 @Controller
 @SessionAttributes("member")
@@ -28,6 +30,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO memberDao;
+	
+	@Autowired
+	private MemberValidator memberValidator;
 	
 	@Autowired
 	private FormDAO formDao;
@@ -76,7 +81,12 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/add.html", method = RequestMethod.POST)
 	@PreAuthorize("hasAuthority('Admin')")
-	private String add(@ModelAttribute Member member) {
+	private String add(@ModelAttribute Member member, BindingResult bindingResult) {
+		
+		memberValidator.validate(member, bindingResult);
+		
+		if(bindingResult.hasErrors()) 
+			return "member/add"; 
 		
 		if(bCryptPasswordEncoder ==null)
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
