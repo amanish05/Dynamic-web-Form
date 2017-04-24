@@ -2,12 +2,14 @@ package formgenerator.model.dao;
 
 import java.util.List;
 
-import formgenerator.model.FormElement;
+import formgenerator.model.Member;
 
-public interface ElementDAO {
-	FormElement getElement(Integer id);
-	FormElement saveElement(FormElement element);
-	FormElement saveFormElement(FormElement element);
-	boolean delete(FormElement element);
-	List<FormElement> getElements(Integer pageId);
+public interface MemberDAO {
+ 	
+ 	Member getMember(Integer id);
+ 	Member getMemberbyUserName(String username);
+	Member saveMember(Member member);
+	boolean delete(Member member);
+ 	List<Member> getMembers();
+ 		
 }
