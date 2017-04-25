@@ -36,6 +36,11 @@
 		<put-attribute name="title" value="Assign Member" />   
 		<put-attribute name="body" value="/WEB-INF/jsp/member/assign.jsp" /> 
 	</definition>
+
+	<definition name="member/updatePassword" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Update Password" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/member/updatePassword.jsp" /> 
+	</definition>
 	
 	<definition name="form/preview" template="/WEB-INF/layouts/classic-templet.jsp">
 		<put-attribute name="title" value="Preview Form" />   

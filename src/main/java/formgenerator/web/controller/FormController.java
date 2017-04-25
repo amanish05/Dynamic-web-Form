@@ -183,5 +183,12 @@ public class FormController {
 
 		return "redirect:list.html";
 	}
+	
+	@RequestMapping(value = "/form/reset.html")
+	private String reset(ModelMap model) {
+		Form form = new Form();
+		model.put("form", form);
+		return "redirect:add.html";
+	}
 
 }
