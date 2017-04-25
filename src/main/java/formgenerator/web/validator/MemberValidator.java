@@ -39,7 +39,7 @@ public class MemberValidator implements Validator {
 		if(!StringUtils.hasText(member.getEmail()))
 			errors.rejectValue("email", "error.field.emailId");
 		
-		if(!member.getPassword().equals(member.getConfirmPasscode()))
+		if(!member.getPassword().equals(member.getConfirmPassword()))
 			errors.rejectValue("password", "error.field.password");
 		
 		if (!(member.getEmail() != null && member.getEmail().isEmpty())) {

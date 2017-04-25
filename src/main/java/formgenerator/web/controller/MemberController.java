@@ -97,7 +97,7 @@ public class MemberController {
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-		Member savedMember = memberDao.saveMember(member);
+		memberDao.saveMember(member);
 
 		return "redirect:list.html";
 	}
@@ -116,8 +116,18 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/edit.html", method = RequestMethod.POST)
 	@PreAuthorize("hasAuthority('Admin') || principal.username == #member.username")
-	private String edit(@ModelAttribute Member member, SessionStatus status) {
-		Member savedMember = memberDao.saveMember(member);
+	private String edit(@ModelAttribute Member member, SessionStatus status, BindingResult bindingResult) {
+		
+		memberValidator.validate(member, bindingResult);
+		
+		if(bindingResult.hasErrors()) 
+			return "member/add"; 
+		
+		if(bCryptPasswordEncoder ==null)
+			bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+		memberDao.saveMember(member);
 
 		status.setComplete();
 		return "redirect:list.html";
@@ -126,7 +136,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/delete.html", method = RequestMethod.GET)	
 	private String edit(@RequestParam Integer memberId) {
 		Member member = memberDao.getMember(memberId);
-		Boolean result = memberDao.delete(member);
+		memberDao.delete(member);
 
 		return "redirect:list.html";
 	}
@@ -173,7 +183,7 @@ public class MemberController {
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-		Member savedMember = memberDao.saveMember(member);
+		memberDao.saveMember(member);
 		
 		return "redirect:../form/list.html";
 	}

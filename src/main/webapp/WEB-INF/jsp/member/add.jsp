@@ -50,11 +50,11 @@
     </div>
   </div>
   <div class="form-group row">
-    <label for="confirmPasscode" class="col-sm-2 col-form-label">Confirm Password:</label>
+    <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
     <div class="col-sm-10">
       <form:password class="form-control" 
-             id="confirmPasscode" placeholder="Confirm Your Entered Password"
-             path="confirmPasscode" />
+             id="confirmPassword" placeholder="Confirm Your Entered Password"
+             path="confirmPassword" />
     </div>
   </div>
   <form:hidden path="roles.name" />
