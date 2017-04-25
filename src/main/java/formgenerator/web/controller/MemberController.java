@@ -1,5 +1,6 @@
 package formgenerator.web.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import formgenerator.model.dao.AssignFormDAO;
 import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.MemberDAO;
 import formgenerator.web.validator.MemberValidator;
+import formgenerator.web.validator.PasswordValidator;
 
 @Controller
 @SessionAttributes("member")
@@ -33,6 +35,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberValidator memberValidator;
+	
+	@Autowired
+	private PasswordValidator passwordValidator;
 	
 	@Autowired
 	private FormDAO formDao;
@@ -92,7 +97,7 @@ public class MemberController {
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-		memberDao.saveMember(member);
+		Member savedMember = memberDao.saveMember(member);
 
 		return "redirect:list.html";
 	}
@@ -111,18 +116,8 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/edit.html", method = RequestMethod.POST)
 	@PreAuthorize("hasAuthority('Admin') || principal.username == #member.username")
-	private String edit(@ModelAttribute Member member, SessionStatus status, BindingResult bindingResult) {
-		
-		memberValidator.validate(member, bindingResult);
-		
-		if(bindingResult.hasErrors()) 
-			return "member/add"; 
-		
-		if(bCryptPasswordEncoder == null)
-			bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		
-		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-		memberDao.saveMember(member);
+	private String edit(@ModelAttribute Member member, SessionStatus status) {
+		Member savedMember = memberDao.saveMember(member);
 
 		status.setComplete();
 		return "redirect:list.html";
@@ -131,7 +126,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/delete.html", method = RequestMethod.GET)	
 	private String edit(@RequestParam Integer memberId) {
 		Member member = memberDao.getMember(memberId);
-		memberDao.delete(member);
+		Boolean result = memberDao.delete(member);
 
 		return "redirect:list.html";
 	}
@@ -158,4 +153,42 @@ public class MemberController {
 		assignFormDao.saveAssigned(assignForm);		
 		return "redirect:list.html";
 	}
+	
+	@RequestMapping(value = "/member/updatepassword.html", method = RequestMethod.GET)	
+	private String updatePassword(ModelMap model, Principal principal) {
+		String username = principal.getName();
+		model.put("member", memberDao.getMemberbyUserName(username));
+		return "member/updatePassword";
+	}
+	
+	@RequestMapping(value = "/member/updatepassword.html", method = RequestMethod.POST)	
+	private String updatePassword(@ModelAttribute Member member, BindingResult bindingResult) {
+		
+		passwordValidator.validate(member, bindingResult);
+		
+		if(bindingResult.hasErrors()) 
+			return "member/updatePassword"; 
+		
+		if(bCryptPasswordEncoder ==null)
+			bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+		Member savedMember = memberDao.saveMember(member);
+		
+		return "redirect:../form/list.html";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
