@@ -65,13 +65,10 @@ public class FormController {
 			param.put("memberId", member.getId().toString());			
 			Set<Form> forms = formDao.findByNamedQuery("assignedform.by.named.query", param);			
 			model.put("forms", forms);
-			model.addAttribute("menu",
-					"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
+			
 		}else{
 			List<Form> forms = formDao.getForms();
-			model.put("forms", forms);
-			model.addAttribute("menu",
-					"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
+			model.put("forms", forms);			
 		}		
 
 		return "form/list";
@@ -79,14 +76,11 @@ public class FormController {
 	}
 
 	@RequestMapping(value = { "/form/add.html" }, method = RequestMethod.GET)
-	private String add(ModelMap model) {
-		Form form = new Form();
+	private String add(ModelMap model) {		
 
-		model.put("form", form);
+		model.put("form", new Form());
 		model.put("numofpages", 1);
-		model.addAttribute("menu",
-				"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
-
+		
 		return "form/add";
 	}
 
@@ -116,9 +110,6 @@ public class FormController {
 	private String edit(@RequestParam Integer id, ModelMap model) {
 
 		model.put("form", formDao.getForm(id));
-		model.addAttribute("menu",
-				"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
-
 		return "form/edit";
 	}
 
@@ -168,9 +159,7 @@ public class FormController {
 		}
 
 		model.put("form", curForm);
-		model.addAttribute("html", html);
-		model.addAttribute("menu",
-				"<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='./list.html'>Forms</a>");
+		model.addAttribute("html", html);		
 		model.addAttribute("pageLinks", pageLinks);
 
 		return "form/preview";

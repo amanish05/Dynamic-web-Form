@@ -49,23 +49,15 @@ public class MemberController {
 
 	@RequestMapping("/member/list.html")
 	private String list(ModelMap model) {
-		List<Member> members = memberDao.getMembers();
-
-		model.put("members", members);
-		model.addAttribute("menu",
-				"<a style='color: white' href='./list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>");
-
+		
+		model.put("members",  memberDao.getMembers());
 		return "member/list";
 	}
 
 	@RequestMapping(value = "/member/view.html", method = RequestMethod.GET)
 	private String view(@RequestParam Integer id, ModelMap model) {
-		Member member = memberDao.getMember(id);
-
-		model.put("member", member);
-		model.addAttribute("menu",
-				"<a style='color: white' href='./list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>");
-
+		
+		model.put("member", memberDao.getMember(id));
 		return "member/view";
 	}
 
@@ -77,9 +69,7 @@ public class MemberController {
 		Role role = new Role();
 		member.setRoles(role);
 		model.put("member", new Member());
-		model.put("roles", Role.getRoles());
-		model.addAttribute("menu",
-				"<a style='color: white' href='./list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>");
+		model.put("roles", Role.getRoles());		
 
 		return "member/add";
 	}
@@ -91,7 +81,7 @@ public class MemberController {
 		memberValidator.validate(member, bindingResult);
 		
 		if(bindingResult.hasErrors()) 
-			return "member/add"; 
+			return "redirect:member/add.html"; 
 		
 		if(bCryptPasswordEncoder ==null)
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
