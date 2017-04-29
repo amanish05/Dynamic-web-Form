@@ -28,6 +28,10 @@
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages" />
     </bean>
+
+    <!-- Bean for handling files uploads and downloads -->
+    <bean id="multipartResolver" 
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
     
     <!-- This helps in mapping the logical view names to directly view files under a certain pre-configured directory -->    
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

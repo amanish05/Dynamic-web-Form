@@ -21,6 +21,11 @@
  						<a href="add.html">Create New Form</a><span	class="sr-only">(current)</span></a>
  					</sec:authorize>
  				</li>
+ 				<li>
+ 					<sec:authorize access="hasAuthority('Admin') || hasAuthority('Staff')">
+ 						<a href="../pdffile/list.html">Manage PDF Files</a><span	class="sr-only">(current)</span></a>
+ 					</sec:authorize>
+ 				</li>
  				<li class="dropdown"><a href="#" class="dropdown-toggle"
  					data-toggle="dropdown" role="button" aria-haspopup="true"
  					aria-expanded="false">User Management<span class="caret"></span></a>
