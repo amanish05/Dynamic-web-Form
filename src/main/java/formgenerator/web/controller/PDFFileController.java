@@ -51,14 +51,18 @@ public class PDFFileController {
 	public String PDFFileUpload( @RequestParam MultipartFile PDFFile, ModelMap modelMap, Principal principal ) throws IllegalStateException, IOException {
 		if (PDFFile.isEmpty()) {
             modelMap.put("errorMessage", "Please select a file to upload.");
-            return "redirect:upload.html";
+            return "pdffile/upload";
         }
 		
-		String fileType = PDFFile.getOriginalFilename().split("\\.")[1];
-		if (!fileType.equals("pdf")) {
+		if (!PDFFile.getOriginalFilename().split("\\.")[1].equals("pdf")) {
             modelMap.put("errorMessage", "You can upload only PDF files.");
-            return "redirect:upload.html";
+            return "pdffile/upload";
         }
+
+		if(PDFFile.getSize() > 20971520) {
+			modelMap.put("errorMessage", "You can upload only PDF files of size up to 20MB.");
+            return "pdffile/upload";
+		}
 		
 		Date createdDate = new Date();
 		PDFFile pdfFile = new PDFFile();
