@@ -1,7 +1,6 @@
 package formgenerator.web.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,6 +52,23 @@ public class MemberController {
 		model.put("members",  memberDao.getMembers());
 		return "member/list";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout, ModelMap model) {
+		
+		if (error != null) {
+			model.put("error", "Invalid username and/or password.");
+		}
+
+		if (logout != null) {
+			model.put("msg", "You've been logged out successfully.");
+		}
+		
+		System.out.print("In Login web controller");
+		return "member/login";
+
+	}	
 
 	@RequestMapping(value = "/member/view.html", method = RequestMethod.GET)
 	private String view(@RequestParam Integer id, ModelMap model) {

@@ -117,7 +117,7 @@ public class FormController {
 	private String edit(@ModelAttribute Form form, SessionStatus status) {
 		
 		Date myDate = new Date();
-		form.setModifiedDate(new java.sql.Timestamp(myDate.getTime()));
+		form.setModifiedDate(new java.sql.Timestamp(myDate.getTime()));				
 		formDao.saveForm(form);
 
 		status.setComplete();

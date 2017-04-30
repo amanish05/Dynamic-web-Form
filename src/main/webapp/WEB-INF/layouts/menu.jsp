@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+ 
  <nav class="navbar navbar-default">
  	<div class="container-fluid">
  		<div class="navbar-header">
@@ -18,7 +20,7 @@
  						class="sr-only">(current)</span></a></li>
  				<li>
  					<sec:authorize access="hasAuthority('Admin') || hasAuthority('Staff')">
- 						<a href="add.html">Create New Form</a><span	class="sr-only">(current)</span></a>
+ 						<a href="../form/add.html">Create New Form</a><span	class="sr-only">(current)</span></a>
  					</sec:authorize>
  				</li>
  				<li>
@@ -43,7 +45,7 @@
  					</ul>
  				</li>					
  			</ul>
- 			<form action = "../logout" method="POST">
+ 			<form action="<c:url value='/logout'/>" method="POST" id="logout">
  				<input name="_csrf" type="hidden" value="${_csrf.token}" /> 
  				<input name="submit" type="submit" value="Signout" class="btn btn-danger"/>
  			</form>

@@ -15,18 +15,18 @@
 </style>
 
 <form:form modelAttribute="member" class="form-horizontal">
-	<h3>Contact Information:</h3>
+	<h3>Login Information:</h3>
 	<hr>
 	
 		<div class="form-group required">
-		    <label for="firstName" class="col-sm-2 control-label">Username</label>
+		    <label for="username" class="col-sm-2 control-label">Username</label>
 		    <div class="col-sm-5">
-		      	<form:input class="form-control" id="firstName" placeholder="" path="username" required="required"/>				
+		      	<form:input class="form-control" id="username" placeholder="" path="username" required="required" autofocus="autofocus"/>				
 		   </div>
 		</div>		
 		
 		<div class="form-group required">
-		    <label for="firstName" class="col-sm-2 control-label">Email:</label>
+		    <label for="email" class="col-sm-2 control-label">Email:</label>
 		    <div class="col-sm-5">
 		      	<form:input class="form-control" id="email" placeholder="Enter Your Email Id" path="email" required="required"/> 
       			<form:errors path="email" class="error"/>
@@ -34,7 +34,7 @@
 		</div>
 		
 		<div class="form-group required">
-		    <label for="firstName" class="col-sm-2 control-label">Password:</label>
+		    <label for="password" class="col-sm-2 control-label">Password:</label>
 		    <div class="col-sm-5">
 		      	<form:password class="form-control" id="password" placeholder="Enter Your Password" path="password" required="required"/>
       			<form:errors path="password" />
@@ -42,7 +42,7 @@
 		</div>
 		
 		<div class="form-group required">
-		    <label for="firstName" class="col-sm-2 control-label">Confirm password:</label>
+		    <label for="confirmPassword" class="col-sm-2 control-label">Confirm password:</label>
 		    <div class="col-sm-5">
 		      	<form:password class="form-control" id="confirmPassword" placeholder="Confirm Your Entered Password"  path="confirmPassword" required="required"/>
 		   </div>
@@ -51,12 +51,14 @@
 		<div class="form-group required">
 		    <label for="role" class="col-sm-2 control-label">Member Role:</label>
 		    <div class="col-sm-5">
-			    <form:select path="roles.name" class="selectpicker  form-control show-tick" data-width="auto">
+			    <form:select path="roles.name" class="selectpicker  form-control show-tick" data-width="auto" name="role">
 					<form:options items="${roles}" />
 			    </form:select>
 		    </div>
 		</div>
 		
+		<hr>
+		<h3>Contact Information:</h3>
 		<hr>
 	
 		<div class="form-group">
@@ -68,7 +70,7 @@
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Last Name:</label>
+		    <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
 		    <div class="col-sm-5">
 		      	<form:input class="form-control" id="lastName" placeholder="Enter Your Last Name" path="lastName" />
 		      	<form:errors path="lastName" />
@@ -76,7 +78,7 @@
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Middle Name:</label>
+		    <label for="middleName" class="col-sm-2 control-label">Middle Name:</label>
 		    <div class="col-sm-5">
 		      	<form:input class="form-control" id="middleName" placeholder="Enter Your Middle Name" path="middleName" />
 		   </div>
@@ -85,14 +87,14 @@
 		<form:hidden path="roles.name" />	
  		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Apartment:</label>
+		    <label for="house" class="col-sm-2 control-label">Apartment:</label>
 		    <div class="col-sm-5">
 		      	<form:input class="form-control" id="house" placeholder="Enter Your House Number" path="address.house" />
 		   </div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Street/Area:</label>
+		    <label for="street" class="col-sm-2 control-label">Street/Area:</label>
 		    <div class="col-sm-5">
 		      	 <form:input class="form-control" id="street" placeholder="Enter Your Street Number" path="address.street" />
 		   </div>
@@ -100,30 +102,30 @@
 		
 		 
   		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">City:</label>
-		    <div class="col-sm-5">
-		      	 <form:input type="text" class="form-control" id="city" placeholder="Enter Your City"  path="address.city" />
+		    <label for="city" class="col-sm-2 control-label">City:</label>
+		    <div class="col-md-3">
+		      	 <form:input type="text" class="col-md-3 form-control" id="city" placeholder="Enter Your City"  path="address.city" />
 		   </div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">State:</label>
-		    <div class="col-sm-5">
-		      	 <form:input type="text" class="form-control" id="state" placeholder="Enter Your State" path="address.state" />
+		    <label for="state" class="col-sm-2 control-label">State:</label>
+		    <div class="col-md-3">
+		      	 <form:input type="text" class="col-md-3 form-control" id="state" placeholder="Enter Your State" path="address.state" />
 		   </div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Country:</label>
-		    <div class="col-sm-5">
-		      	 <form:input type="text" class="form-control" id="country" placeholder="Enter Your Country" path="address.country" />
+		    <label for="country" class="col-sm-2 control-label">Country:</label>
+		    <div class="col-md-3">
+		      	 <form:input type="text" class="col-md-3 form-control" id="country" placeholder="Enter Your Country" path="address.country" />
 		   </div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="firstName" class="col-sm-2 control-label">Zip:</label>
-		    <div class="col-sm-5">
-		      	 <form:input type="text" class="form-control" id="zip" placeholder="Enter Your Zip Code"  path="address.zip"/>
+		    <label for="zip" class="col-sm-2 control-label">Zip:</label>
+		    <div class="col-md-3">
+		      	 <form:input type="text" class="col-md-3 form-control" id="zip" placeholder="Enter Your Zip Code"  path="address.zip"/>
 		   </div>
 		</div>
   		
