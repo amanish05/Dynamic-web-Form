@@ -4,12 +4,11 @@
 <link href="../webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <tiles:insertAttribute name="body" ignore="true"></tiles:insertAttribute>
 <form action="../pdffile/upload.html?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
-	<sec:csrfInput />
 	<div class="form-group">
 	    <label for="PDFFile">PDF File:</label>
 	    <input type="file" class="form-control-file" name="PDFFile" id="PDFFile" aria-describedby="fileHelp">
 	    <c:if test="${not empty errorMessage}"><p>${errorMessage}</p></c:if>
-	    <small id="fileHelp" class="form-text text-muted">Can Upload only PDF Files.</small>
+	    <c:if test="${empty errorMessage}"><small id="fileHelp" class="form-text text-muted">Can Upload only PDF Files.</small></c:if>
 	</div>
 	<input type="submit" name="upload" value="Upload" class="btn btn-primary">
 </form>
