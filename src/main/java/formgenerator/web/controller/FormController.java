@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import formgenerator.model.Form;
 import formgenerator.model.FormElement;
+import formgenerator.model.GroupElement;
 import formgenerator.model.Member;
+import formgenerator.model.MultipleChoice;
 import formgenerator.model.Page;
+import formgenerator.model.Textbox;
 import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.MemberDAO;
+import formgenerator.model.dao.ObjectFormDAOI;
 import formgenerator.model.dao.PageDAO;
 
 @Controller
@@ -40,6 +45,19 @@ public class FormController {
 	
 	@Autowired
 	private MemberDAO memberDao;
+	
+	private final ObjectFormDAOI<GroupElement> groupDao;
+	private final ObjectFormDAOI<Textbox> textDao;
+	private final ObjectFormDAOI<MultipleChoice> multiChoiceDao;
+		
+	@Autowired	
+	public FormController(@Qualifier("GroupElementDAO") final ObjectFormDAOI<GroupElement> dao,
+			@Qualifier("TextboxDAO") final ObjectFormDAOI<Textbox> textdao,
+			@Qualifier("MultipleChoiceDAO") final ObjectFormDAOI<MultipleChoice> multichoicedao){
+		this.groupDao = dao;
+		this.textDao = textdao;
+		this.multiChoiceDao = multichoicedao;
+	}
 
 	@RequestMapping(value = { "index.html", "add.html", "edit.html" })
 	private String index(ModelMap model) {
@@ -130,7 +148,7 @@ public class FormController {
 		if (fpId == null) {
 			fpId = 0;
 		}
-		String html = "", pageLinks = "Form pages : ";
+		String pageLinks = "Form pages : ";
 		int counter = 1, defaultPage = 0;
 		boolean isValid = false;
 		Form curForm = formDao.getForm(formId);
@@ -153,13 +171,34 @@ public class FormController {
 		} else {
 			p = pageDao.getPage(defaultPage);
 		}
-
+		
+		List<FormElement> elements = new ArrayList<>();
 		for (FormElement e : p.getElements()) {
-			html = html + e.toString();
+			
+			if(e.getType().equals("GroupElement")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				GroupElement ge = groupDao.findByCriteria(params, GroupElement.class);
+				elements.add(ge);				
+			}
+			
+			if(e.getType().equals("Textbox")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				Textbox ge = textDao.findByCriteria(params, Textbox.class);
+				elements.add(ge);								
+			}
+			
+			if(e.getType().equals("MultipleChoice")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				MultipleChoice ge = multiChoiceDao.findByCriteria(params, MultipleChoice.class);
+				elements.add(ge);								
+			}			
 		}
 
-		model.put("form", curForm);
-		model.addAttribute("html", html);		
+		model.put("form", curForm);		
+		model.addAttribute("elements", elements);
 		model.addAttribute("pageLinks", pageLinks);
 
 		return "form/preview";

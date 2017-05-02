@@ -34,16 +34,23 @@
 		<div class="form-group">
 			<label for="elementTitle" class="col-sm-2 control-label">Element Title:</label>
 			<div class="col-sm-5">
-				<form:input path="title" type="text" class="form-control" id="elementTitle" placeholder="Enter Element Title" name="elementTitle" autofocus="autofocus"/>
+				<form:input path="title" type="text" class="form-control" id="elementTitle" placeholder="Enter Element Title" name="elementTitle" required="required" autofocus="autofocus"/>
 			</div>
-		</div>		
+		</div>
+		
+		<div class="form-group">
+			<label for="elementTitle" class="col-sm-2 control-label">Element Name:</label>
+			<div class="col-sm-5">
+				<form:input path="name" type="text" class="form-control" id="elementName" placeholder="Enter Element Name" name="elementName" required="required"/>
+			</div>
+		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Choices:</label>
 			<div class="col-sm-10">
 				<table id="js_choices">
 					<tr class="option" id="tr_tpl">					
-						<td><form:input path="choices[0].text"	cssClass="option_content" /> 
+						<td><form:input path="choices[0].text"	cssClass="option_content" required="required"/> 
 							<i class="glyphicon glyphicon-plus add" ></i>
 							<i class="glyphicon glyphicon-trash del dn"></i>
 						</td>

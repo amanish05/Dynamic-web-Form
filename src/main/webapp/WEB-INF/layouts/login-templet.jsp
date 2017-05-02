@@ -15,16 +15,8 @@
 				max-width: 330px;
 				padding: 15px;
 				margin: 0 auto;
-			}
-			
-			.form-signin .form-signin-heading, .form-signin .checkbox {
-				margin-bottom: 10px;
-			}
-			
-			.form-signin .checkbox {
-				font-weight: normal;
-			}
-			
+			}			
+						
 			.form-signin .form-control {
 				position: relative;
 				font-size: 16px;

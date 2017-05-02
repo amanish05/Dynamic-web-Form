@@ -14,9 +14,9 @@
 			<input type="password" name="password" class="form-control" placeholder="Password" required="required" />
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>	
-			<label class="checkbox pull-left">
-               	<input type="checkbox" id="rememberme" name="remember-me">Remember me
-               </label>				
+			
+            <input class="pull-left checkbox" type="checkbox" id="rememberme" name="remember-me" checked="checked">Remember me
+            				
 			<a href="#" class="pull-right need-help">Need help? </a>
 			<span class="clearfix"></span>
 		</form>
