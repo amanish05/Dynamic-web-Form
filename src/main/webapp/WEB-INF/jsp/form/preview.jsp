@@ -1,21 +1,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<div class="">
-	<c:if test="${empty elements}">
-		<div class="jumbotron">
-			<h1>
-				Uh-Oh! <small>There are no Elements to display.</small>
-			</h1>
+<script>
+	$( function() {
+		$('tbody').sortable();
+	    $('tbody').disableSelection();
+	 });   
+</script>
+
+<div class="center-block">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h2>${form.title} - Preview</h2>
 		</div>
-	</c:if>
-	<c:if test="${not empty elements}">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h2>${form.title} - Preview</h2>
-			</div>
-			<h4>${pageLinks}</h4>
-			<div class="panel-body">
+		<h4>${pageLinks}</h4>
+		<div class="panel-body">
+			<c:if test="${empty elements}">
+				<div class="jumbotron">
+					<h1>
+						Uh-Oh! <small>There are no Elements to display.</small>
+					</h1>
+				</div>
+			</c:if>
+			<c:if test="${not empty elements}">					
 				<table class="table">					
 					<tbody>						
 						<c:forEach items="${elements}" var="element">
@@ -62,26 +71,11 @@
 										</c:forEach>
 									</td>
 								</tr>
-							</c:if>
-							<c:if test="${element.type == 'DateText'}">
-								<tr>											
-									<td>${element.title}<input type="date" name="${element.name}"></td>
-								</tr>
-							</c:if>			
+							</c:if>										
 						</c:forEach>
 					</tbody>
-				</table>
-
-				<form action="upload.html?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
-					<div class="form-group">
-					    <label for="PDFFile">PDF File:</label>
-					    <input type="hidden" name="formId" value="${form.id}">
-					    <c:if test="${not empty file}"><a href="download.html?fileId=${file.id}">${file.fileName }</a></c:if>
-					    <input type="file" class="form-control-file" name="file" aria-describedby="fileHelp">
-					</div>
-					<input type="submit" name="upload" value="Upload" class="btn btn-primary">
-				</form>
-			</div>
+				</table>									
+			</c:if>
 		</div>
-	</c:if>
+	</div>
 </div>
