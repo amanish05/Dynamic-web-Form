@@ -1,5 +1,6 @@
 package formgenerator.web.controller;
 
+import java.io.OutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import formgenerator.model.Form;
 import formgenerator.model.FormElement;
+import formgenerator.model.FormFile;
 import formgenerator.model.GroupElement;
 import formgenerator.model.Member;
 import formgenerator.model.MultipleChoice;
@@ -180,7 +184,7 @@ public class FormController {
 	}
 
 	@RequestMapping(value = { "/form/preview.html" }, method = RequestMethod.GET)
-	private String preview(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId) {
+	private String preview(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId, Principal principal) {
 		if (fpId == null) {
 			fpId = 0;
 		}
@@ -236,6 +240,8 @@ public class FormController {
 		model.put("form", curForm);		
 		model.addAttribute("elements", elements);
 		model.addAttribute("pageLinks", pageLinks);
+		FormFile file = formDao.getFormFile(formId, memberDao.getMemberbyUserName(principal.getName()).getId());
+		model.addAttribute("file", file);
 
 		return "form/preview";
 	}
@@ -255,4 +261,39 @@ public class FormController {
 		return "redirect:add.html";
 	}
 
+	@RequestMapping(value = "/form/upload.html")
+	private String upload(@RequestParam Integer formId, @RequestParam MultipartFile file, ModelMap modelMap, Principal principal) throws Exception {
+		if (file.isEmpty()) {
+			modelMap.put("errorMessage", "Please select a file to upload.");
+			return "redirect:/form/preview.html?formId=" + formId;
+		}
+
+		if (file.getSize() > 20971520) {
+			modelMap.put("errorMessage", "You can upload only PDF files of size up to 20MB.");
+			return "redirect:/form/preview.html?formId=" + formId;
+		}
+
+		Date createdDate = new Date();
+		FormFile formFile = new FormFile();
+		formFile.setFileName(file.getOriginalFilename());
+		formFile.setFileContent(file.getBytes());
+		formFile.setCreatedDate(new java.sql.Timestamp(createdDate.getTime()));
+		formFile.setModifiedDate(new java.sql.Timestamp(createdDate.getTime()));
+		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
+		formFile.setForm(formDao.getForm(formId));
+		formDao.saveFormFile(formFile);
+
+		return "redirect:/form/preview.html?formId=" + formId;
+	}
+
+	@RequestMapping(value = "/form/download.html")
+	private String download(@RequestParam Integer fileId,HttpServletResponse response) throws Exception {
+		FormFile file = formDao.getFormFile(fileId);
+		byte[] bytes = file.getFileContent();
+		response.addHeader("Content-Disposition", "attachment;filename=" + file.getFileName());
+		OutputStream os = response.getOutputStream();
+		os.write(bytes);
+
+		return null;
+	}
 }
