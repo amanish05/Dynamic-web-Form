@@ -74,7 +74,17 @@
 							</c:if>										
 						</c:forEach>
 					</tbody>
-				</table>									
+				</table>	
+
+				<form action="upload.html?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+					    <label for="PDFFile">PDF File:</label>
+					    <input type="hidden" name="formId" value="${form.id}">
+					    <c:if test="${not empty file}"><a href="download.html?fileId=${file.id}">${file.fileName }</a></c:if>
+					    <input type="file" class="form-control-file" name="file" aria-describedby="fileHelp">
+					</div>
+					<input type="submit" name="upload" value="Upload" class="btn btn-primary">
+				</form>
 			</c:if>
 		</div>
 	</div>
