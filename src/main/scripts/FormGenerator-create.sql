@@ -40,6 +40,17 @@
         primary key (id)
     );
 
+    create table FileUploadForm (
+        file_id  serial not null,
+        created_date timestamp,
+        file_content bytea,
+        file_name varchar(255),
+        modified_date timestamp,
+        form_id int4,
+        owner_id int4,
+        primary key (file_id)
+    );
+
     create table FormElement (
         elementType varchar(31) not null,
         id  serial not null,
@@ -53,6 +64,8 @@
         max_length int4,
         min_length int4,
         row_value int4,
+        fileLength int4,
+        fileType varchar(255),
         multiple_choice_type int4,
         number_of_allowed_select int4,
         size int4,
@@ -117,6 +130,16 @@
         primary key (Page_Id)
     );
 
+    create table pdf_files (
+        file_id  serial not null,
+        created_date timestamp,
+        file_content bytea,
+        file_name varchar(255),
+        modified_date timestamp,
+        ownerId int4,
+        primary key (file_id)
+    );
+
     create table PDFElement (
         pdfElement_Id  serial not null,
         name varchar(255),
@@ -136,16 +159,6 @@
         Role_Id  serial not null,
         Name varchar(255) not null,
         primary key (Role_Id)
-    );
-
-    create table pdf_files (
-        file_id  serial not null,
-        created_date timestamp,
-        file_content bytea,
-        file_name varchar(255),
-        modified_date timestamp,
-        ownerId int4,
-        primary key (file_id)
     );
 
     alter table Answer_choices 
@@ -185,6 +198,16 @@
     alter table AssignedForms 
         add constraint FKhtu4qkcxhwnqh2rhos9f0fu3k 
         foreign key (MEMBER_ID) 
+        references Members;
+
+    alter table FileUploadForm 
+        add constraint FKpfnbcln8pv0of1b6tw3yf5kla 
+        foreign key (form_id) 
+        references forms;
+
+    alter table FileUploadForm 
+        add constraint FKanih9kf4giu7tggaioyquw6r9 
+        foreign key (owner_id) 
         references Members;
 
     alter table FormElement 
@@ -257,6 +280,11 @@
         foreign key (Form_Id) 
         references forms;
 
+    alter table pdf_files 
+        add constraint FK7o4r63k0empq2jop6i774c6o 
+        foreign key (ownerId) 
+        references Members;
+
     alter table PDFElement 
         add constraint FK4ipq5n6otm49stsj9t3iic6hx 
         foreign key (formElement_id) 
@@ -270,9 +298,4 @@
     alter table PDFForm 
         add constraint FK49wbs09vujlgdt9i1yvnirofn 
         foreign key (owner_Id) 
-        references Members;
-
-    alter table pdf_files 
-        add constraint FK7o4r63k0empq2jop6i774c6o 
-        foreign key (ownerId) 
         references Members;

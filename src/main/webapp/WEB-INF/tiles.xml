@@ -112,6 +112,16 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/element/editCheckbox.jsp" /> 
 	</definition>
 	
+	<definition name="element/addFileUpload" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="File Upload Element" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/element/addFileUpload.jsp" /> 
+	</definition>
+	
+	<definition name="element/editFileUpload" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="File Upload Element" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/element/editFileUpload.jsp" />
+	</definition>
+	
 	<definition name="choice/add" template="/WEB-INF/layouts/classic-templet.jsp">
 		<put-attribute name="title" value="Add Checkbox Choice" />   
 		<put-attribute name="body" value="/WEB-INF/jsp/choice/add.jsp" /> 

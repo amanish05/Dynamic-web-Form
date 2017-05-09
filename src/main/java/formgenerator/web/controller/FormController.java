@@ -1,10 +1,12 @@
 package formgenerator.web.controller;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import formgenerator.model.FileUploadForm;
 import formgenerator.model.Form;
 import formgenerator.model.FormElement;
 import formgenerator.model.FormFile;
@@ -55,14 +59,17 @@ public class FormController {
 	private final ObjectFormDAOI<GroupElement> groupDao;
 	private final ObjectFormDAOI<Textbox> textDao;
 	private final ObjectFormDAOI<MultipleChoice> multiChoiceDao;
+	private final ObjectFormDAOI<FormFile> formfileDao;
 		
 	@Autowired	
 	public FormController(@Qualifier("GroupElementDAO") final ObjectFormDAOI<GroupElement> dao,
 			@Qualifier("TextboxDAO") final ObjectFormDAOI<Textbox> textdao,
-			@Qualifier("MultipleChoiceDAO") final ObjectFormDAOI<MultipleChoice> multichoicedao){
+			@Qualifier("MultipleChoiceDAO") final ObjectFormDAOI<MultipleChoice> multichoicedao,
+			@Qualifier("FormFileUpload") final ObjectFormDAOI<FormFile> filedao){
 		this.groupDao = dao;
 		this.textDao = textdao;
 		this.multiChoiceDao = multichoicedao;
+		this.formfileDao = filedao;
 	}
 
 	@RequestMapping(value = { "index.html", "add.html", "edit.html" })
@@ -234,14 +241,20 @@ public class FormController {
 				params.put("id", e.getId().toString());
 				MultipleChoice ge = multiChoiceDao.findByCriteria(params, MultipleChoice.class);
 				elements.add(ge);								
-			}			
+			}
+			
+			if(e.getType().equals("FormFile")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				FormFile ge = formfileDao.findByCriteria(params, FormFile.class);
+				elements.add(ge);								
+			}
+			System.out.println("The type is: " +e.getType());
 		}
 
 		model.put("form", curForm);		
 		model.addAttribute("elements", elements);
 		model.addAttribute("pageLinks", pageLinks);
-		FormFile file = formDao.getFormFile(formId, memberDao.getMemberbyUserName(principal.getName()).getId());
-		model.addAttribute("file", file);
 
 		return "form/preview";
 	}
@@ -261,34 +274,39 @@ public class FormController {
 		return "redirect:add.html";
 	}
 
-	@RequestMapping(value = "/form/upload.html")
-	private String upload(@RequestParam Integer formId, @RequestParam MultipartFile file, ModelMap modelMap, Principal principal) throws Exception {
-		if (file.isEmpty()) {
-			modelMap.put("errorMessage", "Please select a file to upload.");
-			return "redirect:/form/preview.html?formId=" + formId;
-		}
-
-		if (file.getSize() > 20971520) {
-			modelMap.put("errorMessage", "You can upload only PDF files of size up to 20MB.");
-			return "redirect:/form/preview.html?formId=" + formId;
-		}
-
-		Date createdDate = new Date();
-		FormFile formFile = new FormFile();
-		formFile.setFileName(file.getOriginalFilename());
-		formFile.setFileContent(file.getBytes());
-		formFile.setCreatedDate(new java.sql.Timestamp(createdDate.getTime()));
-		formFile.setModifiedDate(new java.sql.Timestamp(createdDate.getTime()));
-		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
-		formFile.setForm(formDao.getForm(formId));
-		formDao.saveFormFile(formFile);
-
-		return "redirect:/form/preview.html?formId=" + formId;
+	@RequestMapping(value="/form/upload.html", method = RequestMethod.POST)
+	private String upload(@RequestParam Integer formId, MultipartHttpServletRequest request, HttpServletResponse response, Principal principal ) {
+		
+		Iterator<String> itr =  request.getFileNames();
+        MultipartFile file = null;
+        
+        while(itr.hasNext()){
+        	
+        	file = request.getFile(itr.next());
+        	
+        	System.out.println(file.getOriginalFilename() +" uploaded! ");
+        	FileUploadForm formFile = new FileUploadForm();
+        	formFile.setFileName(file.getOriginalFilename());
+    		try {
+				formFile.setFileContent(file.getBytes());
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+    		
+    		Date createdDate = new Date();
+    		formFile.setCreatedDate(new java.sql.Timestamp(createdDate.getTime()));
+    		formFile.setModifiedDate(new java.sql.Timestamp(createdDate.getTime()));
+    		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
+    		formFile.setForm(formDao.getForm(formId));
+    		formDao.saveFormFile(formFile);
+    	}
+        
+        return "redirect:/form/preview.html?formId=" + formId;
 	}
 
 	@RequestMapping(value = "/form/download.html")
-	private String download(@RequestParam Integer fileId,HttpServletResponse response) throws Exception {
-		FormFile file = formDao.getFormFile(fileId);
+	private String download(@RequestParam Integer fileId, HttpServletResponse response) throws Exception {
+		FileUploadForm file = formDao.getFormFile(fileId);
 		byte[] bytes = file.getFileContent();
 		response.addHeader("Content-Disposition", "attachment;filename=" + file.getFileName());
 		OutputStream os = response.getOutputStream();

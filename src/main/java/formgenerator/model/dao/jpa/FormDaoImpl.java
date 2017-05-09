@@ -13,8 +13,8 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import formgenerator.model.FileUploadForm;
 import formgenerator.model.Form;
-import formgenerator.model.FormFile;
 import formgenerator.model.dao.FormDAO;
 
 
@@ -66,8 +66,8 @@ public class FormDaoImpl implements FormDAO {
 
 	@Override
 	@Transactional
-	public FormFile saveFormFile(FormFile formFile){
-		FormFile file = this.getFormFile(formFile.getForm().getId(),formFile.getOwner().getId());
+	public FileUploadForm saveFormFile(FileUploadForm formFile){
+		FileUploadForm file = this.getFormFile(formFile.getForm().getId(),formFile.getOwner().getId());
 		if(file != null){
 			file.setFileName(formFile.getFileName());
 			file.setFileContent(formFile.getFileContent());
@@ -78,18 +78,17 @@ public class FormDaoImpl implements FormDAO {
 
 			return entityManager.merge(formFile);
 		}
-
 	}
 
 	@Override
-	public FormFile getFormFile(Integer fileId){
-		return entityManager.find(FormFile.class,fileId);
+	public FileUploadForm getFormFile(Integer fileId){
+		return entityManager.find(FileUploadForm.class,fileId);
 	}
 	
 	@Override
-	public FormFile getFormFile(Integer formId, Integer userId){
-		List<FormFile> list = entityManager.createQuery( "from FormFile where form.id = " + formId + " and owner.id = " + userId, FormFile.class ).getResultList();
-		FormFile file = null;
+	public FileUploadForm getFormFile(Integer formId, Integer userId){
+		List<FileUploadForm> list = entityManager.createQuery( "from FileUploadForm where form.id = " + formId + " and owner.id = " + userId, FileUploadForm.class ).getResultList();
+		FileUploadForm file = null;
 		if(list.size() > 0){
 			file = list.get(0);
 		}
