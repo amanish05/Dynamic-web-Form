@@ -66,18 +66,10 @@ public class FormDaoImpl implements FormDAO {
 
 	@Override
 	@Transactional
-	public FileUploadForm saveFormFile(FileUploadForm formFile){
-		FileUploadForm file = this.getFormFile(formFile.getForm().getId(),formFile.getOwner().getId());
-		if(file != null){
-			file.setFileName(formFile.getFileName());
-			file.setFileContent(formFile.getFileContent());
-			file.setModifiedDate(formFile.getModifiedDate());
-			
-			return entityManager.merge(file);
-		}else{
+	public FileUploadForm saveFormFile(FileUploadForm formFile){		
 
-			return entityManager.merge(formFile);
-		}
+		return entityManager.merge(formFile);
+		
 	}
 
 	@Override

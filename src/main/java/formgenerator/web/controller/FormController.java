@@ -38,6 +38,7 @@ import formgenerator.model.Member;
 import formgenerator.model.MultipleChoice;
 import formgenerator.model.Page;
 import formgenerator.model.Textbox;
+import formgenerator.model.dao.ElementDAO;
 import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.MemberDAO;
 import formgenerator.model.dao.ObjectFormDAOI;
@@ -56,6 +57,9 @@ public class FormController {
 	@Autowired
 	private MemberDAO memberDao;
 	
+	@Autowired
+	private ElementDAO elementDao;
+	
 	private final ObjectFormDAOI<GroupElement> groupDao;
 	private final ObjectFormDAOI<Textbox> textDao;
 	private final ObjectFormDAOI<MultipleChoice> multiChoiceDao;
@@ -71,7 +75,7 @@ public class FormController {
 		this.multiChoiceDao = multichoicedao;
 		this.formfileDao = filedao;
 	}
-
+	
 	@RequestMapping(value = { "index.html", "add.html", "edit.html" })
 	private String index(ModelMap model) {
 		return "redirect:form/list.html";
@@ -189,26 +193,103 @@ public class FormController {
 
 		return "redirect:list.html";
 	}
-
-	@RequestMapping(value = { "/form/preview.html" }, method = RequestMethod.GET)
-	private String preview(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId, Principal principal) {
+	
+	@RequestMapping(value = { "/form/formsheet.html" }, method = RequestMethod.GET)
+	private String getFormsheet(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId) {
+		
 		if (fpId == null) {
 			fpId = 0;
 		}
-		String pageLinks = "Form pages : ";
+		
 		int counter = 1, defaultPage = 0;
 		boolean isValid = false;
 		Form curForm = formDao.getForm(formId);
-
-		for (Page p : curForm.getPages()) {
-			if (counter == 1)
+		List<Page> pages = curForm.getPages();
+		
+		List<String> pageLinks = new ArrayList<>(pages.size());
+		for (Page p : pages) {
+			if (counter == 1){
 				defaultPage = p.getId();
-			if (fpId == p.getId())
+			}
+				
+			if (fpId == p.getId()){
 				isValid = true;
-			pageLinks = pageLinks + "<a href='preview.html?fpId=" + p.getId() + "&formId=" + formId + "'>" + counter
-					+ "</a>&nbsp;&nbsp;";
+			}				
+			pageLinks.add("formsheet.html?fpId=" + p.getId() + "&formId=" + formId);
 			counter++;
+		}
 
+		Page p;
+		if (fpId > 0 && isValid) {
+			p = pageDao.getPage(fpId);
+
+		} else {
+			p = pageDao.getPage(defaultPage);
+		}
+		
+		List<FormElement> elements = new ArrayList<>();
+		for (FormElement e : p.getElements()) {
+			
+			if(e.getType().equals("GroupElement")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				GroupElement ge = groupDao.findByCriteria(params, GroupElement.class);
+				elements.add(ge);				
+			}
+			
+			if(e.getType().equals("Textbox")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				Textbox ge = textDao.findByCriteria(params, Textbox.class);
+				elements.add(ge);								
+			}
+			
+			if(e.getType().equals("MultipleChoice")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				MultipleChoice ge = multiChoiceDao.findByCriteria(params, MultipleChoice.class);
+				elements.add(ge);								
+			}
+			
+			if(e.getType().equals("FormFile")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				FormFile ge = formfileDao.findByCriteria(params, FormFile.class);
+				elements.add(ge);								
+			}
+			System.out.println("The type is: " +e.getType());
+		}
+
+		model.put("form", curForm);		
+		model.addAttribute("elements", elements);
+		model.addAttribute("pageLinks", pageLinks);
+		
+		return "form/formsheet";
+	}
+
+	@RequestMapping(value = { "/form/preview.html" }, method = RequestMethod.GET)
+	private String preview(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId) {
+		
+		if (fpId == null) {
+			fpId = 0;
+		}
+		
+		int counter = 1, defaultPage = 0;
+		boolean isValid = false;
+		Form curForm = formDao.getForm(formId);
+		List<Page> pages = curForm.getPages();
+		
+		List<String> pageLinks = new ArrayList<>(pages.size());
+		for (Page p : pages) {
+			if (counter == 1){
+				defaultPage = p.getId();
+			}
+				
+			if (fpId == p.getId()){
+				isValid = true;
+			}				
+			pageLinks.add("preview.html?fpId=" + p.getId() + "&formId=" + formId);
+			counter++;
 		}
 
 		Page p;
@@ -275,30 +356,28 @@ public class FormController {
 	}
 
 	@RequestMapping(value="/form/upload.html", method = RequestMethod.POST)
-	private String upload(@RequestParam Integer formId, MultipartHttpServletRequest request, HttpServletResponse response, Principal principal ) {
-		
-		Iterator<String> itr =  request.getFileNames();
-        MultipartFile file = null;
-        
-        while(itr.hasNext()){
-        	
-        	file = request.getFile(itr.next());
-        	
-        	System.out.println(file.getOriginalFilename() +" uploaded! ");
-        	FileUploadForm formFile = new FileUploadForm();
-        	formFile.setFileName(file.getOriginalFilename());
-    		try {
-				formFile.setFileContent(file.getBytes());
-			} catch (IOException e) {				
-				e.printStackTrace();
-			}
-    		
-    		Date createdDate = new Date();
-    		formFile.setCreatedDate(new java.sql.Timestamp(createdDate.getTime()));
-    		formFile.setModifiedDate(new java.sql.Timestamp(createdDate.getTime()));
-    		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
-    		formFile.setForm(formDao.getForm(formId));
-    		formDao.saveFormFile(formFile);
+	private String upload(@RequestParam Integer elementId, @RequestParam Integer formId,  List<MultipartFile> files, Principal principal ) {		
+		       
+		 if (null != files && files.size() > 0) {
+			 
+			 for (MultipartFile file : files) {			
+		        	
+		        	System.out.println(file.getOriginalFilename() +" uploaded! ");
+		        	FileUploadForm formFile = new FileUploadForm();
+		        	formFile.setFileName(file.getOriginalFilename());
+		    		try {
+						formFile.setFileContent(file.getBytes());
+					} catch (IOException e) {				
+						e.printStackTrace();
+					}
+		    		
+		    		Date createdDate = new Date();
+		    		formFile.setCreatedDate(new java.sql.Timestamp(createdDate.getTime()));
+		    		formFile.setModifiedDate(new java.sql.Timestamp(createdDate.getTime()));
+		    		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
+		    		formFile.setElement(elementDao.getElement(elementId));
+		    		formDao.saveFormFile(formFile);
+			 }       	
     	}
         
         return "redirect:/form/preview.html?formId=" + formId;

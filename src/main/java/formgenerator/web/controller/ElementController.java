@@ -29,7 +29,7 @@ import formgenerator.model.dao.ObjectFormDAOI;
 import formgenerator.model.dao.PageDAO;
 
 @Controller
-@SessionAttributes({"textbox","multiplechoice"})
+@SessionAttributes({"textbox", "multiplechoice", "formFile"})
 public class ElementController {
 	
 	@Autowired
@@ -87,7 +87,7 @@ public class ElementController {
 		
 		map.put("formId", formId);
 		map.put("pageId", pageId);
-		map.put("fileUpload", file);
+		map.put("formFile", file);
 		map.put("types", types);
 		return "element/addFileUpload";	
 	}
@@ -115,9 +115,9 @@ public class ElementController {
 		param.put("id", elementId.toString());
 		FormFile curElement = formfileDao.findByCriteria(param, FormFile.class);
 		
-		List<String> types = new ArrayList<String>(1);
+		List<String> types = new ArrayList<String>(1);		
+		types.add("PDF");
 		
-		types.add("PDF");		
 		map.put("formFile", curElement);
 		map.addAttribute("pageId", pageId);
 		map.addAttribute("formId", formId);
@@ -128,30 +128,14 @@ public class ElementController {
 	
 	@RequestMapping(value="element/editFileUpload.html",method = RequestMethod.POST)
 	private String editFileUpload(@ModelAttribute FormFile formFile,@RequestParam Integer elementId, @RequestParam Integer pageId, @RequestParam Integer formId, SessionStatus status){
-		
-		System.out.println("Id for form File is " +formFile.getId());
-		formFile.setId(elementId);
+				
 		formfileDao.update(formFile);
 		status.setComplete();	
 		
 		return "redirect:list.html?formId="+formId+"&pageId="+pageId;				
 	}
 	
-	
-	
-	/*
-	@RequestMapping(value="element/addTextbox.html",method = RequestMethod.POST)
-	private String addTextbox( @ModelAttribute Textbox textbox, SessionStatus status, BindingResult result)
-	{
 		
-		//FormElement element = elementDao.saveElement(textbox);
-		
-		//status.setComplete();
-		
-		return "redirect:list.html";	
-	}
-	*/
-	
 	@RequestMapping(value="/element/addTextbox.html",method = RequestMethod.GET)
 	private String addTextbox(@RequestParam Integer pageId, @RequestParam Integer formId,ModelMap model)
 	{
@@ -226,9 +210,7 @@ public class ElementController {
 	}
 
 	@RequestMapping(value="/element/addCheckbox.html",method = RequestMethod.GET)
-	private String addCheckbox(@RequestParam Integer pageId, @RequestParam Integer formId,ModelMap model)
-	{
-
+	private String addCheckbox(@RequestParam Integer pageId, @RequestParam Integer formId,ModelMap model){
 	
 		MultipleChoice checkboxElement;
 		
@@ -249,7 +231,6 @@ public class ElementController {
 		model.put("checkbox", checkboxElement);
 		model.addAttribute("pageId", pageId);
 		model.addAttribute("formId", formId);
-		model.addAttribute("menu", "<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>&nbsp;\\&nbsp;<a style='color: white' href='../page/list.html?formId="+formId+"'>Pages</a>&nbsp;\\&nbsp;<a style='color: white' href='list.html?formId="+formId+"&pageId="+pageId+"'>Elements</a>");
 		
 		return "element/addCheckbox";
 	}
@@ -283,7 +264,6 @@ public class ElementController {
 		model.addAttribute("pageId", pageId);
 		model.addAttribute("formId", formId);
 		model.addAttribute("elementId", elementId);
-		model.addAttribute("menu", "<a style='color: white' href='../member/list.html'>Users</a>&nbsp;&nbsp;<a style='color: white' href='../form/list.html'>Forms</a>&nbsp;\\&nbsp;<a style='color: white' href='../page/list.html?formId="+formId+"'>Pages</a>&nbsp;\\&nbsp;<a style='color: white' href='list.html?formId="+formId+"&pageId="+pageId+"'>Elements</a>");
 		
 		return "element/editCheckbox";
 	}

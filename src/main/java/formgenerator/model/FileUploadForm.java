@@ -25,8 +25,8 @@ public class FileUploadForm implements Serializable{
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "form_id")
-	private Form form;
+	@JoinColumn(name = "id")
+	private FormElement element;
 
 	@Column(name = "file_name")
 	private String fileName;
@@ -50,14 +50,14 @@ public class FileUploadForm implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}	
+
+	public FormElement getElement() {
+		return element;
 	}
 
-	public Form getForm() {
-		return form;
-	}
-
-	public void setForm(Form form) {
-		this.form = form;
+	public void setElement(FormElement element) {
+		this.element = element;
 	}
 
 	public String getFileName() {

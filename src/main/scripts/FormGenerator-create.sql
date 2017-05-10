@@ -46,7 +46,7 @@
         file_content bytea,
         file_name varchar(255),
         modified_date timestamp,
-        form_id int4,
+        id int4,
         owner_id int4,
         primary key (file_id)
     );
@@ -85,6 +85,11 @@
     create table FormElement_choices (
         MultipleChoice_id int4 not null,
         choices_id int4 not null
+    );
+
+    create table FormElement_FileUploadForm (
+        FormElement_id int4 not null,
+        fileUploadForm_file_id int4 not null
     );
 
     create table FormElement_FormElement (
@@ -167,6 +172,9 @@
     alter table FormElement_choices 
         add constraint UK_e27wl75sqvy7w9phqms4so4l unique (choices_id);
 
+    alter table FormElement_FileUploadForm 
+        add constraint UK_fnwci2mhlm6lji9n3r4j3j9ao unique (fileUploadForm_file_id);
+
     alter table Members 
         add constraint UK_ctwhq1mhwjtrsvpl0kp2iqhw unique (Username);
 
@@ -201,9 +209,9 @@
         references Members;
 
     alter table FileUploadForm 
-        add constraint FKpfnbcln8pv0of1b6tw3yf5kla 
-        foreign key (form_id) 
-        references forms;
+        add constraint FKjvd5w1ov5jsi1u4o4823kp80j 
+        foreign key (id) 
+        references FormElement;
 
     alter table FileUploadForm 
         add constraint FKanih9kf4giu7tggaioyquw6r9 
@@ -238,6 +246,16 @@
     alter table FormElement_choices 
         add constraint FKmrir97g7bblth4wcfxios49of 
         foreign key (MultipleChoice_id) 
+        references FormElement;
+
+    alter table FormElement_FileUploadForm 
+        add constraint FKeywfex78i48eukxlc88dxy0h0 
+        foreign key (fileUploadForm_file_id) 
+        references FileUploadForm;
+
+    alter table FormElement_FileUploadForm 
+        add constraint FK75bud2uao3vlwwco9fllfx307 
+        foreign key (FormElement_id) 
         references FormElement;
 
     alter table FormElement_FormElement 

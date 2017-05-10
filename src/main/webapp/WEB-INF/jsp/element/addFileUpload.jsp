@@ -3,7 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
-	<form:form modelAttribute="fileUpload" class="form-horizontal"	method="post">
+	<form:form modelAttribute="formFile" class="form-horizontal"	method="post">
 	
 		<div class="form-group">
 			<label for="elementTitle" class="col-sm-2 control-label">Element Title:</label>
