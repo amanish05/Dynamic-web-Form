@@ -13,8 +13,10 @@ package formgenerator.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +24,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name="pages")
@@ -47,10 +48,11 @@ public class Page implements Serializable{
 	@JoinColumn(name="Form_Id")
 	private Form form;
 	
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
 	@JoinTable(name = "page_formElements",
     joinColumns=@JoinColumn(name = "page_id"),
     inverseJoinColumns=@JoinColumn(name="formElement_id"))
+	@OrderBy(value="id")
 	private List<FormElement> elements;
 	
 	public Integer getId() {
@@ -83,6 +85,4 @@ public class Page implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}	
-	
-	
 }

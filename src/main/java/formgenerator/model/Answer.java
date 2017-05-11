@@ -17,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 
 
 //using table per concrete class inheritance strategy
@@ -70,6 +69,12 @@ public abstract class Answer implements Serializable{
 	}
 	public void setFormElements(List<FormElement> formElements) {
 		this.formElements = formElements;
+	}
+	public Form getForm() {
+		return form;
+	}
+	public void setForm(Form form) {
+		this.form = form;
 	}
 	
 }

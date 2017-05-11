@@ -21,22 +21,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name= "Members")
-public class Member implements Serializable{
+@Table(name= "Members", uniqueConstraints = { @UniqueConstraint(columnNames = { "Username" }) })
+public class Member implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@SequenceGenerator(name="member_id_seq",sequenceName="member_id_seq",initialValue = 100,allocationSize=1)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="member_id_seq")
 	@Column(name="Id")
 	private Integer id;
 	
@@ -49,20 +47,35 @@ public class Member implements Serializable{
 	@Column(name="Middle_Name")
 	private String middleName;
 	
+	@Column(name="Username" , unique=true)
+	private String username;
+	
 	@Column(name="Email")
 	private String email;
 	
-	@Column(name="Passcode", columnDefinition = "varchar(30)")
-	private String passcode;
+	@Column(name="Password", columnDefinition = "varchar(100)")
+	private String password;
+	
+	@Transient
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	@Column(name="Enabled")
+	private boolean enabled;
 	
 	@OneToOne(cascade = {CascadeType.ALL })
 	private Address address;
 			
-	@ManyToMany
-	@JoinTable(name = "member_roles",
-    joinColumns=@JoinColumn(name = "member_id"),
-    inverseJoinColumns=@JoinColumn(name="role_id"))
-	private List<Role> roles;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Role roles;
+	
+	@OneToMany
+	private List<Answer> answers;
 	
 	public Integer getId() {
 		return id;
@@ -100,16 +113,30 @@ public class Member implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public String getPasscode() {
-		return passcode;
+	
+	public String getUsername() {
+		return username;
 	}
-	public void setPasscode(String passcode) {
-		this.passcode = passcode;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public List<Role> getRoles() {
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public Role getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
-	}	
+	}
+		
 }

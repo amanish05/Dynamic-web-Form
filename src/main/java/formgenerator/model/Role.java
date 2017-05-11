@@ -8,6 +8,8 @@
 package formgenerator.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,13 +25,11 @@ public class Role implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@SequenceGenerator(name="role_id_seq",sequenceName="role_id_seq",initialValue = 100,allocationSize=1)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="role_id_seq")	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="Role_Id")
 	private Integer id;
 	
-	@Column(name="Name")
+	@Column(name="Name",nullable = false)
 	private String name;
 	
 	
@@ -43,6 +43,19 @@ public class Role implements Serializable{
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.replace(",", "");
+	}
+	
+	public static Map<String, String> getRoles(){
+		Map<String, String> roles = null;
+		
+		if(roles == null){
+			roles = new HashMap<>();		
+			roles.put("Admin", "Administrator");
+			roles.put("Staff", "Staff");
+			roles.put("User", "Regular User");
+		}
+		
+		return roles;
 	}
 }

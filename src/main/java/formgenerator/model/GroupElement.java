@@ -8,22 +8,24 @@ package formgenerator.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 @Entity
 @DiscriminatorValue("Group")
-public class GroupElement extends FormElement{
-	
+public class GroupElement extends FormElement {
+
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToMany
-	private List<FormElement> groupFormElements;
-	
-	@Column(name="group_Id")
+
+	@Column(name = "group_Id")
 	private int groupId;
+
+	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+	private List<FormElement> groupFormElements;
 
 	public int getGroupId() {
 		return groupId;
@@ -40,5 +42,4 @@ public class GroupElement extends FormElement{
 	public void setGroupFormElements(List<FormElement> groupFormElements) {
 		this.groupFormElements = groupFormElements;
 	}
-
 }

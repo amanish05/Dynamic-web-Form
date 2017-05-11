@@ -24,8 +24,7 @@ public class Textbox extends FormElement{
 	private Integer maxLength;
 	
 	@Column(name = "size")
-	private Integer size;
-	
+	private Integer size;	
 	
 	public String getDefaultValue() {
 		return defaultValue;
@@ -45,22 +44,4 @@ public class Textbox extends FormElement{
 	public void setSize(Integer size) {
 		this.size = size;
 	}
-	
-	public String toString()
-	{
-		String s="<table border=0 cellspaccing=5>";
-		s = "<tr><td>"+this.getTitle()+"&nbsp;&nbsp;</td>";
-		s =	s + "<td><Input type='text' name='"+this.getName()+"' ";
-		
-		if (this.getMaxLength()>0) s = s + "maxlength='"+this.getSize()+"' ";
-		if (this.getSize()>0) s = s + "size='"+this.getSize()+"' ";
-		
-		if (this.getIsRequired()) s= s + "required";
-		
-		s = s + "></td></tr></table><br/>";
-		
-		return s;
-		
-	}
-
 }

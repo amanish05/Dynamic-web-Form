@@ -27,10 +27,28 @@
         choiceAnswers_id int4 not null
     );
 
+    create table AssignedForms (
+        Id  serial not null,
+        FORM_ID int4,
+        MEMBER_ID int4,
+        primary key (Id)
+    );
+
     create table choices (
         id  serial not null,
         text varchar(255),
         primary key (id)
+    );
+
+    create table FileUploadForm (
+        file_id  serial not null,
+        created_date timestamp,
+        file_content bytea,
+        file_name varchar(255),
+        modified_date timestamp,
+        id int4,
+        owner_id int4,
+        primary key (file_id)
     );
 
     create table FormElement (
@@ -46,6 +64,8 @@
         max_length int4,
         min_length int4,
         row_value int4,
+        fileLength int4,
+        fileType varchar(255),
         multiple_choice_type int4,
         number_of_allowed_select int4,
         size int4,
@@ -67,6 +87,11 @@
         choices_id int4 not null
     );
 
+    create table FormElement_FileUploadForm (
+        FormElement_id int4 not null,
+        fileUploadForm_file_id int4 not null
+    );
+
     create table FormElement_FormElement (
         GroupElement_id int4 not null,
         groupFormElements_id int4 not null
@@ -83,19 +108,17 @@
         primary key (Id)
     );
 
-    create table member_roles (
-        member_id int4 not null,
-        role_id int4 not null
-    );
-
     create table Members (
         Id  serial not null,
         Email varchar(255),
+        Enabled boolean,
         First_Name varchar(255),
         Last_Name varchar(255),
         Middle_Name varchar(255),
-        Passcode varchar(30),
+        Password varchar(100),
+        Username varchar(255),
         address_Id int4,
+        roles_Role_Id int4,
         primary key (Id)
     );
 
@@ -110,6 +133,16 @@
         Page_Number int2,
         Form_Id int4,
         primary key (Page_Id)
+    );
+
+    create table pdf_files (
+        file_id  serial not null,
+        created_date timestamp,
+        file_content bytea,
+        file_name varchar(255),
+        modified_date timestamp,
+        ownerId int4,
+        primary key (file_id)
     );
 
     create table PDFElement (
@@ -129,7 +162,7 @@
 
     create table Roles (
         Role_Id  serial not null,
-        Name varchar(255),
+        Name varchar(255) not null,
         primary key (Role_Id)
     );
 
@@ -138,6 +171,12 @@
 
     alter table FormElement_choices 
         add constraint UK_e27wl75sqvy7w9phqms4so4l unique (choices_id);
+
+    alter table FormElement_FileUploadForm 
+        add constraint UK_fnwci2mhlm6lji9n3r4j3j9ao unique (fileUploadForm_file_id);
+
+    alter table Members 
+        add constraint UK_ctwhq1mhwjtrsvpl0kp2iqhw unique (Username);
 
     alter table Answer 
         add constraint FKf6ofc87u4wjyf300c3aisy6el 
@@ -158,6 +197,26 @@
         add constraint FKt1oirg3nqfenxouwed7jv8keu 
         foreign key (MultipleChoiceAnswer_id) 
         references Answer;
+
+    alter table AssignedForms 
+        add constraint FKabtjv10st4ug0gsk5pr9qig0n 
+        foreign key (FORM_ID) 
+        references forms;
+
+    alter table AssignedForms 
+        add constraint FKhtu4qkcxhwnqh2rhos9f0fu3k 
+        foreign key (MEMBER_ID) 
+        references Members;
+
+    alter table FileUploadForm 
+        add constraint FKjvd5w1ov5jsi1u4o4823kp80j 
+        foreign key (id) 
+        references FormElement;
+
+    alter table FileUploadForm 
+        add constraint FKanih9kf4giu7tggaioyquw6r9 
+        foreign key (owner_id) 
+        references Members;
 
     alter table FormElement 
         add constraint FK7koo28nnw76tn0mi9ao61pqtx 
@@ -189,6 +248,16 @@
         foreign key (MultipleChoice_id) 
         references FormElement;
 
+    alter table FormElement_FileUploadForm 
+        add constraint FKeywfex78i48eukxlc88dxy0h0 
+        foreign key (fileUploadForm_file_id) 
+        references FileUploadForm;
+
+    alter table FormElement_FileUploadForm 
+        add constraint FK75bud2uao3vlwwco9fllfx307 
+        foreign key (FormElement_id) 
+        references FormElement;
+
     alter table FormElement_FormElement 
         add constraint FKfvkfckkc5p9iafwmihafbkmn7 
         foreign key (groupFormElements_id) 
@@ -204,20 +273,15 @@
         foreign key (ownerId) 
         references Members;
 
-    alter table member_roles 
-        add constraint FK5h9y7jfa0x18ffnnuicfpr78m 
-        foreign key (role_id) 
-        references Roles;
-
-    alter table member_roles 
-        add constraint FK2540hlyieprylcidoaniysi68 
-        foreign key (member_id) 
-        references Members;
-
     alter table Members 
         add constraint FK7fj6n2lr2xr32o18bxuwft5wm 
         foreign key (address_Id) 
         references Addresses;
+
+    alter table Members 
+        add constraint FKcrj6a1533qhkjdl2mtyaj5aje 
+        foreign key (roles_Role_Id) 
+        references Roles;
 
     alter table page_formElements 
         add constraint FK3iruri89oijg6u3np0l9pssrs 
@@ -233,6 +297,11 @@
         add constraint FKlsq56jsg42mm80q2cr7evs6xj 
         foreign key (Form_Id) 
         references forms;
+
+    alter table pdf_files 
+        add constraint FK7o4r63k0empq2jop6i774c6o 
+        foreign key (ownerId) 
+        references Members;
 
     alter table PDFElement 
         add constraint FK4ipq5n6otm49stsj9t3iic6hx 
