@@ -6,6 +6,7 @@ import java.util.Set;
 
 import formgenerator.model.FileUploadForm;
 import formgenerator.model.Form;
+import formgenerator.model.Member;
 
 public interface FormDAO {
 	Form getForm(Integer id);

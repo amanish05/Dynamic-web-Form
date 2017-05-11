@@ -20,6 +20,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import org.springframework.web.context.WebApplicationContext;
+
+import formgenerator.model.Answer;
+import formgenerator.model.Choice;
+import formgenerator.model.ElementsContainer;
 import formgenerator.model.FileUploadForm;
 import formgenerator.model.Form;
 import formgenerator.model.FormElement;
@@ -36,16 +43,21 @@ import formgenerator.model.FormFile;
 import formgenerator.model.GroupElement;
 import formgenerator.model.Member;
 import formgenerator.model.MultipleChoice;
+
+import formgenerator.model.MultipleChoiceAnswer;
 import formgenerator.model.Page;
 import formgenerator.model.Textbox;
+import formgenerator.model.TextboxAnswer;
+import formgenerator.model.dao.AnswerDAO;
 import formgenerator.model.dao.ElementDAO;
 import formgenerator.model.dao.FormDAO;
 import formgenerator.model.dao.MemberDAO;
 import formgenerator.model.dao.ObjectFormDAOI;
 import formgenerator.model.dao.PageDAO;
+import formgenerator.web.editor.ChoicePropertyEditor;
 
 @Controller
-@SessionAttributes("form")
+@SessionAttributes({"form","elementsContainer"})
 public class FormController {
 	
 	@Autowired
@@ -56,15 +68,30 @@ public class FormController {
 	
 	@Autowired
 	private MemberDAO memberDao;
+
+	@Autowired
+	private AnswerDAO answerDao;	
 	
 	@Autowired
 	private ElementDAO elementDao;
+	
+	@Autowired
+	private WebApplicationContext context;
+
 	
 	private final ObjectFormDAOI<GroupElement> groupDao;
 	private final ObjectFormDAOI<Textbox> textDao;
 	private final ObjectFormDAOI<MultipleChoice> multiChoiceDao;
 	private final ObjectFormDAOI<FormFile> formfileDao;
-		
+
+	
+    @InitBinder
+    public void initBinder( WebDataBinder binder )
+    {
+        binder.registerCustomEditor( Choice.class,
+            (ChoicePropertyEditor) context.getBean( "choicePropertyEditor" ) );
+    }
+	
 	@Autowired	
 	public FormController(@Qualifier("GroupElementDAO") final ObjectFormDAOI<GroupElement> dao,
 			@Qualifier("TextboxDAO") final ObjectFormDAOI<Textbox> textdao,
@@ -114,8 +141,8 @@ public class FormController {
 	private String publish(ModelMap model, HttpServletRequest request) {
 		
 		Set<Form> forms = formDao.findByNamedQuery("published.form.by.named.query", new HashMap<>(1));
-		model.put("forms", forms);
-		
+		model.put("forms", forms);		
+
 		String flag = (String)request.getAttribute("updateFlag");
 		System.out.println("Flag is: "+request.getAttribute("updateFlag"));
 		System.out.println("Flag is: "+model.get("updateFlag"));
@@ -195,7 +222,7 @@ public class FormController {
 	}
 	
 	@RequestMapping(value = { "/form/formsheet.html" }, method = RequestMethod.GET)
-	private String getFormsheet(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId) {
+	private String getFormsheet(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId, Principal principal) {
 		
 		if (fpId == null) {
 			fpId = 0;
@@ -227,6 +254,8 @@ public class FormController {
 			p = pageDao.getPage(defaultPage);
 		}
 		
+		Member curMember = memberDao.getMemberbyUserName(principal.getName());
+		
 		List<FormElement> elements = new ArrayList<>();
 		for (FormElement e : p.getElements()) {
 			
@@ -241,16 +270,23 @@ public class FormController {
 				Map<String, String> params = new HashMap<>();
 				params.put("id", e.getId().toString());
 				Textbox ge = textDao.findByCriteria(params, Textbox.class);
-				elements.add(ge);								
+				TextboxAnswer answer = new TextboxAnswer();
+				answer.setUser(curMember);
+				answer.setForm(curForm);
+				ge.getAnswers().add(answer);
+				elements.add(ge);							
 			}
 			
 			if(e.getType().equals("MultipleChoice")){
-				Map<String, String> params = new HashMap<>();
-				params.put("id", e.getId().toString());
-				MultipleChoice ge = multiChoiceDao.findByCriteria(params, MultipleChoice.class);
+				MultipleChoice ge = (MultipleChoice)elementDao.getElement(e.getId());
+				MultipleChoiceAnswer answer = new MultipleChoiceAnswer();
+				answer.setForm(curForm);
+				answer.setChoiceAnswers(null);
+				ge.getAnswers().add(answer);
 				elements.add(ge);								
 			}
 			
+
 			if(e.getType().equals("FormFile")){
 				Map<String, String> params = new HashMap<>();
 				params.put("id", e.getId().toString());
@@ -264,9 +300,31 @@ public class FormController {
 		model.addAttribute("elements", elements);
 		model.addAttribute("pageLinks", pageLinks);
 		
+		ElementsContainer elementsContainer = new ElementsContainer(elements);
+		model.put("elementsContainer", elementsContainer);
+		model.addAttribute("form", curForm);
+		model.addAttribute("pageLinks", pageLinks);
+		
 		return "form/formsheet";
 	}
 
+	@RequestMapping(value = { "/form/formsheet.html" }, method = RequestMethod.POST)
+	private String getFormsheet(@ModelAttribute ElementsContainer elementsContainer, SessionStatus status) {
+		List<FormElement> elements = elementsContainer.getElements();
+		
+		for( FormElement fe : elements)
+		{
+			for(Answer a : fe.getAnswers())
+			{
+				answerDao.saveAnswer(a);
+			}
+		}
+		
+		status.setComplete();
+		return "redirect:list.html";
+	}
+	
+	
 	@RequestMapping(value = { "/form/preview.html" }, method = RequestMethod.GET)
 	private String preview(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId) {
 		
@@ -300,6 +358,7 @@ public class FormController {
 			p = pageDao.getPage(defaultPage);
 		}
 		
+
 		List<FormElement> elements = new ArrayList<>();
 		for (FormElement e : p.getElements()) {
 			
@@ -392,5 +451,6 @@ public class FormController {
 		os.write(bytes);
 
 		return null;
-	}
+	}	
+
 }

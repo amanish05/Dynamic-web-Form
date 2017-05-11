@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import formgenerator.model.FileUploadForm;
 import formgenerator.model.Form;
+import formgenerator.model.FormElement;
+import formgenerator.model.Member;
 import formgenerator.model.dao.FormDAO;
 
 

@@ -73,6 +73,7 @@ public class Form implements Serializable{
 	@JoinColumn(name="ownerId")
 	private Member ownedBy;
 	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "form", orphanRemoval=true)
 	private Set<AssignedForm> assigedForm;
 	

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ObjectForm</groupId>
   <artifactId>ObjectForm</artifactId>
-  <version>0.0.1</version>
+  <version>Final</version>
   <packaging>war</packaging>
   
   <profiles>

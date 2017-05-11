@@ -2,7 +2,7 @@ package formgenerator.web.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,14 +50,8 @@ public class MemberController {
 
 	@RequestMapping("/member/list.html")
 	private String list(ModelMap model) {
-			
-		List<Member> members = memberDao.getMembers();
-		model.put("members",  members);
 		
-		members.forEach(member -> {
-			System.out.println("The user is " +member.getId() + "And assigned form is : " +member.getAssignedForm().size());
-		});
-		
+		model.put("members",  memberDao.getMembers());
 		return "member/list";
 	}
 	
@@ -105,8 +99,8 @@ public class MemberController {
 		memberValidator.validate(member, bindingResult);
 		
 		if(bindingResult.hasErrors()) 
-			return "redirect:member/add.html"; 
-		
+			return "redirect:member/add.html";		
+
 		if(bCryptPasswordEncoder ==null)
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
@@ -132,8 +126,8 @@ public class MemberController {
 		memberValidator.validate(member, bindingResult);
 		
 		if(bindingResult.hasErrors()) 
-			return "member/add"; 
-		
+			return "redirect:edit.html"; 
+
 		if(bCryptPasswordEncoder ==null)
 			bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
@@ -163,7 +157,7 @@ public class MemberController {
 		return "member/assign";
 	}
 	
-		
+
 	@RequestMapping(value = "/member/assign.html", method = RequestMethod.POST)	
 	private String assign(@ModelAttribute AssignedForm assignForm) {
 		
@@ -186,6 +180,7 @@ public class MemberController {
 		return "redirect:list.html";
 	}
 	
+
 	@RequestMapping(value = "/member/updatepassword.html", method = RequestMethod.GET)	
 	private String updatePassword(ModelMap model, Principal principal) {
 		String username = principal.getName();
@@ -211,16 +206,3 @@ public class MemberController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

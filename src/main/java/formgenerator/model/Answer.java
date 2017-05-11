@@ -70,5 +70,11 @@ public abstract class Answer implements Serializable{
 	public void setFormElements(List<FormElement> formElements) {
 		this.formElements = formElements;
 	}
+	public Form getForm() {
+		return form;
+	}
+	public void setForm(Form form) {
+		this.form = form;
+	}
 	
 }
