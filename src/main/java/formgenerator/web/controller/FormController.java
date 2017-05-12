@@ -6,7 +6,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -415,8 +415,8 @@ public class FormController {
 	}
 
 	@RequestMapping(value="/form/upload.html", method = RequestMethod.POST)
-	private String upload(@RequestParam Integer elementId, @RequestParam Integer formId,  List<MultipartFile> files, Principal principal ) {		
-		       
+	private String upload(@RequestParam Integer elementId, @RequestParam Integer formId, List<MultipartFile> files, Principal principal, ModelMap map) {		
+		System.out.println(" Received uploaded request! " + files.size());
 		 if (null != files && files.size() > 0) {
 			 
 			 for (MultipartFile file : files) {			
@@ -436,14 +436,16 @@ public class FormController {
 		    		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
 		    		formFile.setElement(elementDao.getElement(elementId));
 		    		formDao.saveFormFile(formFile);
-			 }       	
-    	}
+		    		map.put("message", "success");
+			 }
+		 }
         
         return "redirect:/form/preview.html?formId=" + formId;
-	}
+	}	
 
 	@RequestMapping(value = "/form/download.html")
 	private String download(@RequestParam Integer fileId, HttpServletResponse response) throws Exception {
+		
 		FileUploadForm file = formDao.getFormFile(fileId);
 		byte[] bytes = file.getFileContent();
 		response.addHeader("Content-Disposition", "attachment;filename=" + file.getFileName());
