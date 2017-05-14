@@ -9,4 +9,7 @@ public interface AnswerDAO {
 	Answer saveAnswer(Answer answer);
 	boolean delete(Answer answer);
 	List<Answer> getAnswers(Integer elementId);
+	List<Answer> getAnswers(Integer elementId,Integer memberId);
+	List<Answer> getMemberAnswers(Integer formId, Integer memberId);
+	List<Answer> getMemberAnswers(Integer formId, Integer memberId, Integer elementId);
 }

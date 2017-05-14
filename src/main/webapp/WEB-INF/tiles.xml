@@ -17,6 +17,21 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/form/publish.jsp" /> 
 	</definition>
 	
+	<definition name="form/formsheet" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Form data entry page" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/form/formsheet.jsp" /> 
+	</definition>
+
+	<definition name="form/respondents" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Form data entry page" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/form/respondents.jsp" /> 
+	</definition>
+	
+	<definition name="form/userAsnswers" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Form data entry page" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/form/formsheet.jsp" /> 
+	</definition>
+	
 	<definition name="form/add" template="/WEB-INF/layouts/classic-templet.jsp">
 		<put-attribute name="title" value="Add Form" />   
 		<put-attribute name="body" value="/WEB-INF/jsp/form/add.jsp" /> 

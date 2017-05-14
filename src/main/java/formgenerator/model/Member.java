@@ -14,10 +14,13 @@ package formgenerator.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,15 +71,25 @@ public class Member implements Serializable {
 	@Column(name="Enabled")
 	private boolean enabled;
 	
-	@OneToOne(cascade = {CascadeType.ALL })
+	@OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
 	private Address address;
 			
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
 	private Role roles;
+
+	@OneToMany(mappedBy="member", orphanRemoval=true)
+	private Set<AssignedForm> assignedForm;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Answer> answers;
 	
+	public Set<AssignedForm> getAssignedForm() {
+		return assignedForm;
+	}
+	public void setAssignedForm(Set<AssignedForm> assignedForm) {
+		this.assignedForm = assignedForm;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -137,6 +150,12 @@ public class Member implements Serializable {
 	}
 	public void setRoles(Role roles) {
 		this.roles = roles;
+	}
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
 	}
 		
 }

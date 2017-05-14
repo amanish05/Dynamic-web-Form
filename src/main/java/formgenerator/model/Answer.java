@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +34,6 @@ public abstract class Answer implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@SequenceGenerator(name="answer_id_seq",sequenceName="answer_id_seq",initialValue = 100,allocationSize=1)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="answer_id_seq")	
 	@Column(name = "id")
 	private Integer id;
 	
@@ -46,10 +45,11 @@ public abstract class Answer implements Serializable{
 	@JoinColumn(name = "formId")
 	private Form form;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "formElement_answers",
-		    joinColumns=@JoinColumn(name = "answer_id"),
-		    inverseJoinColumns=@JoinColumn(name="formElement_id"))
+    	joinColumns=@JoinColumn(name = "answer_id"),
+    	inverseJoinColumns=@JoinColumn(name="formElement_id"))
+    	
 	private List<FormElement> formElements;
 	
 	public Integer getId() {

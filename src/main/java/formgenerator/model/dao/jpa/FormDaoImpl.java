@@ -89,5 +89,11 @@ public class FormDaoImpl implements FormDAO {
 		return file;
 	}
 	
+	@Override
+	public List<Member> getFormRespondants(Integer formId)
+	{
+		return entityManager.createQuery("SELECT DISTINCT m FROM Member m JOIN m.answers a WHERE a.form.id=:formId ORDER BY m.id ASC", Member.class ).setParameter("formId", formId)
+				.getResultList();
+	}
 
 }
