@@ -56,6 +56,16 @@
 										</sec:authorize>										
 									</c:if>
 									
+									<c:if test="${not empty form.submitDate}">
+										
+										<sec:authorize	access="hasAuthority('Admin') || hasAuthority('Staff')">
+											<a href="respondents.html?id=${form.id}">
+												<button type="button" class="btn btn-primary">Respondents</button>
+											</a>
+										</sec:authorize>
+										
+									</c:if>
+									
 									<sec:authorize	access="hasAuthority('Admin') || hasAuthority('Staff')">
 										<a href="delete.html?formId=${form.id}">
 											<button	type="button" class="glyphicon glyphicon-trash btn btn-danger">Delete</button>

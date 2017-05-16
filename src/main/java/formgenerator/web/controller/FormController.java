@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,12 +26,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import org.springframework.web.context.WebApplicationContext;
 
 import formgenerator.model.Answer;
@@ -43,7 +42,6 @@ import formgenerator.model.FormFile;
 import formgenerator.model.GroupElement;
 import formgenerator.model.Member;
 import formgenerator.model.MultipleChoice;
-
 import formgenerator.model.MultipleChoiceAnswer;
 import formgenerator.model.Page;
 import formgenerator.model.Textbox;
@@ -77,13 +75,11 @@ public class FormController {
 	
 	@Autowired
 	private WebApplicationContext context;
-
 	
 	private final ObjectFormDAOI<GroupElement> groupDao;
 	private final ObjectFormDAOI<Textbox> textDao;
 	private final ObjectFormDAOI<MultipleChoice> multiChoiceDao;
 	private final ObjectFormDAOI<FormFile> formfileDao;
-
 	
     @InitBinder
     public void initBinder( WebDataBinder binder )
@@ -141,8 +137,8 @@ public class FormController {
 	private String publish(ModelMap model, HttpServletRequest request) {
 		
 		Set<Form> forms = formDao.findByNamedQuery("published.form.by.named.query", new HashMap<>(1));
-		model.put("forms", forms);		
-
+		model.put("forms", forms);
+		
 		String flag = (String)request.getAttribute("updateFlag");
 		System.out.println("Flag is: "+request.getAttribute("updateFlag"));
 		System.out.println("Flag is: "+model.get("updateFlag"));
@@ -220,10 +216,128 @@ public class FormController {
 
 		return "redirect:list.html";
 	}
+
+	@RequestMapping(value = { "/form/userAnswers.html" }, method = RequestMethod.GET)
+	private String getUserAnswers(ModelMap model, @RequestParam Integer formId, @RequestParam Integer memberId, @RequestParam(required = false) Integer fpId, Principal principal) {
+		
+		boolean isReadOnly=true;
+		
+		System.out.println();
+		if (fpId == null) {
+			fpId = 0;
+		}
+		
+		int counter = 1, defaultPage = 0;
+		boolean isValid = false;
+		Form curForm = formDao.getForm(formId);
+		List<Page> pages = curForm.getPages();
+		
+				
+		List<String> pageLinks = new ArrayList<>(pages.size());
+		for (Page p : pages) {
+			if (counter == 1){
+				defaultPage = p.getId();
+			}
+				
+			if (fpId == p.getId()){
+				isValid = true;
+			}				
+			pageLinks.add("formsheet.html?fpId=" + p.getId() + "&formId=" + formId);
+			counter++;
+		}
+
+		Page p;
+		if (fpId > 0 && isValid) {
+			p = pageDao.getPage(fpId);
+
+		} else {
+			p = pageDao.getPage(defaultPage);
+		}
+		
+		Member curMember = memberDao.getMemberbyUserName(principal.getName());
+		
+		List<FormElement> elements = new ArrayList<>();
+		
+		//List<Page> selectedPages = pageDao.getUserElementsAnswers(formId, p.getId());
+		for (FormElement e : p.getElements()) {
+		//for (FormElement e : selectedPages.get(0).getElements()) {
+			
+			if(e.getType().equals("GroupElement")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				GroupElement ge = groupDao.findByCriteria(params, GroupElement.class);
+				elements.add(ge);				
+			}
+			
+			if(e.getType().equals("Textbox")){
+				//Map<String, String> params = new HashMap<>();
+				//params.put("id", e.getId().toString());
+				//Textbox ge = textDao.findByCriteria(params, Textbox.class);
+				Textbox ge = (Textbox)e;
+			 	List<Answer> answers = answerDao.getAnswers(ge.getId(), memberDao.getMember(memberId).getId());
+				
+				if (answers==null)
+				{
+					answers = new ArrayList<Answer>(); 
+					TextboxAnswer answer = new TextboxAnswer();
+					answer.setUser(curMember);
+					answer.setForm(curForm);
+					answers.add(answer);
+				}
+
+				ge.setAnswers(answers); 
+				elements.add(ge);							
+			}
+			
+			if(e.getType().equals("MultipleChoice")){
+				//MultipleChoice ge = (MultipleChoice)elementDao.getElement(e.getId());
+				MultipleChoice ge = (MultipleChoice) e;
+				List<Answer> answers = answerDao.getAnswers(ge.getId(), memberDao.getMember(memberId).getId());
+				
+				if (answers==null)
+				{
+					answers = new ArrayList<Answer>();
+					MultipleChoiceAnswer answer = new MultipleChoiceAnswer();
+					answer.setUser(curMember);
+					answer.setForm(curForm);
+					answer.setChoiceAnswers(null);
+					answers.add(answer);
+				}
+				ge.setAnswers(answers); 
+				elements.add(ge);								
+			}
+			
+			if(e.getType().equals("FormFile")){
+				Map<String, String> params = new HashMap<>();
+				params.put("id", e.getId().toString());
+				FormFile ge = formfileDao.findByCriteria(params, FormFile.class);
+				elements.add(ge);								
+			}
+			System.out.println("The type is: " +e.getType());
+		}
+		
+		ElementsContainer elementsContainer = new ElementsContainer(elements);
+		model.put("elementsContainer", elementsContainer);
+		model.addAttribute("form", curForm);
+		model.addAttribute("pageLinks", pageLinks);
+		if (isReadOnly)
+			model.addAttribute("isReadonly", true);
+		else
+			model.addAttribute("isReadonly", false);
+			
+		
+		return "form/formsheet";
+		
+		
+		//return this.getFormsheet(model, formId, fpId, true, principal);
+	}
 	
 	@RequestMapping(value = { "/form/formsheet.html" }, method = RequestMethod.GET)
 	private String getFormsheet(ModelMap model, @RequestParam Integer formId, @RequestParam(required = false) Integer fpId, Principal principal) {
 		
+		boolean isReadOnly=false;
+		
+		System.out.println();
 		if (fpId == null) {
 			fpId = 0;
 		}
@@ -257,7 +371,10 @@ public class FormController {
 		Member curMember = memberDao.getMemberbyUserName(principal.getName());
 		
 		List<FormElement> elements = new ArrayList<>();
-		for (FormElement e : p.getElements()) {
+		
+		//List<Page> selectedPages = pageDao.getUserElementsAnswers(formId, p.getId());
+ 		for (FormElement e : p.getElements()) {
+		//for (FormElement e : selectedPages.get(0).getElements()) {
 			
 			if(e.getType().equals("GroupElement")){
 				Map<String, String> params = new HashMap<>();
@@ -267,26 +384,53 @@ public class FormController {
 			}
 			
 			if(e.getType().equals("Textbox")){
+				/*
 				Map<String, String> params = new HashMap<>();
 				params.put("id", e.getId().toString());
 				Textbox ge = textDao.findByCriteria(params, Textbox.class);
+				*/
+				Textbox ge = (Textbox)e;
+				/*
+				for(Answer a : ge.getAnswers())
+				{
+					ge.getAnswers().remove(a);
+				}
+				*/
 				TextboxAnswer answer = new TextboxAnswer();
+				
 				answer.setUser(curMember);
 				answer.setForm(curForm);
-				ge.getAnswers().add(answer);
+				List<FormElement> elList = new ArrayList<FormElement>();
+				elList.add(ge);
+				answer.setFormElements(elList);
+				List<Answer> answers= new ArrayList<Answer>();
+				answers.add(answer);
+				ge.setAnswers(answers);
 				elements.add(ge);							
 			}
 			
 			if(e.getType().equals("MultipleChoice")){
-				MultipleChoice ge = (MultipleChoice)elementDao.getElement(e.getId());
+				//MultipleChoice ge = (MultipleChoice)elementDao.getElement(e.getId());
+				MultipleChoice ge = (MultipleChoice)e;
+				/*
+				for(Answer a : ge.getAnswers())
+				{
+					ge.getAnswers().remove(a);
+				}
+				*/
 				MultipleChoiceAnswer answer = new MultipleChoiceAnswer();
+				answer.setUser(curMember);
 				answer.setForm(curForm);
+				List<FormElement> elList = new ArrayList<FormElement>();
+				elList.add(ge);
+				answer.setFormElements(elList);
 				answer.setChoiceAnswers(null);
-				ge.getAnswers().add(answer);
+				List<Answer> answers= new ArrayList<Answer>();
+				answers.add(answer);
+				ge.setAnswers(answers);
 				elements.add(ge);								
 			}
 			
-
 			if(e.getType().equals("FormFile")){
 				Map<String, String> params = new HashMap<>();
 				params.put("id", e.getId().toString());
@@ -295,15 +439,16 @@ public class FormController {
 			}
 			System.out.println("The type is: " +e.getType());
 		}
-
-		model.put("form", curForm);		
-		model.addAttribute("elements", elements);
-		model.addAttribute("pageLinks", pageLinks);
 		
 		ElementsContainer elementsContainer = new ElementsContainer(elements);
 		model.put("elementsContainer", elementsContainer);
 		model.addAttribute("form", curForm);
 		model.addAttribute("pageLinks", pageLinks);
+		if (isReadOnly)
+			model.addAttribute("isReadonly", true);
+		else
+			model.addAttribute("isReadonly", false);
+			
 		
 		return "form/formsheet";
 	}
@@ -317,6 +462,7 @@ public class FormController {
 			for(Answer a : fe.getAnswers())
 			{
 				answerDao.saveAnswer(a);
+				//elementDao.saveElement(fe);
 			}
 		}
 		
@@ -358,7 +504,6 @@ public class FormController {
 			p = pageDao.getPage(defaultPage);
 		}
 		
-
 		List<FormElement> elements = new ArrayList<>();
 		for (FormElement e : p.getElements()) {
 			
@@ -398,6 +543,12 @@ public class FormController {
 
 		return "form/preview";
 	}
+	
+	@RequestMapping(value = { "/form/preview.html" }, method = RequestMethod.POST)
+	private String preview(@ModelAttribute Form form, SessionStatus status)
+	{
+		return "form/list";
+	}
 
 	@RequestMapping(value = "/form/delete.html", method = RequestMethod.GET)
 	private String edit(@RequestParam Integer formId) {
@@ -415,8 +566,8 @@ public class FormController {
 	}
 
 	@RequestMapping(value="/form/upload.html", method = RequestMethod.POST)
-	private String upload(@RequestParam Integer elementId, @RequestParam Integer formId, List<MultipartFile> files, Principal principal, ModelMap map) {		
-		System.out.println(" Received uploaded request! " + files.size());
+	private String upload(@RequestParam Integer elementId, @RequestParam Integer formId,  List<MultipartFile> files, Principal principal ) {		
+		       
 		 if (null != files && files.size() > 0) {
 			 
 			 for (MultipartFile file : files) {			
@@ -436,16 +587,14 @@ public class FormController {
 		    		formFile.setOwner(memberDao.getMemberbyUserName(principal.getName()));
 		    		formFile.setElement(elementDao.getElement(elementId));
 		    		formDao.saveFormFile(formFile);
-		    		map.put("message", "success");
-			 }
-		 }
+			 }       	
+    	}
         
         return "redirect:/form/preview.html?formId=" + formId;
-	}	
+	}
 
 	@RequestMapping(value = "/form/download.html")
 	private String download(@RequestParam Integer fileId, HttpServletResponse response) throws Exception {
-		
 		FileUploadForm file = formDao.getFormFile(fileId);
 		byte[] bytes = file.getFileContent();
 		response.addHeader("Content-Disposition", "attachment;filename=" + file.getFileName());
@@ -453,6 +602,17 @@ public class FormController {
 		os.write(bytes);
 
 		return null;
-	}	
-
+	}
+	
+	@RequestMapping(value = { "/form/respondents.html" }, method = RequestMethod.GET)
+	private String preview(ModelMap model, @RequestParam Integer id) {
+		
+		List<Member> members = formDao.getFormRespondants(id);
+		Form curForm = formDao.getForm(id);
+		model.put("members", members);
+		model.put("form", curForm);
+		
+		return "form/respondents";
+	}
+	
 }

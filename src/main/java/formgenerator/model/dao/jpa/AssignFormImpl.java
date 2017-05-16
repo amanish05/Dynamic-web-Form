@@ -29,7 +29,6 @@ public class AssignFormImpl implements AssignFormDAO {
 		entityManager.merge(assigned);
 	}
 
-
 	@Override
 	@Transactional
 	public boolean removeAssignment(AssignedForm ass) {
@@ -41,4 +40,5 @@ public class AssignFormImpl implements AssignFormDAO {
 	public AssignedForm getAssignment(Integer id) {		
 		return entityManager.find(AssignedForm.class, id);
 	}
+
 }

@@ -3,6 +3,7 @@
   <groupId>ObjectForm</groupId>
   <artifactId>ObjectForm</artifactId>
   <version>Final</version>
+
   <packaging>war</packaging>
   
   <profiles>

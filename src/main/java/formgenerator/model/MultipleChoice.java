@@ -8,7 +8,7 @@
  */
 package formgenerator.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public class MultipleChoice extends FormElement{
 	private int choiceType;
 	
 	@OneToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
-	private List<Choice> choices;
+	private Set<Choice> choices;
 	
 	public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
@@ -38,10 +38,10 @@ public class MultipleChoice extends FormElement{
 	public void setNumberOfAllowedSelect(Integer numberOfAllowedSelect) {
 		this.numberOfAllowedSelect = numberOfAllowedSelect;
 	}
-	public List<Choice> getChoices() {
+	public Set<Choice> getChoices() {
 		return choices;
 	}
-	public void setChoices(List<Choice> choices) {
+	public void setChoices(Set<Choice> choices) {
 		this.choices = choices;
 	}	
 }

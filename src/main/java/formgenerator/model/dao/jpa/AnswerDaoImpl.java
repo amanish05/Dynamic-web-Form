@@ -42,7 +42,31 @@ public class AnswerDaoImpl implements AnswerDAO {
 	@Override
 	@Transactional
 	public List<Answer> getAnswers(Integer elementId){
-		 return entityManager.createQuery( "SELECT a FROM Answer a JOIN a.formElements fe WHERE fe.id=:elementId ORDER BY A.id ASC", Answer.class ).setParameter("elementId", elementId)
+		 return entityManager.createQuery( "SELECT a FROM Answer a JOIN a.formElements fe WHERE fe.id=:elementId ORDER BY a.id ASC", Answer.class ).setParameter("elementId", elementId)
 		            .getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public List<Answer> getAnswers(Integer elementId,Integer memberId){
+		 return entityManager.createQuery( "SELECT a FROM Answer a JOIN a.formElements fe WHERE a.user.id=:memberId and fe.id=:elementId ORDER BY a.id ASC", Answer.class ).setParameter("elementId", elementId)
+				 .setParameter("memberId", memberId).getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public List<Answer> getMemberAnswers(Integer formId, Integer memberId){
+		 return entityManager.createQuery( "SELECT a FROM Answer a WHERE a.user.id=:memberId and a.form.id=:formId ORDER BY a.id ASC", Answer.class ).setParameter("formId", formId)
+				 .setParameter("memberId", memberId).getResultList();
+		
+	}
+	
+	@Override
+	@Transactional
+	public List<Answer> getMemberAnswers(Integer formId, Integer memberId,  Integer elementId){
+		System.out.println("elementid="+elementId);
+		 return entityManager.createQuery( "SELECT a FROM Answer a JOIN a.formElements fe WHERE a.user.id=:memberId and a.form.id=:formId and fe.id=:elementId ORDER BY a.id ASC", Answer.class ).setParameter("formId", formId)
+				 .setParameter("memberId", memberId).setParameter("elementId", elementId).getResultList();
+		
 	}
 }

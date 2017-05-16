@@ -17,4 +17,5 @@ public interface FormDAO {
 	FileUploadForm saveFormFile(FileUploadForm formFile);
 	FileUploadForm getFormFile(Integer fileId);
 	FileUploadForm getFormFile(Integer formId, Integer userId);
+	List<Member> getFormRespondants(Integer formId);
 }
