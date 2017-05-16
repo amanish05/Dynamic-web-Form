@@ -2,8 +2,10 @@ package formgenerator.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -218,7 +220,7 @@ public class ElementController {
 		
 		checkboxElement.setIsMultipleAnswerAllowed(true);
 		
-		List<Choice> choices = new ArrayList<Choice>();
+		Set<Choice> choices = new HashSet<Choice>();
 		choices.add(new Choice());
 		checkboxElement.setChoices(choices);
 		Page page = pageDao.getPage(pageId);

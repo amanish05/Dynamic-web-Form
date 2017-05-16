@@ -22,6 +22,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,8 +69,7 @@ public abstract class FormElement implements Serializable {
 	@OneToMany
 	private List<FileUploadForm> fileUploadForm;
 	
-	@ManyToMany
-	@JoinTable(name = "formElement_answers", joinColumns = @JoinColumn(name = "formElement_id"), inverseJoinColumns = @JoinColumn(name = "answer_id"))
+	@ManyToMany(mappedBy = "formElements")
 	private List<Answer> answers;
 
 	@Transient

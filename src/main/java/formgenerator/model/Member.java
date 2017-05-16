@@ -13,7 +13,9 @@
 package formgenerator.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -72,13 +74,14 @@ public class Member implements Serializable {
 	@OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
 	private Address address;
 			
-
 	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
 	private Role roles;
-	
+
 	@OneToMany(mappedBy="member", orphanRemoval=true)
 	private Set<AssignedForm> assignedForm;
-
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Answer> answers;
 	
 	public Set<AssignedForm> getAssignedForm() {
 		return assignedForm;
@@ -86,6 +89,7 @@ public class Member implements Serializable {
 	public void setAssignedForm(Set<AssignedForm> assignedForm) {
 		this.assignedForm = assignedForm;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -138,7 +142,6 @@ public class Member implements Serializable {
 	public boolean isEnabled() {
 		return enabled;
 	}
-
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
@@ -147,6 +150,12 @@ public class Member implements Serializable {
 	}
 	public void setRoles(Role roles) {
 		this.roles = roles;
+	}
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
 	}
 		
 }

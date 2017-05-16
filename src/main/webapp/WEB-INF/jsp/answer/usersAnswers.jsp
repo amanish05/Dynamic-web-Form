@@ -72,7 +72,6 @@
 								<c:if test="${element.type == 'Textbox'}">	
 									<tr>											
 										<!--<td>${element.title}<input type="text" name="${element.name}" maxlength="gElement.maxLength" /></td>-->
-										<!--  <td>${element.title}<form:input type="text" name="${element.name}" path="elements[${i.index}].answers[0].value" value="${element.answers[0].value}"  maxlength="gElement.maxLength" /></td>-->
 										<td>${element.title}<form:input type="text" name="${element.name}" path="elements[${i.index}].answers[0].value" value="${element.answers[0].value}"  maxlength="gElement.maxLength" /></td>
 									</tr>													
 								</c:if>
@@ -85,7 +84,6 @@
 									<tr>											
 										<td>${element.title}																	
 											<c:forEach items="${element.choices}" var="choice" varStatus="j" begin="0">									
-												<!--<form:checkbox path="elements[${i.index}].answers[0].choiceAnswers" value="${choice}" class="checkbox" style="display: inline;"/>${choice.text}-->
 												<form:checkbox path="elements[${i.index}].answers[0].choiceAnswers" value="${choice}" class="checkbox" style="display: inline;"/>${choice.text}							
 											</c:forEach>														
 										</td>
@@ -112,29 +110,27 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<c:if test="${not isReadonly}">
-						<div class="form-group" style="display: inline-block;">
-							<div class="col-sm-offset-2 col-sm-10">							
-								<a href="">
-									<input type="submit" name="Submit" value="Submit" class="btn btn-success">
-									<!--
-									<button class="btn btn-success" >
-										<span class="glyphicon glyphicon-star"></span> Submit This!
-									</button>
-									-->
-								</a>
-							</div>
+					<div class="form-group" style="display: inline-block;">
+						<div class="col-sm-offset-2 col-sm-10">							
+							<a href="">
+								<input type="submit" name="Submit" value="Submit" class="btn btn-success">
+								<!--
+								<button class="btn btn-success" >
+									<span class="glyphicon glyphicon-star"></span> Submit This!
+								</button>
+								-->
+							</a>
 						</div>
-						<div class="form-group" style="display: inline-block;">
-							<div class="col-sm-offset-2 col-sm-10">							
-								<a href="">
-									<button class="btn btn-danger" >
-										Reset Me
-									</button>
-								</a>
-							</div>
+					</div>
+					<div class="form-group" style="display: inline-block;">
+						<div class="col-sm-offset-2 col-sm-10">							
+							<a href="">
+								<button class="btn btn-danger" >
+									Reset Me
+								</button>
+							</a>
 						</div>
-					</c:if>			
+					</div>			
 				</c:if>
 			</div>
 		</div>
