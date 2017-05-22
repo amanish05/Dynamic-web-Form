@@ -6,14 +6,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script>
-	$( function() {
-		$('tbody').sortable();
-	    $('tbody').disableSelection();
-	 });
-		
-</script>
-<form:form modelAttribute="elementsContainer" class="form-horizontal">
+<form:form modelAttribute="elementsContainer" action="formsheet.html?${_csrf.parameterName}=${_csrf.token}" method= "post" class="form-horizontal" enctype="multipart/form-data" >
 	<div class="center-block">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -32,7 +25,7 @@
 				</div>
 			</div>	
 			
-			<div class="panel-body">
+			<div class="panel-body"> 
 				<c:if test="${empty elementsContainer.elements}">
 					<div class="jumbotron">
 						<h1>
@@ -69,43 +62,78 @@
 										</c:if>
 									</c:forEach>
 								</c:if>
+								
+								
+								
 								<c:if test="${element.type == 'Textbox'}">	
-									<tr>											
-										<!--<td>${element.title}<input type="text" name="${element.name}" maxlength="gElement.maxLength" /></td>-->
-										<!--  <td>${element.title}<form:input type="text" name="${element.name}" path="elements[${i.index}].answers[0].value" value="${element.answers[0].value}"  maxlength="gElement.maxLength" /></td>-->
-										<td>${element.title}<form:input type="text" name="${element.name}" path="elements[${i.index}].answers[0].value" value="${element.answers[0].value}"  maxlength="gElement.maxLength" /></td>
+									<tr>
+										<td>
+											<div class="form-group">
+											    <label for="username" class="col-sm-2">${element.title}</label>
+											    <div class="col-sm-3">
+											    	<form:input type="text" name="${element.name}" class="form-control" path="elements[${i.index}].answers[0].value" value="${element.answers[0].value}"  maxlength="gElement.maxLength" />								      					
+											   </div>
+											</div>
+										</td>
 									</tr>													
 								</c:if>
+								
 								<c:if test="${element.type == 'DateText'}">
 									<tr>											
-										<td>${element.title}<input type="date" name="${element.name}"></td>
-									</tr>
-								</c:if>
-								<c:if test="${element.type == 'MultipleChoice'}">
-									<tr>											
-										<td>${element.title}																	
-											<c:forEach items="${element.choices}" var="choice" varStatus="j" begin="0">									
-												<!--<form:checkbox path="elements[${i.index}].answers[0].choiceAnswers" value="${choice}" class="checkbox" style="display: inline;"/>${choice.text}-->
-												<form:checkbox path="elements[${i.index}].answers[0].choiceAnswers" value="${choice}" class="checkbox" style="display: inline;"/>${choice.text}							
-											</c:forEach>														
+										<td>
+											<div class="form-group required">
+											    <label for="username" class="col-sm-2">${element.title}</label>
+											    <div class="col-sm-3">
+											    	<form:input type="date" name="${element.name}" class="form-control" path="elements[${i.index}].answers[0].date" value="${element.answers[0].date}" />								      					
+											   </div>
+											</div>									
 										</td>
 									</tr>
 								</c:if>
-								<c:if test="${element.type == 'FormFile'}">
+								
+													
+								
+								<c:if test="${element.type == 'MultipleChoice'}">
 									<tr>											
 										<td>
 											<div class="form-group">
-												<fieldset>
-													<legend>File Upload</legend>
-													<label for="fileupload">${element.title}</label>
-													<form action="upload.html?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data" >
-														<input id="fileupload" type="file" name="files" class="form-control-file"  aria-describedby="fileHelp" multiple>
-														<input type="hidden" name="formId" value="${form.id}">
-														<input type="hidden" name="elementId" value="${element.id}">
-														<input type="submit" name="upload" value="Upload" class="btn btn-primary">
-													</form>
-												</fieldset>
-											</div>								    
+												<label class="col-sm-2">${element.title}</label>
+												<div class="col-sm-5">
+													<c:forEach items="${element.choices}" var="choice" varStatus="j" begin="0">
+														<form:checkbox path="elements[${i.index}].answers[0].choiceAnswers" value="${choice}" class="checkbox" style="display: inline;"/>${choice.text}
+													</c:forEach>
+												</div>
+											</div> 																						
+										</td>
+									</tr>
+								</c:if>
+														
+								<c:if test="${element.type == 'FormFile'}">						
+									<tr>											
+										<td>									
+											<c:choose>									         
+										         <c:when test = "${not fromanswer}">
+										         		<div class="form-group">														
+															<label for="fileupload" class="col-sm-2">${element.title}</label>
+															<div class="col-sm-3">
+																<input id="fileupload" type="file" name="files" class="form-control-file"  aria-describedby="fileHelp" multiple />
+																<input type="hidden" name="formId" value="${form.id}" />
+																<input type="hidden" name="elementId" value="${element.id}" />	
+															</div>
+														</div>
+										         </c:when>
+										         										         									         
+										         <c:otherwise>
+										         	<div class="form-group">
+										         		 <label class="col-sm-2">${element.title}</label>
+										         		 <div class="col-sm-3">
+															<c:forEach items="${files}" var="file">																
+																<a href="../form/download.html?fileId=${file.id}">${file.fileName }</a>	
+															</c:forEach>
+														</div>
+										         	</div>
+										         </c:otherwise>
+										      </c:choose>															    
 										</td>
 									</tr>
 								</c:if>									
@@ -114,15 +142,8 @@
 					</table>
 					<c:if test="${not isReadonly}">
 						<div class="form-group" style="display: inline-block;">
-							<div class="col-sm-offset-2 col-sm-10">							
-								<a href="">
-									<input type="submit" name="Submit" value="Submit" class="btn btn-success">
-									<!--
-									<button class="btn btn-success" >
-										<span class="glyphicon glyphicon-star"></span> Submit This!
-									</button>
-									-->
-								</a>
+							<div class="col-sm-offset-2 col-sm-10">	
+								<input type="submit" name="Submit" value="Submit" class="btn btn-success">
 							</div>
 						</div>
 						<div class="form-group" style="display: inline-block;">

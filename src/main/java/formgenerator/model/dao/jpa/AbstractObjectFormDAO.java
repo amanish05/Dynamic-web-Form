@@ -36,7 +36,7 @@ public abstract class AbstractObjectFormDAO<T extends Serializable>  {
 	}
 	
 	@Transactional
-	public void update(T entity) {		
-		em.merge(entity);	
+	public T update(T entity) {		
+		return em.merge(entity);	
 	}
 }

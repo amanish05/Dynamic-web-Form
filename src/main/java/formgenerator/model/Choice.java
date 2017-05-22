@@ -16,13 +16,24 @@ public class Choice implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)    
-	private Integer id;	
+	private Integer id;
 	
 	private String text;
+	
+	private String pdfElementName;	
+	
+	public void setPdfElementName(String pdfElementName) {
+		this.pdfElementName = pdfElementName;
+	}
+
+	public String getPdfElementName() {
+		return pdfElementName;
+	}
 	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}

@@ -3,6 +3,7 @@ package formgenerator.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
+@NamedQueries({	
+	@NamedQuery(name = "fileUploadForm.by.named.query", query = "SELECT f FROM FileUploadForm f"
+			+ " WHERE f.element.id = :elementId AND f.owner.id = :memberId")
+	})
 @Table(name = "FileUploadForm")
 public class FileUploadForm implements Serializable{
 	
@@ -40,7 +47,7 @@ public class FileUploadForm implements Serializable{
 	@Column(name = "modified_date")
 	private Date modifiedDate;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "owner_id")
 	private Member owner;
 

@@ -8,13 +8,12 @@
  */
 package formgenerator.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -29,8 +28,8 @@ public class MultipleChoice extends FormElement{
 	@Column(name = "multiple_choice_type")
 	private int choiceType;
 	
-	@OneToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
-	private Set<Choice> choices;
+	@OneToMany(cascade={CascadeType.ALL})
+	private List<Choice> choices;
 	
 	public Integer getNumberOfAllowedSelect() {
 		return numberOfAllowedSelect;
@@ -38,10 +37,10 @@ public class MultipleChoice extends FormElement{
 	public void setNumberOfAllowedSelect(Integer numberOfAllowedSelect) {
 		this.numberOfAllowedSelect = numberOfAllowedSelect;
 	}
-	public Set<Choice> getChoices() {
+	public List<Choice> getChoices() {
 		return choices;
 	}
-	public void setChoices(Set<Choice> choices) {
+	public void setChoices(List<Choice> choices) {
 		this.choices = choices;
 	}	
 }

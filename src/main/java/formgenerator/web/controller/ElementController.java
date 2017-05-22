@@ -2,10 +2,8 @@ package formgenerator.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import formgenerator.model.Choice;
+import formgenerator.model.DateText;
 import formgenerator.model.FormElement;
 import formgenerator.model.FormFile;
 import formgenerator.model.MultipleChoice;
@@ -31,7 +30,7 @@ import formgenerator.model.dao.ObjectFormDAOI;
 import formgenerator.model.dao.PageDAO;
 
 @Controller
-@SessionAttributes({"textbox", "multiplechoice", "formFile"})
+@SessionAttributes({"textbox", "multiplechoice", "formFile", "dateText"})
 public class ElementController {
 	
 	@Autowired
@@ -47,10 +46,13 @@ public class ElementController {
 	private PageDAO pageDao;
 	
 	private final ObjectFormDAOI<FormFile> formfileDao;
+	private final ObjectFormDAOI<DateText> dateTextDao;
 	
 	@Autowired
-	public ElementController(@Qualifier("FormFileUpload") final ObjectFormDAOI<FormFile> dao){
-		this.formfileDao = dao;		
+	public ElementController(@Qualifier("FormFileUpload") final ObjectFormDAOI<FormFile> dao,
+			@Qualifier("DateTextDao") final ObjectFormDAOI<DateText> dateTextDao){
+		this.formfileDao = dao;
+		this.dateTextDao = dateTextDao;
 	}
 	
 	@RequestMapping(value="element/list.html",method = RequestMethod.GET)
@@ -71,12 +73,40 @@ public class ElementController {
 		
 		if (elementType==0){
 			return "redirect:addTextbox.html?pageId="+pageId+"&formId="+formId;
-		}			
-		else if(elementType==1){
+		} else if(elementType==1){
 			return "redirect:addCheckbox.html?pageId="+pageId+"&formId="+formId;
-		}else{
-			return "redirect:addFileUpload.html?pageId="+pageId+"&formId="+formId;
+		} else if(elementType==2){
+			return "redirect:addFileUpload.html?pageId="+pageId+"&formId="+formId;		
+		}	else{
+			return "redirect:addDate.html?pageId="+pageId+"&formId="+formId;
 		}	
+	}
+	
+	@RequestMapping(value="element/addDate.html",method = RequestMethod.GET)
+	private String addDate(@RequestParam Integer formId, @RequestParam Integer pageId, ModelMap map){		
+		
+		DateText dateText = new DateText();
+					
+		map.addAttribute("dateText", dateText);
+		map.put("formId", formId);
+		map.put("pageId", pageId);
+		
+		return "element/addDate";	
+	}
+	
+	@RequestMapping(value="element/addDate.html", method = RequestMethod.POST)
+	private String addDatePost( @ModelAttribute DateText dateText, @RequestParam Integer pageId, @RequestParam Integer formId, SessionStatus status){
+		
+		DateText savedElement = dateTextDao.update(dateText);
+		
+		Page changedPage = pageDao.getPage(pageId);
+		List<FormElement> elements=changedPage.getElements();
+		elements.add(savedElement);
+		changedPage = pageDao.savePage(changedPage);
+		
+		status.setComplete();
+		
+		return "redirect:list.html?formId="+formId+"&pageId="+pageId;				
 	}
 	
 	@RequestMapping(value="element/addFileUpload.html",method = RequestMethod.GET)
@@ -220,12 +250,13 @@ public class ElementController {
 		
 		checkboxElement.setIsMultipleAnswerAllowed(true);
 		
-		Set<Choice> choices = new HashSet<Choice>();
+		List<Choice> choices = new ArrayList<Choice>();
 		choices.add(new Choice());
 		checkboxElement.setChoices(choices);
 		Page page = pageDao.getPage(pageId);
 		List<Page> pages= new ArrayList<Page>();
 		pages.add(page);
+		
 		checkboxElement.setForm(formDao.getForm(formId));
 		checkboxElement.setPages(pages);
 
@@ -271,10 +302,10 @@ public class ElementController {
 	}
 	
 	@RequestMapping(value="/element/editCheckbox.html",method = RequestMethod.POST)
-	private String editCheckbox( @ModelAttribute MultipleChoice changedElement, @RequestParam Integer pageId, @RequestParam Integer formId, @RequestParam Integer elementId, SessionStatus status)
+	private String editCheckbox( @ModelAttribute MultipleChoice multiplechoice, @RequestParam Integer pageId, @RequestParam Integer formId, @RequestParam Integer elementId, SessionStatus status)
 	{
 
-		elementDao.saveFormElement(changedElement);
+		elementDao.saveFormElement(multiplechoice);
 
 		status.setComplete();
 		

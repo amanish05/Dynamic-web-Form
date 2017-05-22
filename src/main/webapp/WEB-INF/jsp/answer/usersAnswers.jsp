@@ -33,13 +33,13 @@
 			</div>	
 			
 			<div class="panel-body">
-				<c:if test="${empty elementsContainer.elements}">
-					<div class="jumbotron">
-						<h1>
-							Uh-Oh! <small>There are no Elements to display.</small>
-						</h1>
-					</div>
-				</c:if>
+<%-- 				<c:if test="${empty elementsContainer.elements && empty files}"> --%>
+<!-- 					<div class="jumbotron"> -->
+<!-- 						<h1> -->
+<!-- 							Uh-Oh! <small>There are no Elements to display.</small> -->
+<!-- 						</h1> -->
+<!-- 					</div> -->
+<%-- 				</c:if> --%>
 				<c:if test="${not empty elementsContainer.elements}">					
 					<table class="table">					
 						<tbody>						
@@ -90,47 +90,17 @@
 									</tr>
 								</c:if>
 								<c:if test="${element.type == 'FormFile'}">
-									<tr>											
-										<td>
-											<div class="form-group">
-												<fieldset>
-													<legend>File Upload</legend>
-													<label for="fileupload">${element.title}</label>
-													<form action="upload.html?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data" >
-														<input id="fileupload" type="file" name="files" class="form-control-file"  aria-describedby="fileHelp" multiple>
-														<input type="hidden" name="formId" value="${form.id}">
-														<input type="hidden" name="elementId" value="${element.id}">
-														<input type="submit" name="upload" value="Upload" class="btn btn-primary">
-													</form>
-												</fieldset>
-											</div>								    
-										</td>
+									<tr>
+										<c:forEach items="${files}" var="file">
+											<td>
+												<a href="../form/download.html?fileId=${file.id}">${file.fileName }</a>																		    
+											</td>
+										</c:forEach>										
 									</tr>
 								</c:if>									
 							</c:forEach>
 						</tbody>
-					</table>
-					<div class="form-group" style="display: inline-block;">
-						<div class="col-sm-offset-2 col-sm-10">							
-							<a href="">
-								<input type="submit" name="Submit" value="Submit" class="btn btn-success">
-								<!--
-								<button class="btn btn-success" >
-									<span class="glyphicon glyphicon-star"></span> Submit This!
-								</button>
-								-->
-							</a>
-						</div>
-					</div>
-					<div class="form-group" style="display: inline-block;">
-						<div class="col-sm-offset-2 col-sm-10">							
-							<a href="">
-								<button class="btn btn-danger" >
-									Reset Me
-								</button>
-							</a>
-						</div>
-					</div>			
+					</table>						
 				</c:if>
 			</div>
 		</div>

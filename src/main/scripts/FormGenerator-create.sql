@@ -16,7 +16,7 @@
         id  serial not null,
         textarea_value varchar(255),
         textbox_value varchar(255),
-        date_value timestamp,
+        date_value varchar(255),
         formId int4,
         memberId int4,
         primary key (id)
@@ -36,6 +36,7 @@
 
     create table choices (
         id  serial not null,
+        pdfElementName varchar(255),
         text varchar(255),
         primary key (id)
     );
@@ -58,6 +59,7 @@
         is_multiple_answer_allowed boolean,
         is_required boolean,
         name varchar(255),
+        pdfElementName varchar(255),
         title varchar(255),
         column_value int4,
         default_value varchar(255),
@@ -73,7 +75,6 @@
         date_format varchar(255),
         default_date timestamp,
         form_Id int4,
-        pdfElement_pdfElement_Id int4,
         primary key (id)
     );
 
@@ -87,14 +88,10 @@
         choices_id int4 not null
     );
 
-    create table FormElement_FileUploadForm (
-        FormElement_id int4 not null,
-        fileUploadForm_file_id int4 not null
-    );
-
     create table FormElement_FormElement (
         GroupElement_id int4 not null,
-        groupFormElements_id int4 not null
+        groupFormElements_id int4 not null,
+        primary key (GroupElement_id, groupFormElements_id)
     );
 
     create table forms (
@@ -148,7 +145,6 @@
     create table PDFElement (
         pdfElement_Id  serial not null,
         name varchar(255),
-        formElement_id int4,
         primary key (pdfElement_Id)
     );
 
@@ -166,14 +162,9 @@
         primary key (Role_Id)
     );
 
-    alter table Answer_choices 
-        add constraint UK_5pytliwcfpu4s3ackf198rxr4 unique (choiceAnswers_id);
-
+    
     alter table FormElement_choices 
         add constraint UK_e27wl75sqvy7w9phqms4so4l unique (choices_id);
-
-    alter table FormElement_FileUploadForm 
-        add constraint UK_fnwci2mhlm6lji9n3r4j3j9ao unique (fileUploadForm_file_id);
 
     alter table Members 
         add constraint UK_ctwhq1mhwjtrsvpl0kp2iqhw unique (Username);
@@ -223,11 +214,6 @@
         foreign key (form_Id) 
         references forms;
 
-    alter table FormElement 
-        add constraint FKlf1d6pyyndrmx87qy8tt1p95j 
-        foreign key (pdfElement_pdfElement_Id) 
-        references PDFElement;
-
     alter table formElement_answers 
         add constraint FKqdr9wqcki5m6anpnlqdx5m1pb 
         foreign key (formElement_id) 
@@ -246,16 +232,6 @@
     alter table FormElement_choices 
         add constraint FKmrir97g7bblth4wcfxios49of 
         foreign key (MultipleChoice_id) 
-        references FormElement;
-
-    alter table FormElement_FileUploadForm 
-        add constraint FKeywfex78i48eukxlc88dxy0h0 
-        foreign key (fileUploadForm_file_id) 
-        references FileUploadForm;
-
-    alter table FormElement_FileUploadForm 
-        add constraint FK75bud2uao3vlwwco9fllfx307 
-        foreign key (FormElement_id) 
         references FormElement;
 
     alter table FormElement_FormElement 
@@ -302,11 +278,6 @@
         add constraint FK7o4r63k0empq2jop6i774c6o 
         foreign key (ownerId) 
         references Members;
-
-    alter table PDFElement 
-        add constraint FK4ipq5n6otm49stsj9t3iic6hx 
-        foreign key (formElement_id) 
-        references FormElement;
 
     alter table PDFForm 
         add constraint FKeecbtcl8aqy7rtbgko0gxfct3 

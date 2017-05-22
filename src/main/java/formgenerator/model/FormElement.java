@@ -16,6 +16,7 @@ package formgenerator.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,12 +29,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -62,14 +60,16 @@ public abstract class FormElement implements Serializable {
 
 	@Column(name = "is_multiple_answer_allowed")
 	private Boolean isMultipleAnswerAllowed;
+	
+	private String pdfElementName;
 
 	@ManyToOne
 	private Form form;
 	
-	@OneToMany
-	private List<FileUploadForm> fileUploadForm;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "element")
+	private Set<FileUploadForm> fileUploadForm;
 	
-	@ManyToMany(mappedBy = "formElements")
+	@ManyToMany(mappedBy = "formElements", fetch = FetchType.EAGER)
 	private List<Answer> answers;
 
 	@Transient
@@ -79,14 +79,12 @@ public abstract class FormElement implements Serializable {
 	@ManyToMany(mappedBy = "elements", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Page> pages;
 
-	@OneToOne
-	private PDFElement pdfElement;
-	
-	public List<FileUploadForm> getFileUploadForm() {
+			
+	public Set<FileUploadForm> getFileUploadForm() {
 		return fileUploadForm;
 	}
 
-	public void setFileUploadForm(List<FileUploadForm> fileUploadForm) {
+	public void setFileUploadForm(Set<FileUploadForm> fileUploadForm) {
 		this.fileUploadForm = fileUploadForm;
 	}
 	
@@ -110,12 +108,17 @@ public abstract class FormElement implements Serializable {
 		this.pages = pages;
 	}
 
-	public PDFElement getPdfElement() {
-		return pdfElement;
+	
+	public String getPdfElementName() {
+		return pdfElementName;
 	}
 
-	public void setPdfElement(PDFElement pdfElement) {
-		this.pdfElement = pdfElement;
+	public void setPdfElementName(String pdfElementName) {
+		this.pdfElementName = pdfElementName;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public List<Answer> getAnswers() {

@@ -33,12 +33,17 @@
 	 					</ul>
 	 				</li>
 	 				
-	 				<li> 					
-	 					<a href="../pdffile/list.html">Manage PDF Files</a><span class="sr-only">(current)</span> 					
-	 				</li>
-	 			</sec:authorize>			
 
- 				
+	 				<li class="dropdown"><a href="#" class="dropdown-toggle"
+	 					data-toggle="dropdown" role="button" aria-haspopup="true"
+	 					aria-expanded="false">PDFs<span class="caret"></span></a>
+	 					<ul class="dropdown-menu">
+	 						<li><a href="../pdffile/list.html">Manage PDF Files</a></li>
+	 						<li><a href="../pdfmap/pdfupload.html">Map Your PDF's</a></li>
+	 					</ul> 					 					
+	 				</li>
+	 			</sec:authorize>
+	 			
  				<li class="dropdown"><a href="#" class="dropdown-toggle"
  					data-toggle="dropdown" role="button" aria-haspopup="true"
  					aria-expanded="false">User Management<span class="caret"></span></a>
@@ -54,11 +59,7 @@
  						<sec:authorize access="hasAuthority('Admin') || hasAuthority('Staff')">
  							<li role="separator" class="divider"></li>
  							<li><a href="../member/list.html">Users</a></li>	
- 						</sec:authorize> 						
-<<<<<<< HEAD
-
-=======
->>>>>>> dcb369236f01be1478bc282b43cb3317acf70825
+ 						</sec:authorize>
  					</ul>
  				</li>					
  			</ul>

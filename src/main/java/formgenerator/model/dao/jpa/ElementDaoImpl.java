@@ -39,11 +39,11 @@ public class ElementDaoImpl implements ElementDAO {
 	public FormElement saveFormElement(FormElement element) {
 		
 		MultipleChoice m = new MultipleChoice();
-		m.setChoices(new HashSet());
+		m.setChoices(new ArrayList());
 		if (element.getId() != null && element.getId() > 0) {
 			
 			m = (MultipleChoice)this.getElement(element.getId());
-			Set choices = m.getChoices();
+			List choices = m.getChoices();
 			
 			List removedList = new ArrayList();
 			if(choices instanceof ArrayList){

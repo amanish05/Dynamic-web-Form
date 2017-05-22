@@ -1,6 +1,5 @@
 package formgenerator.model;
 
-import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -13,13 +12,13 @@ public class DateTextAnswer extends Answer {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "date_value")
-	private Date date;
+	private String date;
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	} 
 }

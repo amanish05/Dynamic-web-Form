@@ -11,6 +11,7 @@
 			<option value="0">Textbox</option>
 			<option value="1">Checkbox</option>
 			<option value="2">File Upload</option>
+			<option value="3">Date</option>
 		</select>
 		<button type="submit" class="btn btn-primary">Add Me</button>
 	</form:form>

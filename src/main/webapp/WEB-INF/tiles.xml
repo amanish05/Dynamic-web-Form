@@ -77,6 +77,16 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/form/preview.jsp" /> 
 	</definition>
 	
+	<definition name="pdfmap/upload" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="PDF Upload for Mapping" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/pdfmap/upload.jsp" /> 
+	</definition>
+	
+	<definition name="pdfmap/pdfElementMapping" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="PDF Mapping" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/pdfmap/pdfElementMapping.jsp" /> 
+	</definition>
+	
 	<definition name="form/formsheet" template="/WEB-INF/layouts/classic-templet.jsp">
 		<put-attribute name="title" value="Filling Form" />   
 		<put-attribute name="body" value="/WEB-INF/jsp/form/formsheet.jsp" />
@@ -115,6 +125,11 @@
 	<definition name="element/addCheckbox" template="/WEB-INF/layouts/classic-templet.jsp">
 		<put-attribute name="title" value="Add Checkbox Element" />   
 		<put-attribute name="body" value="/WEB-INF/jsp/element/addCheckbox.jsp" /> 
+	</definition>
+	
+	<definition name="element/addDate" template="/WEB-INF/layouts/classic-templet.jsp">
+		<put-attribute name="title" value="Add Date Element" />   
+		<put-attribute name="body" value="/WEB-INF/jsp/element/addDate.jsp" /> 
 	</definition>
 	
 	<definition name="element/addTextbox" template="/WEB-INF/layouts/classic-templet.jsp">

@@ -3,7 +3,6 @@
 
 <script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="<c:url value="/js/jquery.iframe-transport.js" />"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
@@ -74,6 +73,7 @@
 									<td>${element.title}<input type="text" name="${element.name}" maxlength="gElement.maxLength" /></td>
 								</tr>													
 							</c:if>
+							
 							<c:if test="${element.type == 'DateText'}">
 								<tr>											
 									<td>${element.title}<input type="date" name="${element.name}"></td>
@@ -83,7 +83,7 @@
 								<tr>											
 									<td>${element.title}																	
 										<c:forEach items="${element.choices}" var="choice">									
-											<input type="radio" name="${element.name}" value="${choice.text}" class="checkbox" style="display: inline;"/>${choice.text}								
+											<input type="checkbox" name="${element.name}" value="${choice.text}" class="checkbox" style="display: inline;"/>${choice.text}								
 										</c:forEach>
 									</td>
 								</tr>
